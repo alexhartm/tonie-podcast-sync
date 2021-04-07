@@ -16,31 +16,38 @@ class ToniePodcastSync:
         self.__api=TonieAPI(user, pwd)
         self.__tonieDict = self.__refreshTonieDict() # tonies + households
 
+    def printToniesOverview(self):
+        print("List of available creative tonies:")
+        for t in self.__tonieDict:
+            print("   tonie ID " + t + " with name " + self.__api.households[self.__tonieDict[t]].creativetonies[t].name)
+
     def syncPodcast2Tonie(self, podcast, tonie, maxMin = 90):
     # sync new episodes from podcast feed to creative tonie
     # - this is done by wiping the tonie and writing all new episodes
     # limit episodes on tonie to maxMin minutes in total
     # return if no new episodes in feed
         if len(podcast.epList) == 0:
-            log.info(f'cant find any epsiodes for %s', podcast.title)
+            log.warn(f'%s: cant find any epsiodes at all', podcast.title)
             return
         if self.__isTonieEmpty == False:    
             # check if new feed has newer epsiodes than tonie
             latestEpFeed = self.__generateChapterTitle(podcast.epList[0])
             latestEpTonie = self.__getFirstChapterOnTonie(tonie)["title"]
             if (latestEpTonie == latestEpFeed):
-                log.info(f'%s has no new podcast epsiodes, latest episode is %s', podcast.title, latestEpTonie)
+                log.info(f'%s: no new podcast epsiodes, latest episode is %s', podcast.title, latestEpTonie)
                 return
         # add new episodes to tonie
         self.__wipeTonie(tonie)
+        print(podcast.title + ": fetching new episodes...")
         cachedEps = self.__cachePodcastUpTo(podcast, maxMin)
+        print(podcast.title + ": transferring " + str(len(cachedEps)) + " episodes to Tonie Cloud...")
         for e in cachedEps:
             self.__uploadEpisode(e, tonie)
+            print(podcast.title + ": uploaded \"" + e.title + "\" (from " + e.date + ")")
         self.__cleanupCache(podcast)
 
-
     def __refreshTonieDict(self):
-    # populate a dictionary mapping tonies to households
+    # returns a dictionary with mapping tonies to households
         tonieDict = {}
         _hhL = self.__api.households_update()
         for _hh in _hhL:
@@ -109,7 +116,7 @@ class ToniePodcastSync:
         
         # the download part
         try:
-            wget.download(ep.url, out = os.path.join(path, fname))
+            wget.download(ep.url, out = os.path.join(path, fname), bar=None)
             ep.fpath = path
             ep.fname = fname
             return True

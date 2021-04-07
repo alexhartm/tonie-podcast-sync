@@ -4,6 +4,11 @@ tonie-podcast-sync allows synching podcast episodes to [creative tonies](https:/
 
 This is a purely private project and has no association with Boxine GmbH.
 
+# Prerequesites
+
+- dependencies are installed
+- [tonie_api](https://github.com/moritzj29/tonie_api) in `./../tonie_api`
+
 # Usage
 
 ```python
@@ -13,18 +18,23 @@ from toniepodcastsync import ToniePodcastSync, Podcast
 pumuckl = Podcast("https://feeds.br.de/pumuckl/feed.xml")
 maus = Podcast("https://kinder.wdr.de/radio/diemaus/audio/gute-nacht-mit-der-maus/diemaus-gute-nacht-104.podcast")
 
-# define creative tonies based on their ID
-greenTonie = "<your-tonieID>"
-orangeTonie = "<your-tonieID>"
 
 # create instance of ToniePodcastSync
 tps = ToniePodcastSync("<toniecloud-username>", "<toniecloud-password>")
 
+# for an overview of your creative tonies and their IDs
+tps.printToniesOverview()
+
+# define creative tonies based on their ID
+greenTonie = "<your-tonieID>"
+orangeTonie = "<your-tonieID>"
+
 # fetch new podcast episodes and copy them to greenTonie
 tps.syncPodcast2Tonie(pumuckl, greenTonie)
 
-# kid's need to fall asleep: podcast episodes on this
-# tonie should not be longer than 60 minutes in total
+# kid's should fall asleep, so podcast episodes on this
+# tonie should be limited to 60 minutes in total.
+# use the optional parameter for this:
 tps.syncPodcast2Tonie(maus, orangeTonie, 60)  
 ```
 
