@@ -29,18 +29,21 @@ class ToniePodcastSync:
         if len(podcast.epList) == 0:
             log.warn(f'%s: cant find any epsiodes at all', podcast.title)
             return
-        if self.__isTonieEmpty == False:    
+        if self.__isTonieEmpty(tonie) == False:    
             # check if new feed has newer epsiodes than tonie
             latestEpFeed = self.__generateChapterTitle(podcast.epList[0])
             latestEpTonie = self.__getFirstChapterOnTonie(tonie)["title"]
             if (latestEpTonie == latestEpFeed):
                 log.info(f'%s: no new podcast epsiodes, latest episode is %s', podcast.title, latestEpTonie)
+                print(podcast.title + ": no new podcast epsiodes, latest is \"" + latestEpTonie + "\"")
                 return
+        else:
+            log.info(f'### tonie is empty')
         # add new episodes to tonie
         self.__wipeTonie(tonie)
         print(podcast.title + ": fetching new episodes...")
         cachedEps = self.__cachePodcastUpTo(podcast, maxMin)
-        print(podcast.title + ": transferring " + str(len(cachedEps)) + " episodes to Tonie Cloud...")
+        print(podcast.title + ": transferring " + str(len(cachedEps)) + " episodes to "+ self.__api.households[self.__tonieDict[tonie]].creativetonies[tonie].name)
         for e in cachedEps:
             self.__uploadEpisode(e, tonie)
             print(podcast.title + ": uploaded \"" + e.title + "\" (from " + e.date + ")")

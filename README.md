@@ -7,7 +7,9 @@ This is a purely private project and has no association with Boxine GmbH.
 # Prerequesites
 
 - dependencies are installed
+- if missing, you might also require `sudo apt-get install python-lxml` 
 - [tonie_api](https://github.com/moritzj29/tonie_api) in `./../tonie_api`
+
 
 # Usage
 
@@ -41,7 +43,7 @@ tps.syncPodcast2Tonie(maus, orangeTonie, 60)
 For the tonie to fetch new content from tonie-cloud, you have to press one ear for 3s (until the "ping" sound) with no tonie on the box.
 
 # Dependencies
-- BeautifulSoup
+- BeautifulSoup (bs4)
 - wget
 - requests
 - requests-oauthlib
