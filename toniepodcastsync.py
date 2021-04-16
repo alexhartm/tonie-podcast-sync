@@ -28,6 +28,7 @@ class ToniePodcastSync:
     # return if no new episodes in feed
         if len(podcast.epList) == 0:
             log.warn(f'%s: cant find any epsiodes at all', podcast.title)
+            print(podcast.title + ": cant find any epsiodes at all, feed is empty")
             return
         if self.__isTonieEmpty(tonie) == False:    
             # check if new feed has newer epsiodes than tonie

@@ -1,14 +1,22 @@
 # tonie-podcast-sync
 
-tonie-podcast-sync allows synching podcast episodes to [creative tonies](https://tonies.com)
+tonie-podcast-sync allows synching podcast episodes to [creative tonies](https://tonies.com).
 
 This is a purely private project and has no association with Boxine GmbH.
 
 # Prerequesites
 
-- dependencies are installed
-- if missing, you might also require `sudo apt-get install python-lxml` 
+- dependencies are installed (see list below)
 - [tonie_api](https://github.com/moritzj29/tonie_api) in `./../tonie_api`
+
+⋅⋅needs to provide a method to remove content from tonies (e.g. `remove_all_chapters`) You can use [this fork](https://github.com/alexhartm/tonie_api)) in case the method is [not yet](https://github.com/moritzj29/tonie_api/pull/3) available in the original project
+
+# Constraints and Limitations
+
+- currently limited to podcasts providing mp3 files
+- tested with the following podcasts:
+    - [WDR: Gute Nacht mit der Maus](https://www.wdrmaus.de/hoeren/gute_nacht_mit_der_maus.php5)
+    - [Bayern 2: Pumuckl - Der Hörspiel-Klassiker](https://www.br.de/mediathek/podcast/pumuckl/830)
 
 
 # Usage
@@ -34,8 +42,8 @@ orangeTonie = "<your-tonieID>"
 # fetch new podcast episodes and copy them to greenTonie
 tps.syncPodcast2Tonie(pumuckl, greenTonie)
 
-# kid's should fall asleep, so podcast episodes on this
-# tonie should be limited to 60 minutes in total.
+# kid's should fall asleep, so let's limit the podcast 
+# episodes on this tonie to 60 minutes in total.
 # use the optional parameter for this:
 tps.syncPodcast2Tonie(maus, orangeTonie, 60)  
 ```
@@ -43,12 +51,16 @@ tps.syncPodcast2Tonie(maus, orangeTonie, 60)
 For the tonie to fetch new content from tonie-cloud, you have to press one ear for 3s (until the "ping" sound) with no tonie on the box.
 
 # Dependencies
-- BeautifulSoup (bs4)
-- wget
+- tonie_api
+- wget (the python lib)
 - requests
 - requests-oauthlib
+- BeautifulSoup (bs4)
 
-# builds upon work of
+⋅⋅if missing on your system, you might also require `sudo apt-get install python-lxml` 
+
+
+# builds upon work of / kudos to
 - moritj29's awesome [tonie_api](https://github.com/moritzj29/tonie_api)
 - [Tobias Raabe](https://tobiasraabe.github.io/blog/how-to-download-files-with-python.html)
 - [Matthew Wimberly](https://codeburst.io/building-an-rss-feed-scraper-with-python-73715ca06e1f)
