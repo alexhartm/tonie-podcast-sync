@@ -8,8 +8,7 @@ This is a purely private project and has no association with Boxine GmbH.
 
 - dependencies are installed (see list below)
 - [tonie_api](https://github.com/moritzj29/tonie_api) in `./../tonie_api`
-
-⋅⋅needs to provide a method to remove content from tonies (e.g. `remove_all_chapters`) You can use [this fork](https://github.com/alexhartm/tonie_api)) in case the method is [not yet](https://github.com/moritzj29/tonie_api/pull/3) available in the original project
+    - needs to provide a method to remove content from tonies (`remove_all_chapters`) You can use [this fork](https://github.com/alexhartm/tonie_api) in case the method is [not yet](https://github.com/moritzj29/tonie_api/pull/3) available in the original project.
 
 # Constraints and Limitations
 
@@ -24,10 +23,9 @@ This is a purely private project and has no association with Boxine GmbH.
 ```python
 from toniepodcastsync import ToniePodcastSync, Podcast
 
-# create two Podcast objects, providing feed URL to each  
+# create two Podcast objects, providing the feed URL to each
 pumuckl = Podcast("https://feeds.br.de/pumuckl/feed.xml")
 maus = Podcast("https://kinder.wdr.de/radio/diemaus/audio/gute-nacht-mit-der-maus/diemaus-gute-nacht-104.podcast")
-
 
 # create instance of ToniePodcastSync
 tps = ToniePodcastSync("<toniecloud-username>", "<toniecloud-password>")
@@ -39,25 +37,26 @@ tps.printToniesOverview()
 greenTonie = "<your-tonieID>"
 orangeTonie = "<your-tonieID>"
 
-# fetch new podcast episodes and copy them to greenTonie
+# Fetch new podcast episodes and copy them to greenTonie.
+# The tonie will be filled with as much episodes as fit (90 min max).
+# Episode are ordered with newest first.
 tps.syncPodcast2Tonie(pumuckl, greenTonie)
 
-# kid's should fall asleep, so let's limit the podcast 
+# Kid's should fall asleep, so let's limit the podcast 
 # episodes on this tonie to 60 minutes in total.
-# use the optional parameter for this:
+# Use the optional parameter for this:
 tps.syncPodcast2Tonie(maus, orangeTonie, 60)  
 ```
 
-For the tonie to fetch new content from tonie-cloud, you have to press one ear for 3s (until the "ping" sound) with no tonie on the box.
+For the tonie to fetch new content from tonie-cloud, you have to press one ear for 3s (until the "ping" sound) with no tonie on the box (refer also to TonieBox manual).
 
 # Dependencies
 - tonie_api
-- wget (the python lib)
-- requests
-- requests-oauthlib
-- BeautifulSoup (bs4)
-
-⋅⋅if missing on your system, you might also require `sudo apt-get install python-lxml` 
+- [wget](https://pypi.org/project/wget/)
+- [requests](https://pypi.org/project/requests/)
+- [requests-oauthlib](https://pypi.org/project/requests-oauthlib/)
+- [BeautifulSoup (bs4)](https://pypi.org/project/beautifulsoup4/)
+- if missing on your system, you might also require `sudo apt-get install python-lxml`
 
 
 # builds upon work of / kudos to
