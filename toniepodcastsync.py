@@ -26,6 +26,10 @@ class ToniePodcastSync:
     # - this is done by wiping the tonie and writing all new episodes
     # limit episodes on tonie to maxMin minutes in total
     # return if no new episodes in feed
+        if not tonie in self.__tonieDict:
+            log.error(f'%s: cant find tonie', tonie)
+            print("error: tried, but cant find tonie with ID " + tonie)
+            return
         if len(podcast.epList) == 0:
             log.warn(f'%s: cant find any epsiodes at all', podcast.title)
             print(podcast.title + ": cant find any epsiodes at all, feed is empty")
@@ -64,14 +68,12 @@ class ToniePodcastSync:
     def __uploadEpisode(self, ep, tonie):
     # upload a given episode to a creative tonie
         hh = self.__tonieDict[tonie]
-        # todo: error handling if hh not found in dict
         f = os.path.join(ep.fpath, ep.fname)
         return self.__api.households[hh].creativetonies[tonie].upload(f, self.__generateChapterTitle(ep))
 
     def __wipeTonie(self, tonie):
     # delete all content on a tonie
         hh = self.__tonieDict[tonie]
-        # todo: error handling if hh not found in dict
         return self.__api.households[hh].creativetonies[tonie].remove_all_chapters()
 
 
