@@ -56,6 +56,7 @@ For the tonie to fetch new content from tonie-cloud, you have to press one ear f
 - [requests](https://pypi.org/project/requests/)
 - [requests-oauthlib](https://pypi.org/project/requests-oauthlib/)
 - [BeautifulSoup (bs4)](https://pypi.org/project/beautifulsoup4/)
+- [config-with-yaml](https://pypi.org/project/config-with-yaml/)
 - if missing on your system, you might also require `sudo apt-get install python-lxml`
 
 

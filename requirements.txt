@@ -1,0 +1,5 @@
+wget
+requests
+requests-oauthlib
+beautifulsoup4
+config-with-yaml
