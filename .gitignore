@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # Other
-.code-workspace
+*.code-workspace
 *.yaml
