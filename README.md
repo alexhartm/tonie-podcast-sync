@@ -6,9 +6,10 @@ This is a purely private project and has no association with Boxine GmbH.
 
 # Prerequesites
 
-- dependencies are installed (see list below)
+- dependencies are installed via `pip install -r requirements.txt`
 - [tonie_api](https://github.com/moritzj29/tonie_api) in `./../tonie_api`
-    - needs to provide a method to remove content from tonies (`remove_all_chapters`) You can use [this fork](https://github.com/alexhartm/tonie_api) in case the method is [not yet](https://github.com/moritzj29/tonie_api/pull/3) available in the original project.
+- if missing on your system, you might also require `sudo apt-get install python3-lxml`. Otherwise, parsing of episodes will fail.
+
 
 # Constraints and Limitations
 
@@ -16,7 +17,9 @@ This is a purely private project and has no association with Boxine GmbH.
 - tested with the following podcasts:
     - [WDR: Gute Nacht mit der Maus](https://www.wdrmaus.de/hoeren/gute_nacht_mit_der_maus.php5)
     - [Bayern 2: Pumuckl - Der Hörspiel-Klassiker](https://www.br.de/mediathek/podcast/pumuckl/830)
-
+    - [Checker Tobi Podcast](https://www.br.de/mediathek/podcast/checkpod-der-podcast-mit-checker-tobi/859)
+    - [Anna und die wilden Tiere - der Podcast](https://www.br.de/mediathek/podcast/anna-und-die-wilden-tiere/858)
+- ... but in general, it should work hopefully work with all podcasts out there
 
 # Usage
 
@@ -49,15 +52,6 @@ tps.syncPodcast2Tonie(maus, orangeTonie, 60)
 ```
 
 For the tonie to fetch new content from tonie-cloud, you have to press one ear for 3s (until the "ping" sound) with no tonie on the box (refer also to TonieBox manual).
-
-# Dependencies
-- tonie_api
-- [wget](https://pypi.org/project/wget/)
-- [requests](https://pypi.org/project/requests/)
-- [requests-oauthlib](https://pypi.org/project/requests-oauthlib/)
-- [BeautifulSoup (bs4)](https://pypi.org/project/beautifulsoup4/)
-- [config-with-yaml](https://pypi.org/project/config-with-yaml/)
-- if missing on your system, you might also require `sudo apt-get install python3-lxml`. Otherwise, parsing of episodes will fail.
 
 
 # builds upon work of / kudos to
