@@ -3,13 +3,7 @@
 import sys
 import logging
 
-#logging.basicConfig()
-#logging.getLogger().setLevel(logging.INFO)
-
-sys.path.append('./../../tonie-podcast-sync')
-sys.path.append('./../../tonie_api')
 from toniepodcastsync import ToniePodcastSync, Podcast
-
 
 maus = Podcast("https://kinder.wdr.de/radio/diemaus/audio/gute-nacht-mit-der-maus/diemaus-gute-nacht-104.podcast")
 pumuckl = Podcast("https://feeds.br.de/pumuckl/feed.xml")
