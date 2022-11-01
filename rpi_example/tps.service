@@ -1,0 +1,5 @@
+[Unit]
+Description="syncs podcasts to tonies"
+
+[Service]
+ExecStart=/opt/tps/tps.sh
