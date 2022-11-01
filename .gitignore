@@ -131,3 +131,5 @@ dmypy.json
 # Other
 *.code-workspace
 *.yaml
+test.py
+todo.md
