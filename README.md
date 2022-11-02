@@ -4,10 +4,6 @@ tonie-podcast-sync allows synching podcast episodes to [creative tonies](https:/
 
 This is a purely private project and has no association with Boxine GmbH.
 
-# Prerequesites
-
-- dependencies are listed in `pyproject.toml`
-
 # Constraints and Limitations
 
 - currently limited to podcasts providing mp3 files
@@ -19,6 +15,8 @@ This is a purely private project and has no association with Boxine GmbH.
 - ... but in general, it should work hopefully work with all podcasts out there
 
 # Usage
+
+Use like shown in this example code:
 
 ```python
 from toniepodcastsync import ToniePodcastSync, Podcast
