@@ -16,7 +16,7 @@ This is a purely private project and has no association with Boxine GmbH.
 
 # Usage
 
-tonie-podcast-sync is available as a pip package on pypi. Install via
+tonie-podcast-sync is available as [a pip package on pypi](https://pypi.org/project/tonie-podcast-sync). Install via
 
 `pip install tonie-podcast-sync`
 
