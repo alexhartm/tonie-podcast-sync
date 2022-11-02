@@ -114,6 +114,25 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "tonie_api"
+version = "0.1"
+description = ""
+category = "main"
+optional = false
+python-versions = "*"
+develop = false
+
+[package.dependencies]
+oauthlib = "*"
+requests_oauthlib = "*"
+
+[package.source]
+type = "git"
+url = "https://github.com/moritzj29/tonie_api"
+reference = "HEAD"
+resolved_reference = "d4fc2fbc451c50eb37a1616bf8a91645b2a93fc4"
+
+[[package]]
 name = "urllib3"
 version = "1.26.12"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
@@ -137,7 +156,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "fea47d74493d04d1b544eba65e139a2ff0738ea0195777ff40436a4fe8e0c9fb"
+content-hash = "ebe3512bcac4ef6d72484a34272f944be28f201a367a24700c0982bf5e377e11"
 
 [metadata.files]
 beautifulsoup4 = [
@@ -218,6 +237,7 @@ soupsieve = [
     {file = "soupsieve-2.3.2.post1-py3-none-any.whl", hash = "sha256:3b2503d3c7084a42b1ebd08116e5f81aadfaea95863628c80a3b774a11b7c759"},
     {file = "soupsieve-2.3.2.post1.tar.gz", hash = "sha256:fc53893b3da2c33de295667a0e19f078c14bf86544af307354de5fcf12a3f30d"},
 ]
+tonie_api = []
 urllib3 = [
     {file = "urllib3-1.26.12-py2.py3-none-any.whl", hash = "sha256:b930dd878d5a8afb066a637fbb35144fe7901e3b209d1cd4f524bd0e9deee997"},
     {file = "urllib3-1.26.12.tar.gz", hash = "sha256:3fa96cf423e6987997fc326ae8df396db2a8b7c667747d47ddd8ecba91f4a74e"},

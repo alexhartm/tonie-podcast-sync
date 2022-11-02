@@ -3,7 +3,6 @@ from podcast import Podcast
 import sys, os, shutil, logging
 import wget
 
-sys.path.append('./../tonie_api')
 from tonie_api import TonieAPI
 
 log = logging.getLogger(__name__)

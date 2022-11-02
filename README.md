@@ -6,10 +6,7 @@ This is a purely private project and has no association with Boxine GmbH.
 
 # Prerequesites
 
-- dependencies are installed, e.g. via `python -m pip install -r requirements.txt`
-- [tonie_api](https://github.com/moritzj29/tonie_api) in `./../tonie_api`
-- if missing on your system, you might also require `sudo apt-get install python3-lxml`. Otherwise, parsing of episodes will fail.
-
+- dependencies are listed in `pyproject.toml`
 
 # Constraints and Limitations
 
