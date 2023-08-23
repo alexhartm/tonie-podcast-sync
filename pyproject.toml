@@ -7,17 +7,13 @@ repository = "https://github.com/alexhartm/tonie-podcast-sync"
 readme = "README.md"
 license = "MIT"
 keywords = ["toniebox", "podcast"]
-packages = [
-    { include = "toniepodcastsync.py" },
-    { include = "podcast.py" },
-    { include = "tonie_api" },
-]
+packages = [{ include = "toniepodcastsync.py" }, { include = "podcast.py" }]
 
 [tool.poetry.dependencies]
 python = "^3.10.11"
 wget = "^3.2"
 feedparser = "^6.0.10"
-tonie-api = {git = "https://github.com/moritzj29/tonie_api.git"}
+tonie-api = { git = "https://github.com/moritzj29/tonie_api.git" }
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"

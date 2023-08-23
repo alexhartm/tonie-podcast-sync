@@ -3,7 +3,7 @@ from podcast import Podcast
 import os, shutil, logging
 import wget
 
-from tonie_api.tonie_api import TonieAPI
+from tonie_api import TonieAPI
 
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
