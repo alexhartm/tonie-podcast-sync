@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tonie-podcast-sync"
-version = "1.1.0"
+version = "1.1.1"
 description = "allows synching podcast episodes to creative tonies"
 authors = ["Alexander Hartmann <16985220+alexhartm@users.noreply.github.com>"]
 repository = "https://github.com/alexhartm/tonie-podcast-sync"
@@ -13,7 +13,13 @@ packages = [{ include = "toniepodcastsync.py" }, { include = "podcast.py" }]
 python = "^3.10.11"
 wget = "^3.2"
 feedparser = "^6.0.10"
-tonie-api = { git = "https://github.com/moritzj29/tonie_api.git" }
+# tonie-api = { git = "https://github.com/moritzj29/tonie_api.git" }
+#
+#  -- had to uncomment the tonie-api dependency unforunately. 
+#     reason is that pypi does not accept direct dependencies
+#     to other git projects, so this will fail during 'poetry publish'.
+#     see e.g. https://github.com/python-poetry/poetry/issues/4471
+#     Workaround is currently to have tonie_api included as a submodule 
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"
