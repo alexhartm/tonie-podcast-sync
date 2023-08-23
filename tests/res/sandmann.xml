@@ -1,0 +1,1140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+	<!--
+		* Die Nutzung dieser Inhalte ist ausschliesslich nicht-kommerziellen Internet-
+		* Angeboten erlaubt, die Nutzung kann jederzeit von rbb-online.de untersagt
+		* werden. rbb-online.de uebernimmt keinen Support, zudem wird keine Verfuegbarkeit
+		* dieser XML-Datei gewaehrleistet. Die Inhalte duerfen nicht archiviert werden.
+		* Weitere Informationen http://www.rbb-online.de/hilfe/copyright.html
+	-->
+	<channel>
+			<title>Unser Sandm&#228;nnchen</title>
+			<link>https://www.antennebrandenburg.de/programm/hoeren/podcasts/Zappelduster_Podcast/podcast.html</link>
+			<description><![CDATA[UNSER SANDM&#196;NNCHEN bringt die Geschichten der beliebten Sandmannserien zum H&#246;ren mit. Neben bekannten Figuren wie den Erdm&#228;nnchen Jan und Henry, Kalli oder Pittiplatsch bietet der Podcast gro&#223;artige M&#228;rchen und lustige Geschichten. Und das Beste: Man h&#246;rt, mit welchem Fahrzeug das Sandm&#228;nnchen heute vorbeikommt! UNSER SANDM&#196;NNCHEN hat aber nicht nur zauberhafte H&#246;rspiele dabei, sondern auch noch ein passendes Lied und den ber&#252;hmten Traumsand. F&#252;r Kinder ab 3
+]]></description>
+			<pubDate>Thu, 27 Jul 2023 10:05:14 +0200</pubDate>
+			<language>de</language>
+			<copyright>rbb 2022</copyright>
+			<managingEditor>rbbpodcast@rbb-online.de</managingEditor>
+			<webMaster>webmaster@rbb-online.de</webMaster>
+			<category>Public Radio</category>
+					<itunes:category text="Kids &#38; Family">
+							<itunes:category text="Stories for Kids"></itunes:category>
+					</itunes:category>
+			<itunes:subtitle><![CDATA[UNSER SANDM&#196;NNCHEN bringt die Geschichten der beliebten Sandmannserien zum H&#246;ren mit. Neben bekannten Figuren wie den Erdm&#228;nnchen Jan und Henry, Kalli oder Pittiplatsch bietet der Podcast gro&#223;artige M&#228;rchen und lustige Geschichten. Und das Beste: Man h&#246;rt, mit welchem Fahrzeug das Sandm&#228;nnchen heute vorbeikommt! UNSER SANDM&#196;NNCHEN hat aber nicht nur zauberhafte H&#246;rspiele dabei, sondern auch noch ein passendes Lied und den ber&#252;hmten Traumsand. F&#252;r Kinder ab 3
+]]></itunes:subtitle>
+			<itunes:author>Antenne Brandenburg (rbb)</itunes:author>
+			<itunes:owner>
+				<itunes:name>Antenne Brandenburg, Rundfunk berlin-Brandenburg, Germany</itunes:name>
+				<itunes:email>rbbpodcast@rbb-online.de</itunes:email>
+			</itunes:owner>
+			<itunes:explicit>no</itunes:explicit>
+			<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/Header_Sandm-nnchen_Audio_ARD_16x9.png.png/rendition=Header_Sandmnnchen_Audio_ARD_1x1.png.png"/>
+			<atom:link href="https://www.antennebrandenburg.de/programm/hoeren/podcasts/Zappelduster_Podcast/podcast.xml/feed=podcast.xml" rel="self" type="application/rss+xml"/>
+			<image>
+				<url>https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/Header_Sandm-nnchen_Audio_ARD_16x9.png.png/rendition=Header_Sandmnnchen_Audio_ARD_1x1.png.png</url>
+				<title>Unser Sandm&#228;nnchen</title>
+				<link>https://www.antennebrandenburg.de/programm/hoeren/podcasts/Zappelduster_Podcast/podcast.html</link>
+			</image>
+			<item>
+				<title>Unser Sandm&#228;nnchen</title>
+				<link>https://www.antennebrandenburg.de/programm/unser-sandmaennchen/unser-sandmaennchen.html</link>
+				<pubDate>Thu, 27 Jul 2023 10:03:37 +0200</pubDate>
+				<description><![CDATA[UNSER SANDM&#196;NNCHEN bringt die Geschichten der beliebten Sandmannserien zum H&#246;ren mit. Neben bekannten Figuren wie den Erdm&#228;nnchen Jan und Henry, Kalli oder Pittiplatsch bietet der Podcast gro&#223;artige M&#228;rchen und lustige Geschichten. Und das Beste: Man h&#246;rt, mit welchem Fahrzeug das Sandm&#228;nnchen heute vorbeikommt! UNSER SANDM&#196;NNCHEN hat aber nicht nur zauberhafte H&#246;rspiele dabei, sondern auch noch ein passendes Lied und den ber&#252;hmten Traumsand.
+F&#252;r Kinder ab 3
+]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/5d/24/5d24a6ae-f7de-49c6-b998-0bd3efa4153c/7d572862-ff57-403c-9028-2b9eba1403b9_3f8ac726-3e0c-45cf-8a77-37cc99244c37.mp3" type="audio/x-mpeg" length="504932"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/5d/24/5d24a6ae-f7de-49c6-b998-0bd3efa4153c/7d572862-ff57-403c-9028-2b9eba1403b9_3f8ac726-3e0c-45cf-8a77-37cc99244c37.mp3</guid>
+				
+				
+						<itunes:duration>00:00:31</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/Header_Sandm-nnchen_Audio_ARD_16x9.png.png/rendition=Header_Sandmnnchen_Audio_ARD_1x1.png.png"/>
+				<itunes:keywords></itunes:keywords>
+			</item>
+
+
+
+
+
+
+		<item>
+				<title>Rita und das Krokodil: Am Strand</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/b8/2d/b82d17db-d91d-4e31-be72-8c0a13b815b2/0bae7841-74f1-46d0-9ee9-c9c015a44f2f_4220f619-1905-40aa-9f71-bad28b358e9c.mp3</link>
+				<pubDate>Mon, 21 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Rita und ihr Krokodil sind unzertrennlich. Zusammen erleben sie die lustigsten Abenteuer. Heute haben sie einen sch&#246;nen Tag am Strand und finden viele tolle Sachen. Die k&#246;nnen allerdings auch wieder verloren gehen. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/b8/2d/b82d17db-d91d-4e31-be72-8c0a13b815b2/0bae7841-74f1-46d0-9ee9-c9c015a44f2f_4220f619-1905-40aa-9f71-bad28b358e9c.mp3" type="audio/x-mpeg" length="6348992"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/b8/2d/b82d17db-d91d-4e31-be72-8c0a13b815b2/0bae7841-74f1-46d0-9ee9-c9c015a44f2f_4220f619-1905-40aa-9f71-bad28b358e9c.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:37</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/Thumb_Rita-Krokodil_16x9.png.png/rendition=Thumb_RitaKrokodil_1400.png.png"/>
+				<itunes:keywords>Kinder, Montag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Rita und das Krokodil: Blaubeeren</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/47/44/47449884-46c0-43ce-b6dc-b51c41911ac3/6701e5e6-3687-443e-9602-17a89b390e3f_5b420143-28de-4dbc-b4f3-a6838132309e.mp3</link>
+				<pubDate>Mon, 14 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Rita und ihr Krokodil sind unzertrennlich. Zusammen erleben sie die lustigsten Abenteuer. Heute wollen sie zusammen Blaubeeren sammeln. Aber Rita findet im Wald noch etwas ganz anderes. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/47/44/47449884-46c0-43ce-b6dc-b51c41911ac3/6701e5e6-3687-443e-9602-17a89b390e3f_5b420143-28de-4dbc-b4f3-a6838132309e.mp3" type="audio/x-mpeg" length="6257572"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/47/44/47449884-46c0-43ce-b6dc-b51c41911ac3/6701e5e6-3687-443e-9602-17a89b390e3f_5b420143-28de-4dbc-b4f3-a6838132309e.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:31</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/Thumb_Rita-Krokodil_16x9.png.png/rendition=Thumb_RitaKrokodil_1400.png.png"/>
+				<itunes:keywords>Kinder, Montag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Rita und das Krokodil: Der Gem&#252;segarten</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/f2/4d/f24dfdb0-8ccb-4d7b-b265-07f9637bb679/c3bb98a8-f0df-4d83-a1ad-e8abd984ef5f_83d008f0-654f-4b1e-91d1-66126114da16.mp3</link>
+				<pubDate>Mon, 07 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Rita und ihr Krokodil sind unzertrennlich. Zusammen erleben sie die lustigsten Abenteuer. Heute wollen sie in Gro&#223;mutters Garten ein Gem&#252;sebeet anlegen. Doch das bekommt ein kleiner Vogel mit, dem die Samen sehr gut schmecken.  Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/f2/4d/f24dfdb0-8ccb-4d7b-b265-07f9637bb679/c3bb98a8-f0df-4d83-a1ad-e8abd984ef5f_83d008f0-654f-4b1e-91d1-66126114da16.mp3" type="audio/x-mpeg" length="6107092"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/f2/4d/f24dfdb0-8ccb-4d7b-b265-07f9637bb679/c3bb98a8-f0df-4d83-a1ad-e8abd984ef5f_83d008f0-654f-4b1e-91d1-66126114da16.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:22</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/Thumb_Rita-Krokodil_16x9.png.png/rendition=Thumb_RitaKrokodil_1400.png.png"/>
+				<itunes:keywords>Kinder, Montag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Rita und das Krokodil: Ein Pf&#252;tzentag</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/c6/51/c6511c3d-fe65-4604-9d9a-ed7d10e472e1/f030a969-ddcf-45ff-960f-a9deeb72b5b4_9006e692-0260-47d8-8a64-b022c6a23002.mp3</link>
+				<pubDate>Mon, 31 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Rita und ihr Krokodil sind unzertrennlich. Zusammen erleben sie die lustigsten Abenteuer. Heute gehen sie mit Ritas neuen Gummistiefeln in den Wald, denn da gibt es die sch&#246;nsten Pf&#252;tzen. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/c6/51/c6511c3d-fe65-4604-9d9a-ed7d10e472e1/f030a969-ddcf-45ff-960f-a9deeb72b5b4_9006e692-0260-47d8-8a64-b022c6a23002.mp3" type="audio/x-mpeg" length="6474538"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/c6/51/c6511c3d-fe65-4604-9d9a-ed7d10e472e1/f030a969-ddcf-45ff-960f-a9deeb72b5b4_9006e692-0260-47d8-8a64-b022c6a23002.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:44</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/Thumb_Rita-Krokodil_16x9.png.png/rendition=Thumb_RitaKrokodil_1400.png.png"/>
+				<itunes:keywords>Kinder, Montag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Meine Schmusedecke: Der Elefant</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/e8/67/e8675184-4746-4094-9224-08b6e433f007/c98ac955-49a3-406e-8942-2f0644a185c4_67dabe1f-fbf9-4a92-a913-46ff21cea83a.mp3</link>
+				<pubDate>Mon, 24 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Komm mit auf die Schmusedecke, denn da ist immer etwas los! Der Elefant hat Schluckauf. Wie kann er ihn wieder loswerden? Der Hase, der B&#228;r und die Maus haben gute Ideen. Aber leider klappt es nicht. Doch dann kommt der Fuchs! Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.
+]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/e8/67/e8675184-4746-4094-9224-08b6e433f007/c98ac955-49a3-406e-8942-2f0644a185c4_67dabe1f-fbf9-4a92-a913-46ff21cea83a.mp3" type="audio/x-mpeg" length="4928972"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/e8/67/e8675184-4746-4094-9224-08b6e433f007/c98ac955-49a3-406e-8942-2f0644a185c4_67dabe1f-fbf9-4a92-a913-46ff21cea83a.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:05:08</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/01neu-Mo-Schmusedecke_16x9-.png.png/rendition=01neuMoSchmusedecke_1400.png.png"/>
+				<itunes:keywords>Kinder, Montag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Meine Schmusedecke: Die Maus</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/04/b7/04b72a6c-bd20-48cb-88e1-8c0883d7a9f8/d7b596d3-abd0-48b1-99f1-a4c69e633821_b03cf2ac-de16-4c81-8932-89bd20f5e331.mp3</link>
+				<pubDate>Mon, 17 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Komm mit auf die Schmusedecke, denn da ist immer etwas los! Die Maus jongliert mit B&#228;llen. Doch pl&#246;tzlich sind sie verschwunden. Da stecken doch bestimmten die anderen Tiere dahinter. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/04/b7/04b72a6c-bd20-48cb-88e1-8c0883d7a9f8/d7b596d3-abd0-48b1-99f1-a4c69e633821_b03cf2ac-de16-4c81-8932-89bd20f5e331.mp3" type="audio/x-mpeg" length="5543324"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/04/b7/04b72a6c-bd20-48cb-88e1-8c0883d7a9f8/d7b596d3-abd0-48b1-99f1-a4c69e633821_b03cf2ac-de16-4c81-8932-89bd20f5e331.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:05:46</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/01neu-Mo-Schmusedecke_16x9-.png.png/rendition=01neuMoSchmusedecke_1400.png.png"/>
+				<itunes:keywords>Kinder, Montag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Meine Schmusedecke: Die Raupe</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/3f/ef/3fef2add-894e-44db-9fda-5bb190119bd7/76457dfc-419f-40d6-938b-877d525d521a_a7fc5b56-d498-4490-9b42-1787a0d07681.mp3</link>
+				<pubDate>Mon, 10 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Komm mit auf die Schmusedecke, denn da ist immer etwas los. Die kleine Raupe hat so gro&#223;en Hunger. Der B&#228;r und die Maus geben ihr Honig und K&#228;se. Aber das reicht der Raupe nicht. Das hat einen guten, wundersch&#246;nen Grund! Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/3f/ef/3fef2add-894e-44db-9fda-5bb190119bd7/76457dfc-419f-40d6-938b-877d525d521a_a7fc5b56-d498-4490-9b42-1787a0d07681.mp3" type="audio/x-mpeg" length="6383171"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/3f/ef/3fef2add-894e-44db-9fda-5bb190119bd7/76457dfc-419f-40d6-938b-877d525d521a_a7fc5b56-d498-4490-9b42-1787a0d07681.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:39</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/01neu-Mo-Schmusedecke_16x9-.png.png/rendition=01neuMoSchmusedecke_1400.png.png"/>
+				<itunes:keywords>Kinder, Montag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Meine Schmusedecke: Die Fliege</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/35/f1/35f18fb9-bfb5-493a-bd81-5051d1edf0df/610fb46f-fc0e-407f-bf66-b8d9a83a52b8_26d5fe22-957f-4ab8-90b0-0e84eb79e4d9.mp3</link>
+				<pubDate>Mon, 03 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Komm mit auf die Schmusedecke, denn da ist immer etwas los! Der B&#228;r, die Spinne und der Esel sind heute faul. Doch die Fliege saust die ganze Zeit herum und st&#246;rt alle Tiere. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/35/f1/35f18fb9-bfb5-493a-bd81-5051d1edf0df/610fb46f-fc0e-407f-bf66-b8d9a83a52b8_26d5fe22-957f-4ab8-90b0-0e84eb79e4d9.mp3" type="audio/x-mpeg" length="6257558"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/35/f1/35f18fb9-bfb5-493a-bd81-5051d1edf0df/610fb46f-fc0e-407f-bf66-b8d9a83a52b8_26d5fe22-957f-4ab8-90b0-0e84eb79e4d9.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:31</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/01neu-Mo-Schmusedecke_16x9-.png.png/rendition=01neuMoSchmusedecke_1400.png.png"/>
+				<itunes:keywords>Kinder, Montag</itunes:keywords>
+			</item>
+
+
+		<item>
+				<title>Kindergartenfreunde: Hurra, ich kann schwimmen</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/54/c7/54c71fe2-1372-41a8-9bf6-81086cf7764f/0baceaf8-8873-433c-8e62-cbc985d1a3c9_9bfde877-4843-450d-be36-1b174606164b.mp3</link>
+				<pubDate>Tue, 22 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Im Sommer gibt es nichts Sch&#246;neres, als schwimmen zu gehen. Die Kindergartenfreunde &#252;ben flei&#223;ig im Wasser. Dabei helfen ihnen Schwimmfl&#252;gel. Doch die sind schon ganz ersch&#246;pft vom Baden.
+Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/54/c7/54c71fe2-1372-41a8-9bf6-81086cf7764f/0baceaf8-8873-433c-8e62-cbc985d1a3c9_9bfde877-4843-450d-be36-1b174606164b.mp3" type="audio/x-mpeg" length="6100532"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/54/c7/54c71fe2-1372-41a8-9bf6-81086cf7764f/0baceaf8-8873-433c-8e62-cbc985d1a3c9_9bfde877-4843-450d-be36-1b174606164b.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:21</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/02-Di-Kindergartenfreunde_16x9.png.png/rendition=02DiKindergartenfreunde_1400x.png.png"/>
+				<itunes:keywords>Kinder, Dienstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Kindergartenfreunde: Ich komm in die Schule</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/6f/ad/6fad2fa6-45a2-4f30-aa5d-3fe2c20b9c74/0668d6c9-caaf-4839-9885-67430077711a_d28a2f35-841f-45f4-bda4-5223a9b53b2f.mp3</link>
+				<pubDate>Tue, 15 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Vielleicht bist du auch ein Vorschulkind und kommst in die Schule. Annalena, Leo, Arthur und Linus freuen sich schon auf ihre Zuckert&#252;ten, ihre neuen Freunde, ihre Mappe und ihre Schule. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/6f/ad/6fad2fa6-45a2-4f30-aa5d-3fe2c20b9c74/0668d6c9-caaf-4839-9885-67430077711a_d28a2f35-841f-45f4-bda4-5223a9b53b2f.mp3" type="audio/x-mpeg" length="5309487"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/6f/ad/6fad2fa6-45a2-4f30-aa5d-3fe2c20b9c74/0668d6c9-caaf-4839-9885-67430077711a_d28a2f35-841f-45f4-bda4-5223a9b53b2f.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:05:32</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/02-Di-Kindergartenfreunde_16x9.png.png/rendition=02DiKindergartenfreunde_1400x.png.png"/>
+				<itunes:keywords>Kinder, Dienstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Kindergartenfreunde: Da sa&#223; ich in der Klemme</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/0b/ec/0bec324a-2508-464e-bf32-75e8f9e1652c/e641f688-70a3-4e24-9f57-6becb0ab672d_67b68200-a362-4005-9b39-fd5db23d52d5.mp3</link>
+				<pubDate>Tue, 08 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Rumpelstilzchen h&#228;tte gern Freunde, m&#252;sste daf&#252;r aber seinen Namen verraten. Der sch&#246;ne Prinz sa&#223; mit der Kutsche fest. Und die Kindergartenfreunde Dan, Kim und Luka sa&#223;en auch schon in der Klemme. Aber aus der kamen sie auch wieder raus. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/0b/ec/0bec324a-2508-464e-bf32-75e8f9e1652c/e641f688-70a3-4e24-9f57-6becb0ab672d_67b68200-a362-4005-9b39-fd5db23d52d5.mp3" type="audio/x-mpeg" length="6271077"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/0b/ec/0bec324a-2508-464e-bf32-75e8f9e1652c/e641f688-70a3-4e24-9f57-6becb0ab672d_67b68200-a362-4005-9b39-fd5db23d52d5.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:32</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/02-Di-Kindergartenfreunde_16x9.png.png/rendition=02DiKindergartenfreunde_1400x.png.png"/>
+				<itunes:keywords>Kinder, Dienstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Kindergartenfreunde: Joel liebt die Rockgitarre</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/d2/fa/d2fa679e-093b-4cb7-bccf-8c23c7cc935d/260bbd95-af0b-407e-8dac-a19d131a3761_5fc8cd87-e4f4-4bef-8547-0e6babbacd0d.mp3</link>
+				<pubDate>Tue, 01 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Joel geht zwar noch in den Kindergarten, kann aber schon Gitarre spielen. Am liebsten hat er die Rockgitarre, so wie Frau Holle. Beide haben zwar keine Rockgitarre, w&#252;rden aber gern ein Konzert geben. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/d2/fa/d2fa679e-093b-4cb7-bccf-8c23c7cc935d/260bbd95-af0b-407e-8dac-a19d131a3761_5fc8cd87-e4f4-4bef-8547-0e6babbacd0d.mp3" type="audio/x-mpeg" length="5896641"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/d2/fa/d2fa679e-093b-4cb7-bccf-8c23c7cc935d/260bbd95-af0b-407e-8dac-a19d131a3761_5fc8cd87-e4f4-4bef-8547-0e6babbacd0d.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:08</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/02-Di-Kindergartenfreunde_16x9.png.png/rendition=02DiKindergartenfreunde_1400x.png.png"/>
+				<itunes:keywords>Kinder, Dienstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Kindergartenfreunde: Gleich kommt der Bus!</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/3d/d0/3dd03691-b8f0-4d42-9680-ef0edf916cc6/ce9897f9-df33-466a-bd0a-73c65db7c953_074fb37d-a5e6-4b66-bb48-ee42851222f1.mp3</link>
+				<pubDate>Tue, 25 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Frau Holle sitzt im Bus gern am Fenster. Die Kindergartenfreunde wissen auch, wie sch&#246;n ein Fensterplatz ist. Sie haben bei ihren Busfahrten schon allerhand entdeckt. So eine Busfahrt kann ein richtiges Abenteuer sein. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.
+]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/3d/d0/3dd03691-b8f0-4d42-9680-ef0edf916cc6/ce9897f9-df33-466a-bd0a-73c65db7c953_074fb37d-a5e6-4b66-bb48-ee42851222f1.mp3" type="audio/x-mpeg" length="5912398"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/3d/d0/3dd03691-b8f0-4d42-9680-ef0edf916cc6/ce9897f9-df33-466a-bd0a-73c65db7c953_074fb37d-a5e6-4b66-bb48-ee42851222f1.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:09</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/02-Di-Kindergartenfreunde_16x9.png.png/rendition=02DiKindergartenfreunde_1400x.png.png"/>
+				<itunes:keywords>Kinder, Dienstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Kindergartenfreunde: Eine Kutschfahrt, die ist lustig</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/6e/db/6edbce8d-0af4-4162-a7d0-2e89e098aecc/8b85e32f-4f42-4c73-9d81-436b7032afea_67577091-e0c2-4e3a-a109-19c529d6b76f.mp3</link>
+				<pubDate>Tue, 18 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Bei einer Kutschfahrt kannst du viel erleben. Auch der sch&#246;ne Prinz ist gern in seiner Kutsche unterwegs.Trotzdem gef&#228;llt ihm auch die Kutsche vom Froschk&#246;nig und vom Weihnachtsmann. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/6e/db/6edbce8d-0af4-4162-a7d0-2e89e098aecc/8b85e32f-4f42-4c73-9d81-436b7032afea_67577091-e0c2-4e3a-a109-19c529d6b76f.mp3" type="audio/x-mpeg" length="4975414"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/6e/db/6edbce8d-0af4-4162-a7d0-2e89e098aecc/8b85e32f-4f42-4c73-9d81-436b7032afea_67577091-e0c2-4e3a-a109-19c529d6b76f.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:05:11</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/02-Di-Kindergartenfreunde_16x9.png.png/rendition=02DiKindergartenfreunde_1400x.png.png"/>
+				<itunes:keywords>Kinder, Dienstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Kindergartenfreunde: Morgen, morgen, nur nicht heute!</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/94/a6/94a60a72-99c7-4fea-8055-aa9316c22759/ff657d13-0b68-49e7-935e-f2546cfe4ee6_2ca4a595-427b-44bf-b75c-407f4eb5f3d1.mp3</link>
+				<pubDate>Tue, 11 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Bestimmt warst du auch schon einmal richtig faul. Aber nicht jeder gibt das gerne zu. Dabei ist das &#252;berhaupt nicht schlimm. M&#252;&#223;iggang geh&#246;rt einfach zum Leben, um Energie zu tanken f&#252;r alles, was zu tun ist.
+Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/94/a6/94a60a72-99c7-4fea-8055-aa9316c22759/ff657d13-0b68-49e7-935e-f2546cfe4ee6_2ca4a595-427b-44bf-b75c-407f4eb5f3d1.mp3" type="audio/x-mpeg" length="6365904"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/94/a6/94a60a72-99c7-4fea-8055-aa9316c22759/ff657d13-0b68-49e7-935e-f2546cfe4ee6_2ca4a595-427b-44bf-b75c-407f4eb5f3d1.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:38</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/02-Di-Kindergartenfreunde_16x9.png.png/rendition=02DiKindergartenfreunde_1400x.png.png"/>
+				<itunes:keywords>Kinder, Dienstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Kindergartenfreunde: Jeremy und Tomke gehen allein einkaufen</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/26/34/263429ac-08d0-4d18-b65d-4f10820e86a7/fb11c855-c5e1-49de-801d-2130f990af93_43162faa-86d1-42a7-afa6-2cb347f871ab.mp3</link>
+				<pubDate>Tue, 04 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Warst du auch schon einmal allein einkaufen? Wenn du es das erste Mal geschafft hast, dann wird es dir immer gelingen. Das wissen auch die Kindergartenfreunde Jeremy und Tomke.
+Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/26/34/263429ac-08d0-4d18-b65d-4f10820e86a7/fb11c855-c5e1-49de-801d-2130f990af93_43162faa-86d1-42a7-afa6-2cb347f871ab.mp3" type="audio/x-mpeg" length="4538423"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/26/34/263429ac-08d0-4d18-b65d-4f10820e86a7/fb11c855-c5e1-49de-801d-2130f990af93_43162faa-86d1-42a7-afa6-2cb347f871ab.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:04:43</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/02-Di-Kindergartenfreunde_16x9.png.png/rendition=02DiKindergartenfreunde_1400x.png.png"/>
+				<itunes:keywords>Kinder, Dienstag</itunes:keywords>
+			</item>
+
+
+		<item>
+				<title>Kalli: Kalli Pirat</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/3b/3d/3b3dc961-d998-4397-9f79-afaa0c12e4aa/cfb45837-0277-4781-a6be-3ca48f76cbea_151bf22a-6182-49a3-90a8-9e8c84b8fb35.mp3</link>
+				<pubDate>Wed, 23 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Kalli kann noch nicht schlafen. Er hat sich mit Mareike gestritten. Kalli wollte allein Pirat spielen, doch Mareike wollte unbedingt mitmachen. Aber sie ist doch ein M&#228;dchen! Und schwups ist Kalli ein richtiger Pirat unter lauter Kuscheltierpiraten. Pl&#246;tzlich kommt die wilde Mareike mit einem Schiff auf ihn zu. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/3b/3d/3b3dc961-d998-4397-9f79-afaa0c12e4aa/cfb45837-0277-4781-a6be-3ca48f76cbea_151bf22a-6182-49a3-90a8-9e8c84b8fb35.mp3" type="audio/x-mpeg" length="6648980"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/3b/3d/3b3dc961-d998-4397-9f79-afaa0c12e4aa/cfb45837-0277-4781-a6be-3ca48f76cbea_151bf22a-6182-49a3-90a8-9e8c84b8fb35.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:55</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/03-Mi-Kalli_16x9.png.png/rendition=03MiKalli_1400x.png.png"/>
+				<itunes:keywords>Kinder, Mittwoch</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Kalli: Kalli Pinguin</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/13/09/1309fb5b-1969-4e8e-8164-e6577816881a/86bb73fe-75f0-4dae-9f6d-be64441f0605_5d37f562-9069-4036-8905-44ba9cb9d7f4.mp3</link>
+				<pubDate>Wed, 16 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Kalli kann noch nicht schlafen. Er hat ein neues Buch &#252;ber Pinguine angeschaut und &#252;berlegt sich, dass die armen Pinguine kalte F&#252;&#223;e haben m&#252;ssten, so ohne Stiefelchen. Kalli m&#246;chtei hnen welche bringen, als Pinguin. Und schwups ist Kalli ein Pinguin. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/13/09/1309fb5b-1969-4e8e-8164-e6577816881a/86bb73fe-75f0-4dae-9f6d-be64441f0605_5d37f562-9069-4036-8905-44ba9cb9d7f4.mp3" type="audio/x-mpeg" length="6085593"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/13/09/1309fb5b-1969-4e8e-8164-e6577816881a/86bb73fe-75f0-4dae-9f6d-be64441f0605_5d37f562-9069-4036-8905-44ba9cb9d7f4.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:20</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/03-Mi-Kalli_16x9.png.png/rendition=03MiKalli_1400x.png.png"/>
+				<itunes:keywords>Kinder, Mittwoch</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Kalli: Kalli Rennauto</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/e9/ce/e9ce28b6-ee13-4dc4-82ff-6b05a48c4ca2/7b0e9590-3d62-4461-9875-ed571303ada0_eb1e35aa-4c58-4f83-9f3f-6b6b425593d9.mp3</link>
+				<pubDate>Wed, 09 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Kalli kann noch nicht schlafen. Er hat heute beim Dreirad-Wettrennen verloren. Dabei war er richtig schnell Kalli m&#246;chte ein Rennauto sein. Und schwups ist Kalli ein Rennauto. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/e9/ce/e9ce28b6-ee13-4dc4-82ff-6b05a48c4ca2/7b0e9590-3d62-4461-9875-ed571303ada0_eb1e35aa-4c58-4f83-9f3f-6b6b425593d9.mp3" type="audio/x-mpeg" length="6061326"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/e9/ce/e9ce28b6-ee13-4dc4-82ff-6b05a48c4ca2/7b0e9590-3d62-4461-9875-ed571303ada0_eb1e35aa-4c58-4f83-9f3f-6b6b425593d9.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:19</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/03-Mi-Kalli_16x9.png.png/rendition=03MiKalli_1400x.png.png"/>
+				<itunes:keywords>Kinder, Mittwoch</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Kalli: Kalli Rotk&#228;ppchen</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/b0/d6/b0d616dc-8d96-437b-a3b9-3672e6da5910/ec38efaf-1c1d-4417-a72e-7fc95f670831_de0bad4b-3352-4815-80c3-b9964e55f6ee.mp3</link>
+				<pubDate>Wed, 02 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Kalli kann noch nicht schlafen. Kalli Mami hat ihm die Geschichte vom Rotk&#228;ppchen vorgelesen und Kalli kann einfach nicht verstehen, wie Rotk&#228;ppchen auf den Wolf reinfallen konnte. Kalli m&#246;chte ein Rotk&#228;ppchen sein. Und schwups ist Kalli ein Rotk&#228;ppchen. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/b0/d6/b0d616dc-8d96-437b-a3b9-3672e6da5910/ec38efaf-1c1d-4417-a72e-7fc95f670831_de0bad4b-3352-4815-80c3-b9964e55f6ee.mp3" type="audio/x-mpeg" length="6273376"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/b0/d6/b0d616dc-8d96-437b-a3b9-3672e6da5910/ec38efaf-1c1d-4417-a72e-7fc95f670831_de0bad4b-3352-4815-80c3-b9964e55f6ee.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:32</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/03-Mi-Kalli_16x9.png.png/rendition=03MiKalli_1400x.png.png"/>
+				<itunes:keywords>Kinder, Mittwoch</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Kalli: Kalli Feuerwehr</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/b7/a0/b7a03fdf-5604-45fb-bfc7-a857984888ac/3399a4fe-d2fd-4f95-bc99-86a3536891b0_45656256-67fb-4ef5-a50c-353a6b8a0000.mp3</link>
+				<pubDate>Wed, 26 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Kalli kann noch nicht schlafen. Er h&#246;rt eine laute Feuerwehr. So eine Feuerwehr hat es gut. Sie kann mit Wasser spritzen, hat eine lange Leiter und darf ganz schnell fahren. Kalli m&#246;chte eine Feuerwehr sein. Und schwups ist Kalli eine Feuerwehr. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/b7/a0/b7a03fdf-5604-45fb-bfc7-a857984888ac/3399a4fe-d2fd-4f95-bc99-86a3536891b0_45656256-67fb-4ef5-a50c-353a6b8a0000.mp3" type="audio/x-mpeg" length="6351701"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/b7/a0/b7a03fdf-5604-45fb-bfc7-a857984888ac/3399a4fe-d2fd-4f95-bc99-86a3536891b0_45656256-67fb-4ef5-a50c-353a6b8a0000.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:37</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/03-Mi-Kalli_16x9.png.png/rendition=03MiKalli_1400x.png.png"/>
+				<itunes:keywords>Kinder, Mittwoch</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Kalli: Kalli Biber</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/e2/2a/e22a8fc5-a039-4376-b241-6d737bc74231/6c2f8463-a75b-4487-8ce5-a582c182d773_76100e15-b710-4474-8ba2-3d45f1e0c5a6.mp3</link>
+				<pubDate>Wed, 19 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Kalli kann noch nicht schlafen. Er hatt heute ein St&#252;ckchen vom Zahn verloren. Neue Z&#228;hne bekommt Kalli aber erst, wenn die Schulz&#228;hne wachsen. Bei Bibern ist das anders. Kalli m&#246;chte ein Biber sein. Und schwups ist Kalli ein Biber. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/e2/2a/e22a8fc5-a039-4376-b241-6d737bc74231/6c2f8463-a75b-4487-8ce5-a582c182d773_76100e15-b710-4474-8ba2-3d45f1e0c5a6.mp3" type="audio/x-mpeg" length="6166595"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/e2/2a/e22a8fc5-a039-4376-b241-6d737bc74231/6c2f8463-a75b-4487-8ce5-a582c182d773_76100e15-b710-4474-8ba2-3d45f1e0c5a6.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:25</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/03-Mi-Kalli_16x9.png.png/rendition=03MiKalli_1400x.png.png"/>
+				<itunes:keywords>Kinder, Mittwoch</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Kalli: Kalli Polo</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/18/28/1828703a-d764-471b-b8b3-30a82e6a48c2/e288af11-c508-4c3a-826a-195a95b13c27_2b663b37-112e-43a9-9d0b-491a2c68f1d4.mp3</link>
+				<pubDate>Wed, 12 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Kalli kann noch nicht schlafen. Mareike schw&#228;rmt f&#252;r Marco Polo. Er ist bis nach China gereist und hat sch&#246;nes Porzellan mitgebracht. Er ist f&#252;r sie ein Held. Kalli m&#246;chte auch ein Held sein und nach China reisen. Und schwups ist Kalli ein Kalli Polo. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/18/28/1828703a-d764-471b-b8b3-30a82e6a48c2/e288af11-c508-4c3a-826a-195a95b13c27_2b663b37-112e-43a9-9d0b-491a2c68f1d4.mp3" type="audio/x-mpeg" length="6286806"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/18/28/1828703a-d764-471b-b8b3-30a82e6a48c2/e288af11-c508-4c3a-826a-195a95b13c27_2b663b37-112e-43a9-9d0b-491a2c68f1d4.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:33</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/03-Mi-Kalli_16x9.png.png/rendition=03MiKalli_1400x.png.png"/>
+				<itunes:keywords>Kinder, Mittwoch</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Kalli: Kalli K&#228;nguru</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/7f/96/7f9684e4-107f-4f9a-ac62-8a234e80c700/41788adc-41ce-4216-8780-1fc2b526cc45_c3723894-8106-49c5-a282-679a1958c8e8.mp3</link>
+				<pubDate>Wed, 05 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Kalli kann noch nicht schlafen. Er muss hopsen. Er hat n&#228;mlich heute beim Wetthopsen mit Mareike verloren. Also muss er noch &#252;ben. Aber wenn er ein K&#228;nguru w&#228;re, dann k&#246;nnte er h&#246;her hopsen als alle anderen. Und schwups ist Kalli ein K&#228;nguru. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/7f/96/7f9684e4-107f-4f9a-ac62-8a234e80c700/41788adc-41ce-4216-8780-1fc2b526cc45_c3723894-8106-49c5-a282-679a1958c8e8.mp3" type="audio/x-mpeg" length="6307920"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/7f/96/7f9684e4-107f-4f9a-ac62-8a234e80c700/41788adc-41ce-4216-8780-1fc2b526cc45_c3723894-8106-49c5-a282-679a1958c8e8.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:34</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/03-Mi-Kalli_16x9.png.png/rendition=03MiKalli_1400x.png.png"/>
+				<itunes:keywords>Kinder, Mittwoch</itunes:keywords>
+			</item>
+
+
+		<item>
+				<title>Piggeldy und Frederick: Fu&#223;ballspiel</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/35/27/352723e7-6bec-49ec-adf0-5689f96e53f5/c28b6a8e-3706-48b0-b197-d6f5045dbd80_46b5c240-3bb7-425e-99bc-24f7e795a78f.mp3</link>
+				<pubDate>Thu, 17 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Das Schweinchen Piggeldy ist der kleine Bruder von Frederick. Und Piggeldy hat viele Fragen an seinen gro&#223;en Bruder. Aber es ist gar nicht so einfach, einem kleinen Bruder die Welt zu erkl&#228;ren. Heute will Piggeldy von Frederick wissen, was ein&#8220;Fu&#223;ballspiel&#8221; ist. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/35/27/352723e7-6bec-49ec-adf0-5689f96e53f5/c28b6a8e-3706-48b0-b197-d6f5045dbd80_46b5c240-3bb7-425e-99bc-24f7e795a78f.mp3" type="audio/x-mpeg" length="6375540"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/35/27/352723e7-6bec-49ec-adf0-5689f96e53f5/c28b6a8e-3706-48b0-b197-d6f5045dbd80_46b5c240-3bb7-425e-99bc-24f7e795a78f.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:38</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/04neu-Do-Piggeldy-Frederick_16x9.png.png/rendition=04neuDoPiggeldyFrederick_1400x1400.png.png"/>
+				<itunes:keywords>Kinder, Donnerstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Piggeldy und Frederick: Gewitter</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/d0/2d/d02d81ec-c083-4202-a93a-a80f5a4c02b9/4cd4fb26-cca7-4163-a1f6-b5c8ff21ce46_c8cac082-555e-47e0-9878-e0e6a152f4f4.mp3</link>
+				<pubDate>Thu, 10 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Das Schweinchen Piggeldy ist der kleine Bruder von Frederick. Und Piggeldy hat viele Fragen an seinen gro&#223;en Bruder. Aber es ist gar nicht so einfach, einem kleinen Bruder die Welt zu erkl&#228;ren. Heute will Piggeldy von Frederick wissen, was ein &#8220;Gewitter&#8221; ist. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/d0/2d/d02d81ec-c083-4202-a93a-a80f5a4c02b9/4cd4fb26-cca7-4163-a1f6-b5c8ff21ce46_c8cac082-555e-47e0-9878-e0e6a152f4f4.mp3" type="audio/x-mpeg" length="5920877"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/d0/2d/d02d81ec-c083-4202-a93a-a80f5a4c02b9/4cd4fb26-cca7-4163-a1f6-b5c8ff21ce46_c8cac082-555e-47e0-9878-e0e6a152f4f4.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:10</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/04neu-Do-Piggeldy-Frederick_16x9.png.png/rendition=04neuDoPiggeldyFrederick_1400x1400.png.png"/>
+				<itunes:keywords>Kinder, Donnerstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Piggeldy und Frederick: Das Haus</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/1b/3f/1b3f26ed-6eaf-4958-88fd-a00d9a077b42/941a6f31-a71f-4c90-aab7-a75fa054cb46_ccb2e559-825c-4412-8519-bf2b514b3b0c.mp3</link>
+				<pubDate>Thu, 03 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Das Schweinchen Piggeldy ist der kleine Bruder von Frederick. Und Piggeldy hat viele Fragen an seinen gro&#223;en Bruder. Aber es ist gar nicht so einfach, einem kleinen Bruder die Welt zu erkl&#228;ren. Heute will Piggeldy von Frederick wissen, was ein &#8220;Haus&#8221; ist. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/1b/3f/1b3f26ed-6eaf-4958-88fd-a00d9a077b42/941a6f31-a71f-4c90-aab7-a75fa054cb46_ccb2e559-825c-4412-8519-bf2b514b3b0c.mp3" type="audio/x-mpeg" length="5541481"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/1b/3f/1b3f26ed-6eaf-4958-88fd-a00d9a077b42/941a6f31-a71f-4c90-aab7-a75fa054cb46_ccb2e559-825c-4412-8519-bf2b514b3b0c.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:05:46</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/04neu-Do-Piggeldy-Frederick_16x9.png.png/rendition=04neuDoPiggeldyFrederick_1400x1400.png.png"/>
+				<itunes:keywords>Kinder, Donnerstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Piggeldy und Frederick: Seiltanzen</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/e1/0a/e10adf19-d669-4d0b-90c6-de2d00107255/ae188d33-a8c1-457d-9039-63841ab82e03_488b0103-9dab-476d-84cf-4f570ee02087.mp3</link>
+				<pubDate>Thu, 27 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Das Schweinchen Piggeldy ist der kleine Bruder von Frederick. Und Piggeldy hat viele Fragen an seinen gro&#223;en Bruder. Aber es ist gar nicht so einfach, einem kleinen Bruder die Welt zu erkl&#228;ren. Heute will Piggeldy von Frederick wissen, wie man auf dem Seil tanzt. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/e1/0a/e10adf19-d669-4d0b-90c6-de2d00107255/ae188d33-a8c1-457d-9039-63841ab82e03_488b0103-9dab-476d-84cf-4f570ee02087.mp3" type="audio/x-mpeg" length="6221555"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/e1/0a/e10adf19-d669-4d0b-90c6-de2d00107255/ae188d33-a8c1-457d-9039-63841ab82e03_488b0103-9dab-476d-84cf-4f570ee02087.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:29</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/04neu-Do-Piggeldy-Frederick_16x9.png.png/rendition=04neuDoPiggeldyFrederick_1400x1400.png.png"/>
+				<itunes:keywords>Kinder, Donnerstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Piggeldy und Frederick: Das Wandern</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/d3/f3/d3f3c6bd-d152-4a54-9e49-145088f9582e/0f541574-75ff-4444-bd3a-3ebfba64f8cc_151d0df6-d31f-42ca-b98d-ead0694dfc25.mp3</link>
+				<pubDate>Thu, 20 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Das Schweinchen Piggeldy ist der kleine Bruder von Frederick. Und Piggeldy hat viele Fragen an seinen gro&#223;en Bruder. Aber es ist gar nicht so einfach, einem kleinen Bruder die Welt zu erkl&#228;ren. Heute will Piggeldy von Frederick wissen, was &#8220;Wandern&#8221; ist. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/d3/f3/d3f3c6bd-d152-4a54-9e49-145088f9582e/0f541574-75ff-4444-bd3a-3ebfba64f8cc_151d0df6-d31f-42ca-b98d-ead0694dfc25.mp3" type="audio/x-mpeg" length="6385515"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/d3/f3/d3f3c6bd-d152-4a54-9e49-145088f9582e/0f541574-75ff-4444-bd3a-3ebfba64f8cc_151d0df6-d31f-42ca-b98d-ead0694dfc25.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:39</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/04neu-Do-Piggeldy-Frederick_16x9.png.png/rendition=04neuDoPiggeldyFrederick_1400x1400.png.png"/>
+				<itunes:keywords>Kinder, Donnerstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Piggeldy und Frederick: Der Himmel</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/42/f2/42f24f05-0748-409c-8e17-92ee9da4f962/2f0a6334-c147-4e67-8ed6-75929040e628_fcf5adb1-2af1-4deb-89d7-f167a9b446f0.mp3</link>
+				<pubDate>Thu, 13 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Das Schweinchen Piggeldy ist der kleine Bruder von Frederick. Und Piggeldy hat viele Fragen an seinen gro&#223;en Bruder. Aber es ist gar nicht so einfach, einem kleinen Bruder die Welt zu erkl&#228;ren. Heute will Piggeldy von Frederick wissen, wo der Himmel anf&#228;ngt. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/42/f2/42f24f05-0748-409c-8e17-92ee9da4f962/2f0a6334-c147-4e67-8ed6-75929040e628_fcf5adb1-2af1-4deb-89d7-f167a9b446f0.mp3" type="audio/x-mpeg" length="6011502"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/42/f2/42f24f05-0748-409c-8e17-92ee9da4f962/2f0a6334-c147-4e67-8ed6-75929040e628_fcf5adb1-2af1-4deb-89d7-f167a9b446f0.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:16</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/04neu-Do-Piggeldy-Frederick_16x9.png.png/rendition=04neuDoPiggeldyFrederick_1400x1400.png.png"/>
+				<itunes:keywords>Kinder, Donnerstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Piggeldy und Frederick: Fernweh</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/b7/b1/b7b19639-bf59-4128-b76a-fe922a920d73/be172772-3e16-419e-8977-d2af2687d5e8_a2d37e8c-f5a9-4ade-acc6-d3b1af6b3e09.mp3</link>
+				<pubDate>Thu, 06 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Das Schweinchen Piggeldy ist der kleine Bruder von Frederick. Und Piggeldy hat viele Fragen an seinen gro&#223;en Bruder. Aber es ist gar nicht so einfach, einem kleinen Bruder die Welt zu erkl&#228;ren. Heute will Piggeldy von Frederick wissen, was Fernweh ist. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/b7/b1/b7b19639-bf59-4128-b76a-fe922a920d73/be172772-3e16-419e-8977-d2af2687d5e8_a2d37e8c-f5a9-4ade-acc6-d3b1af6b3e09.mp3" type="audio/x-mpeg" length="6215781"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/b7/b1/b7b19639-bf59-4128-b76a-fe922a920d73/be172772-3e16-419e-8977-d2af2687d5e8_a2d37e8c-f5a9-4ade-acc6-d3b1af6b3e09.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:28</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/04neu-Do-Piggeldy-Frederick_16x9.png.png/rendition=04neuDoPiggeldyFrederick_1400x1400.png.png"/>
+				<itunes:keywords>Kinder, Donnerstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Piggeldy und Frederick: Geburtstag</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/04/72/04726c94-f2b4-41cd-9106-6c9a777eaa6b/49a33d85-3334-4c28-af0c-a47e8bdcd2eb_3862233e-8f8e-4c93-8f70-d4d4941b7872.mp3</link>
+				<pubDate>Thu, 29 Jun 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Das Schweinchen Piggeldy ist der kleine Bruder von Frederick. Und Piggeldy hat viele Fragen an seinen gro&#223;en Bruder. Aber es ist gar nicht so einfach, einem kleinen Bruder die Welt zu erkl&#228;ren. Heute will Piggeldy von Frederick wissen, was ein Geburtstag ist. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/04/72/04726c94-f2b4-41cd-9106-6c9a777eaa6b/49a33d85-3334-4c28-af0c-a47e8bdcd2eb_3862233e-8f8e-4c93-8f70-d4d4941b7872.mp3" type="audio/x-mpeg" length="5905135"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/04/72/04726c94-f2b4-41cd-9106-6c9a777eaa6b/49a33d85-3334-4c28-af0c-a47e8bdcd2eb_3862233e-8f8e-4c93-8f70-d4d4941b7872.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:09</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/04neu-Do-Piggeldy-Frederick_16x9.png.png/rendition=04neuDoPiggeldyFrederick_1400x1400.png.png"/>
+				<itunes:keywords>Kinder, Donnerstag</itunes:keywords>
+			</item>
+
+
+		<item>
+				<title>Jan und Henry: Der Dinosaurier mit dem Handy</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/93/dc/93dc7c71-ebe9-4c91-8f2d-d25fc5c5b80f/39148717-6d78-4f2c-919d-0e23bf2743a6_b423f370-0cac-418b-aab5-b5a8975a39d6.mp3</link>
+				<pubDate>Fri, 18 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Die Erdm&#228;nnchen Jan und Henry k&#246;nnen nicht einschlafen, denn sie h&#246;ren ein seltsames Ger&#228;usch. Es klingt wie ein Dinosaurier mit einem Handy. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/93/dc/93dc7c71-ebe9-4c91-8f2d-d25fc5c5b80f/39148717-6d78-4f2c-919d-0e23bf2743a6_b423f370-0cac-418b-aab5-b5a8975a39d6.mp3" type="audio/x-mpeg" length="6018307"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/93/dc/93dc7c71-ebe9-4c91-8f2d-d25fc5c5b80f/39148717-6d78-4f2c-919d-0e23bf2743a6_b423f370-0cac-418b-aab5-b5a8975a39d6.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:16</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/05-Fr-Jan-Henry_16x9.png.png/rendition=05FrJanHenry_1400x.png.png"/>
+				<itunes:keywords>Kinder, Freitag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Jan und Henry: Das h&#252;pfende Nashorn</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/7f/9a/7f9afea5-e74b-4107-87d7-21b471fe29b2/8d013716-de2e-4304-b2ec-fd908389cf9d_f957679e-2152-4993-a9ac-5e8490411ab7.mp3</link>
+				<pubDate>Fri, 11 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Die Erdm&#228;nnchen Jan und Henry k&#246;nnen nicht einschlafen, denn sie h&#246;ren ein seltsames Ger&#228;usch. Es klingt wie ein Nashorn, das auf einem Trampolin h&#252;pft. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/7f/9a/7f9afea5-e74b-4107-87d7-21b471fe29b2/8d013716-de2e-4304-b2ec-fd908389cf9d_f957679e-2152-4993-a9ac-5e8490411ab7.mp3" type="audio/x-mpeg" length="6385413"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/7f/9a/7f9afea5-e74b-4107-87d7-21b471fe29b2/8d013716-de2e-4304-b2ec-fd908389cf9d_f957679e-2152-4993-a9ac-5e8490411ab7.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:39</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/05-Fr-Jan-Henry_16x9.png.png/rendition=05FrJanHenry_1400x.png.png"/>
+				<itunes:keywords>Kinder, Freitag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Jan und Henry: Die Oma in der Ritterr&#252;stung</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/74/b5/74b5245f-9249-4839-8af1-d9a1da2df75d/812c58de-5f8f-483d-a5c5-89067d7538e8_1af8be51-60d7-4582-86a4-bac0340a48b4.mp3</link>
+				<pubDate>Fri, 04 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Die Erdm&#228;nnchen Jan und Henry k&#246;nnen nicht einschlafen, denn sie h&#246;ren ein seltsames Ger&#228;usch. Es klingt wie eine Oma, aber in Ritterr&#252;stung. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/74/b5/74b5245f-9249-4839-8af1-d9a1da2df75d/812c58de-5f8f-483d-a5c5-89067d7538e8_1af8be51-60d7-4582-86a4-bac0340a48b4.mp3" type="audio/x-mpeg" length="5980674"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/74/b5/74b5245f-9249-4839-8af1-d9a1da2df75d/812c58de-5f8f-483d-a5c5-89067d7538e8_1af8be51-60d7-4582-86a4-bac0340a48b4.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:14</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/05-Fr-Jan-Henry_16x9.png.png/rendition=05FrJanHenry_1400x.png.png"/>
+				<itunes:keywords>Kinder, Freitag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Jan und Henry: Der sprechende Au&#223;erirdische</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/03/f9/03f926ea-053c-4da5-8926-6d6d06386948/dc007d54-26ff-4128-ae85-54ecd1be786e_938ee881-1c62-443a-ab5e-b640a24b13d7.mp3</link>
+				<pubDate>Fri, 28 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Die Erdm&#228;nnchen Jan und Henry k&#246;nnen nicht einschlafen, denn sie h&#246;ren ein seltsames Ger&#228;usch. Es klingt wie ein sprechender Au&#223;erirdischer. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/03/f9/03f926ea-053c-4da5-8926-6d6d06386948/dc007d54-26ff-4128-ae85-54ecd1be786e_938ee881-1c62-443a-ab5e-b640a24b13d7.mp3" type="audio/x-mpeg" length="6345857"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/03/f9/03f926ea-053c-4da5-8926-6d6d06386948/dc007d54-26ff-4128-ae85-54ecd1be786e_938ee881-1c62-443a-ab5e-b640a24b13d7.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:36</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/05-Fr-Jan-Henry_16x9.png.png/rendition=05FrJanHenry_1400x.png.png"/>
+				<itunes:keywords>Kinder, Freitag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Jan und Henry: Der spuckende L&#246;we</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/93/5b/935b3023-7c30-4b31-b3c4-af50a23eba1f/bd942fa5-5e10-49e7-9e57-31440b97a2d3_f2df823b-b536-4ffe-9f71-262ba4f8ae55.mp3</link>
+				<pubDate>Fri, 21 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Die Erdm&#228;nnchen Jan und Henry k&#246;nnen nicht einschlafen, denn sie h&#246;ren ein seltsames Ger&#228;usch. Es klingt wie ein spuckender L&#246;we. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/93/5b/935b3023-7c30-4b31-b3c4-af50a23eba1f/bd942fa5-5e10-49e7-9e57-31440b97a2d3_f2df823b-b536-4ffe-9f71-262ba4f8ae55.mp3" type="audio/x-mpeg" length="5795948"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/93/5b/935b3023-7c30-4b31-b3c4-af50a23eba1f/bd942fa5-5e10-49e7-9e57-31440b97a2d3_f2df823b-b536-4ffe-9f71-262ba4f8ae55.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:02</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/05-Fr-Jan-Henry_16x9.png.png/rendition=05FrJanHenry_1400x.png.png"/>
+				<itunes:keywords>Kinder, Freitag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Jan und Henry: Die Toilette im Weltraum</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/d1/33/d133d16d-f0c6-4c35-9029-2cc6577398b7/70cd578b-3c9a-4fcd-b518-7c35afed6741_7becaf70-a43f-4d32-b3b2-3fe2ed722c8a.mp3</link>
+				<pubDate>Fri, 14 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Die Erdm&#228;nnchen Jan und Henry k&#246;nnen nicht einschlafen, denn sie h&#246;ren ein seltsames Ger&#228;usch. Es klingt wie eine Rakete, die gerade landet, weil der Astronaut dringend auf die Toilette muss. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/d1/33/d133d16d-f0c6-4c35-9029-2cc6577398b7/70cd578b-3c9a-4fcd-b518-7c35afed6741_7becaf70-a43f-4d32-b3b2-3fe2ed722c8a.mp3" type="audio/x-mpeg" length="6009520"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/d1/33/d133d16d-f0c6-4c35-9029-2cc6577398b7/70cd578b-3c9a-4fcd-b518-7c35afed6741_7becaf70-a43f-4d32-b3b2-3fe2ed722c8a.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:15</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/05-Fr-Jan-Henry_16x9.png.png/rendition=05FrJanHenry_1400x.png.png"/>
+				<itunes:keywords>Kinder, Freitag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Jan und Henry: Der musizierende Fu&#223;ballspieler</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/d5/56/d556ee9c-fb40-407d-8009-094a58407577/b149f545-371f-4a75-a053-7415a73dc17f_37ac2019-5340-4b4a-8ab2-607da1a87f09.mp3</link>
+				<pubDate>Fri, 07 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Die Erdm&#228;nnchen Jan und Henry k&#246;nnen nicht einschlafen, denn sie h&#246;ren ein seltsames Ger&#228;usch. Es klingt wie ein musizierender Fu&#223;ballspieler. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/d5/56/d556ee9c-fb40-407d-8009-094a58407577/b149f545-371f-4a75-a053-7415a73dc17f_37ac2019-5340-4b4a-8ab2-607da1a87f09.mp3" type="audio/x-mpeg" length="5800582"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/d5/56/d556ee9c-fb40-407d-8009-094a58407577/b149f545-371f-4a75-a053-7415a73dc17f_37ac2019-5340-4b4a-8ab2-607da1a87f09.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:02</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/05-Fr-Jan-Henry_16x9.png.png/rendition=05FrJanHenry_1400x.png.png"/>
+				<itunes:keywords>Kinder, Freitag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Jan und Henry: Der  Koala mit der Pizza</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/11/81/118104f4-1818-4826-93fc-d8c7bcd62422/3b64da63-5712-416b-b270-491d619248e0_2e6eebb4-094a-4572-8940-5072c6b42079.mp3</link>
+				<pubDate>Fri, 30 Jun 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Die Erdm&#228;nnchen Jan und Henry k&#246;nnen nicht einschlafen, denn sie h&#246;ren ein seltsames Ger&#228;usch. Es klingt wie ein Koala, der mit dem Motorrad Pizza ausf&#228;hrt. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/11/81/118104f4-1818-4826-93fc-d8c7bcd62422/3b64da63-5712-416b-b270-491d619248e0_2e6eebb4-094a-4572-8940-5072c6b42079.mp3" type="audio/x-mpeg" length="5799053"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/11/81/118104f4-1818-4826-93fc-d8c7bcd62422/3b64da63-5712-416b-b270-491d619248e0_2e6eebb4-094a-4572-8940-5072c6b42079.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:02</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/05-Fr-Jan-Henry_16x9.png.png/rendition=05FrJanHenry_1400x.png.png"/>
+				<itunes:keywords>Kinder, Freitag</itunes:keywords>
+			</item>
+
+
+		<item>
+				<title>Herr Fuchs und Frau Elster: Prost Mahlzeit</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/f7/7d/f77d1514-ffd4-4be9-b2c5-bc2ad0401b8e/21fd458f-398c-49cc-90c5-5d5e9d21be14_3b701ec4-9a0d-4396-bbaf-c5538177240e.mp3</link>
+				<pubDate>Sat, 19 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Herr Fuchs kocht sich gerade ein S&#252;ppchen, als Frau Elster bei ihm herein flattert. Sie wolle sich eigentlich Salz leihen, greift aber zum Zucker, denn bei Herrn Fuchs ist alles durcheinander. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/f7/7d/f77d1514-ffd4-4be9-b2c5-bc2ad0401b8e/21fd458f-398c-49cc-90c5-5d5e9d21be14_3b701ec4-9a0d-4396-bbaf-c5538177240e.mp3" type="audio/x-mpeg" length="6505268"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/f7/7d/f77d1514-ffd4-4be9-b2c5-bc2ad0401b8e/21fd458f-398c-49cc-90c5-5d5e9d21be14_3b701ec4-9a0d-4396-bbaf-c5538177240e.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:46</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/06-Sa-Fuchs-Elster_16x9.png.png/rendition=06SaFuchsElster_1400x.png.png"/>
+				<itunes:keywords>Kinder, Samstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Pittiplatsch: Die Blume in der Gie&#223;kanne</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/45/06/4506c083-3e29-4a60-9ff7-2cb751fcfdb6/ccd7b769-ce4c-4260-a3d7-80d1783c8f60_c1949aa8-5397-4c7e-8cdb-38a551473581.mp3</link>
+				<pubDate>Sat, 12 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Pitti und Moppi haben ein K&#246;rbchen voller k&#246;stlicher Walderdbeeren. Die wollen sie Schnattchen zeigen, aber Schnattchen ist verschwunden. Stattdessen steht da eine Gie&#223;kanne mit einer Blume drin. Was kann das nur bedeuten? Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/45/06/4506c083-3e29-4a60-9ff7-2cb751fcfdb6/ccd7b769-ce4c-4260-a3d7-80d1783c8f60_c1949aa8-5397-4c7e-8cdb-38a551473581.mp3" type="audio/x-mpeg" length="6592848"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/45/06/4506c083-3e29-4a60-9ff7-2cb751fcfdb6/ccd7b769-ce4c-4260-a3d7-80d1783c8f60_c1949aa8-5397-4c7e-8cdb-38a551473581.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:52</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/06-Sa-Pitty_Schnatterinchen_16x9.png.png/rendition=06SaPitty_Schnatterinchen_1400x.png.png"/>
+				<itunes:keywords>Kinder, Samstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Herr Fuchs und Frau Elster: Der Sonnenschirm</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/d9/52/d952e1cc-6913-48ff-8114-fc901ef9d7af/9ffe2fc7-3b94-4b2e-a78f-a1839419eb70_d2dc8f50-5a40-4174-bf74-37725ad9a402.mp3</link>
+				<pubDate>Sat, 05 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Frau Elster wartet auf Herrn Fuchs, denn der m&#246;chte ihren Sonnenschirm abholen. Er hat damit etwas Geheimnisvolles vor. Nat&#252;rlich wird Frau Elster sofort sehr neugierig. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/d9/52/d952e1cc-6913-48ff-8114-fc901ef9d7af/9ffe2fc7-3b94-4b2e-a78f-a1839419eb70_d2dc8f50-5a40-4174-bf74-37725ad9a402.mp3" type="audio/x-mpeg" length="6300191"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/d9/52/d952e1cc-6913-48ff-8114-fc901ef9d7af/9ffe2fc7-3b94-4b2e-a78f-a1839419eb70_d2dc8f50-5a40-4174-bf74-37725ad9a402.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:34</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/06-Sa-Fuchs-Elster_16x9.png.png/rendition=06SaFuchsElster_1400x.png.png"/>
+				<itunes:keywords>Kinder, Samstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Pittiplatsch: Pitti und das Planschbecken</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/6b/f3/6bf3c76d-b793-4797-ab05-cb45059aad72/1ec09825-b621-482e-862a-252eb6feab93_e766f07d-04ca-4817-a3ea-0c38d8095205.mp3</link>
+				<pubDate>Sat, 29 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Moppi und Pitti wollen so gern ins Planschbecken. Aber da sitzt Schnattchen drin und will noch baden. Da hat Pitti mal wieder eine seiner Ideen. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/6b/f3/6bf3c76d-b793-4797-ab05-cb45059aad72/1ec09825-b621-482e-862a-252eb6feab93_e766f07d-04ca-4817-a3ea-0c38d8095205.mp3" type="audio/x-mpeg" length="6350467"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/6b/f3/6bf3c76d-b793-4797-ab05-cb45059aad72/1ec09825-b621-482e-862a-252eb6feab93_e766f07d-04ca-4817-a3ea-0c38d8095205.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:37</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/06-Sa-Pitty_Schnatterinchen_16x9.png.png/rendition=06SaPitty_Schnatterinchen_1400x.png.png"/>
+				<itunes:keywords>Kinder, Samstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Herr Fuchs und Frau Elster: Eine merkw&#252;rdige Erscheinung</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/d5/81/d581c9f1-fc83-443b-8395-d565faa7b5cb/7afc4e0d-4cca-4847-935f-c9ae611aa609_cbe02a08-8fd9-41f2-bf88-8cc7fbbd890a.mp3</link>
+				<pubDate>Sat, 22 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Frau Elster hat eine merkw&#252;rdige Gestalt bei ihrem Nest ersp&#228;ht. Sie sieht aus wie ein Gespenst und ihr ist gar nicht wohl zumute. Doch dahinter steckt Herr Fuchs. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/d5/81/d581c9f1-fc83-443b-8395-d565faa7b5cb/7afc4e0d-4cca-4847-935f-c9ae611aa609_cbe02a08-8fd9-41f2-bf88-8cc7fbbd890a.mp3" type="audio/x-mpeg" length="5112869"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/d5/81/d581c9f1-fc83-443b-8395-d565faa7b5cb/7afc4e0d-4cca-4847-935f-c9ae611aa609_cbe02a08-8fd9-41f2-bf88-8cc7fbbd890a.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:05:19</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/06-Sa-Fuchs-Elster_16x9.png.png/rendition=06SaFuchsElster_1400x.png.png"/>
+				<itunes:keywords>Kinder, Samstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Pittiplatsch: Zwei Eiswaffeln im Briefkasten</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/39/b3/39b3e76b-9c1a-4c86-99d2-7a2a552502f4/297eccc5-0c60-40e6-828c-835b98e4a9f1_cd66cbd9-7d24-4f63-89d0-e2f8b4293182.mp3</link>
+				<pubDate>Sat, 15 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Pitti hat zwei k&#246;stliche Eiswaffeln, die er aber nicht mit Schnattchen und Moppi teilen m&#246;chte. Um sie zu verstecken, stopft er sie in den Briefkasten. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/39/b3/39b3e76b-9c1a-4c86-99d2-7a2a552502f4/297eccc5-0c60-40e6-828c-835b98e4a9f1_cd66cbd9-7d24-4f63-89d0-e2f8b4293182.mp3" type="audio/x-mpeg" length="6193037"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/39/b3/39b3e76b-9c1a-4c86-99d2-7a2a552502f4/297eccc5-0c60-40e6-828c-835b98e4a9f1_cd66cbd9-7d24-4f63-89d0-e2f8b4293182.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:27</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/06-Sa-Pitty_Schnatterinchen_16x9.png.png/rendition=06SaPitty_Schnatterinchen_1400x.png.png"/>
+				<itunes:keywords>Kinder, Samstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Herr Fuchs und Frau Elster: Das verr&#252;ckte Automobil</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/a2/da/a2daaeba-a38f-4beb-ae69-43e5927919ef/fd1088de-15e6-4d30-8277-078188133a55_81170442-0ed8-4ccf-a696-1f6ef5172f8b.mp3</link>
+				<pubDate>Sat, 08 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Herr Fuchs und Frau Elster machen einen M&#228;rchenwaldausflug mit einem Automobil.  Herr Fuchs braucht eine Pause, doch Frau Elster nicht. Sie f&#228;hrt einfach allein weiter. Doch pl&#246;tzlich spielt das Auto verr&#252;ckt. Zu allem Ungl&#252;ck haben sich die beiden Ausfl&#252;gler auch noch verloren. 
+Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/a2/da/a2daaeba-a38f-4beb-ae69-43e5927919ef/fd1088de-15e6-4d30-8277-078188133a55_81170442-0ed8-4ccf-a696-1f6ef5172f8b.mp3" type="audio/x-mpeg" length="5399446"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/a2/da/a2daaeba-a38f-4beb-ae69-43e5927919ef/fd1088de-15e6-4d30-8277-078188133a55_81170442-0ed8-4ccf-a696-1f6ef5172f8b.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:05:37</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/06-Sa-Fuchs-Elster_16x9.png.png/rendition=06SaFuchsElster_1400x.png.png"/>
+				<itunes:keywords>Kinder, Samstag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Pittiplatsch: Als die Nixe Pitti geraubt hatte</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/04/0f/040f242b-42a5-46ef-a6b6-7b043681d4a5/26cf35ca-e444-422d-ab9f-6ddd036d67c5_d62ec628-6831-4a47-92a5-057b0d993c0e.mp3</link>
+				<pubDate>Sat, 01 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Moppi ist ganz aufgeregt, denn Pitti ist verschwunden. Seine Spur endet am Bach. Er wird doch wohl nicht von einer Nixe geraubt worden sein? Auch Schnattchen macht sich Sorgen. Beide suchen Pitti und h&#246;ren dabei ein sonderbares Ger&#228;usch. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/04/0f/040f242b-42a5-46ef-a6b6-7b043681d4a5/26cf35ca-e444-422d-ab9f-6ddd036d67c5_d62ec628-6831-4a47-92a5-057b0d993c0e.mp3" type="audio/x-mpeg" length="5756134"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/04/0f/040f242b-42a5-46ef-a6b6-7b043681d4a5/26cf35ca-e444-422d-ab9f-6ddd036d67c5_d62ec628-6831-4a47-92a5-057b0d993c0e.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:00</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/06-Sa-Pitty_Schnatterinchen_16x9.png.png/rendition=06SaPitty_Schnatterinchen_1400x.png.png"/>
+				<itunes:keywords>Kinder, Samstag</itunes:keywords>
+			</item>
+
+
+		<item>
+				<title>M&#228;rchen: Der Froschk&#246;nig</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/18/df/18df3f58-1146-4788-bd0c-a49b96c0b6a0/7df17e31-c3b3-45bb-a3c4-0032647d1911_48be51b0-a675-4481-adc8-4ef83c113d12.mp3</link>
+				<pubDate>Sun, 20 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Eine Prinzessin spielte einmal mit ihrer goldenen Kugel am Brunnen. Als sie ihr in den Brunnen fiel, tauchte der Froschk&#246;nig auf und brachte ihr das sch&#246;ne Spielzeug zur&#252;ck. Daf&#252;r musste die Prinzessin ihm allerdings einiges versprechen. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/18/df/18df3f58-1146-4788-bd0c-a49b96c0b6a0/7df17e31-c3b3-45bb-a3c4-0032647d1911_48be51b0-a675-4481-adc8-4ef83c113d12.mp3" type="audio/x-mpeg" length="6158543"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/18/df/18df3f58-1146-4788-bd0c-a49b96c0b6a0/7df17e31-c3b3-45bb-a3c4-0032647d1911_48be51b0-a675-4481-adc8-4ef83c113d12.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:25</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/07-So-Ma-rchen_16x9.png.png/rendition=07SoMaerchen_1400.png.png"/>
+				<itunes:keywords>Kinder, Sonntag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>M&#228;rchen: Das Wolkenschaf</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/c3/07/c307eeb2-b947-4cea-bd0a-2cd2674e4d1e/c56ec08b-8566-4152-b364-d5e56dbf2164_99dd90d2-87a8-42a6-934f-4b816e9459c7.mp3</link>
+				<pubDate>Sun, 13 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Es war einmal eine kleine Wolke, die konnte nicht einschlafen. Da z&#228;hlte sie zuerst ihre Familie und dann ihre Freunde. Aber einschlafen konnte sie noch immer nicht. Und als sie auch noch alle anderen z&#228;hlen wollte, rutschte sie pl&#246;tzlich in ein Abenteuer. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/c3/07/c307eeb2-b947-4cea-bd0a-2cd2674e4d1e/c56ec08b-8566-4152-b364-d5e56dbf2164_99dd90d2-87a8-42a6-934f-4b816e9459c7.mp3" type="audio/x-mpeg" length="5193954"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/c3/07/c307eeb2-b947-4cea-bd0a-2cd2674e4d1e/c56ec08b-8566-4152-b364-d5e56dbf2164_99dd90d2-87a8-42a6-934f-4b816e9459c7.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:05:24</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/07-So-Ma-rchen_16x9.png.png/rendition=07SoMaerchen_1400.png.png"/>
+				<itunes:keywords>Kinder, Sonntag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>M&#228;rchen: Der wundersame Pilz</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/ab/e0/abe0003f-ee97-4218-90b0-0a7bd89fa3d2/dc708f5f-ca97-4a0a-adbe-917eac074c67_2a72d8c4-54c2-4d29-a8a5-8076230e9c81.mp3</link>
+				<pubDate>Sun, 06 Aug 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Eine Ameise war auf dem Weg nach Hause, als es f&#252;rchterlich zu regnen begann. Da stellte sie sich unter einen Pilz. Schon bald kamen noch andere Tiere vorbei, die auch ein trockenes Pl&#228;tzchen suchten. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/ab/e0/abe0003f-ee97-4218-90b0-0a7bd89fa3d2/dc708f5f-ca97-4a0a-adbe-917eac074c67_2a72d8c4-54c2-4d29-a8a5-8076230e9c81.mp3" type="audio/x-mpeg" length="6688814"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/ab/e0/abe0003f-ee97-4218-90b0-0a7bd89fa3d2/dc708f5f-ca97-4a0a-adbe-917eac074c67_2a72d8c4-54c2-4d29-a8a5-8076230e9c81.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:58</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/07-So-Ma-rchen_16x9.png.png/rendition=07SoMaerchen_1400.png.png"/>
+				<itunes:keywords>Kinder, Sonntag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>M&#228;rchen: Der fr&#246;hliche Schuster</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/1a/57/1a57a232-0341-4ad7-af9d-8b40eb01f451/21e7afcf-f118-4042-9703-ba27d6da66fa_f8973041-7985-441d-820f-415a66479dec.mp3</link>
+				<pubDate>Sun, 30 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Es war einmal ein fr&#246;hlicher Schuster. Bei der Arbeit sang er und nach der Arbeit machte er ein T&#228;nzchen. Eines Tages traf er bei Mondschein im Wald eine kleine, traurige Fee. Sie wollte auch so gern tanzen. Ob ihr der Schuster wohl helfen kann? Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/1a/57/1a57a232-0341-4ad7-af9d-8b40eb01f451/21e7afcf-f118-4042-9703-ba27d6da66fa_f8973041-7985-441d-820f-415a66479dec.mp3" type="audio/x-mpeg" length="6341342"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/1a/57/1a57a232-0341-4ad7-af9d-8b40eb01f451/21e7afcf-f118-4042-9703-ba27d6da66fa_f8973041-7985-441d-820f-415a66479dec.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:36</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/07-So-Ma-rchen_16x9.png.png/rendition=07SoMaerchen_1400.png.png"/>
+				<itunes:keywords>Kinder, Sonntag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>M&#228;rchen: Strohhalm, Kohle und Bohne</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/7c/04/7c04a6a1-2597-4c00-b60a-03c1427d116e/7145eec4-85e8-43c5-a371-00a70b18988a_8e21140a-9b1e-4072-aa3d-e95e3340c984.mp3</link>
+				<pubDate>Sun, 23 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Eine alte Frau wollte einmal eine Bohnensuppe kochen. Dabei fiel ihr eine Bohne herunter. Zusammen mit einem Strohhalm und einer Kohle, die ins Feuer sollten, erlebt die Bohne das Abenteuer ihres Lebens. Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/7c/04/7c04a6a1-2597-4c00-b60a-03c1427d116e/7145eec4-85e8-43c5-a371-00a70b18988a_8e21140a-9b1e-4072-aa3d-e95e3340c984.mp3" type="audio/x-mpeg" length="6544446"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/7c/04/7c04a6a1-2597-4c00-b60a-03c1427d116e/7145eec4-85e8-43c5-a371-00a70b18988a_8e21140a-9b1e-4072-aa3d-e95e3340c984.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:49</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/07-So-Ma-rchen_16x9.png.png/rendition=07SoMaerchen_1400.png.png"/>
+				<itunes:keywords>Kinder, Sonntag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>M&#228;rchen: Der s&#252;&#223;e Brei</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/7c/6f/7c6f1d4d-67f5-44d9-94d2-f2d8261a66a1/fbcd8b08-14ab-4285-8fef-38ed83970d21_bacaa8d9-a653-4b77-9adf-eb73c9ddbeb4.mp3</link>
+				<pubDate>Sun, 16 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Ein armes M&#228;dchen ging einmal in den Wald, um Beeren zu sammeln. Dort traf sie eine alte Frau, die ihr ein Zaubert&#246;pfchen schenkte. Es konnte s&#252;&#223;en Brei kochen, bis man es zum stehen brachte, wenn man den richtigen Zauberspruch wusste Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/7c/6f/7c6f1d4d-67f5-44d9-94d2-f2d8261a66a1/fbcd8b08-14ab-4285-8fef-38ed83970d21_bacaa8d9-a653-4b77-9adf-eb73c9ddbeb4.mp3" type="audio/x-mpeg" length="5580234"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/7c/6f/7c6f1d4d-67f5-44d9-94d2-f2d8261a66a1/fbcd8b08-14ab-4285-8fef-38ed83970d21_bacaa8d9-a653-4b77-9adf-eb73c9ddbeb4.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:05:49</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/07-So-Ma-rchen_16x9.png.png/rendition=07SoMaerchen_1400.png.png"/>
+				<itunes:keywords>Kinder, Sonntag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>M&#228;rchen: Der Riese und der Drache</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/cf/f9/cff9fc53-ccc5-4cf5-950c-4be415df706a/ff9dd019-a04d-42be-a051-0b22f91aa59e_e28cbe24-eb03-443b-adbe-97215a9e00c6.mp3</link>
+				<pubDate>Sun, 09 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Es war einmal ein sch&#246;ner Prinz, der hatte ein ganz besonderes Haustier. Es war n&#228;mlich ein friedlicher Drache. Der Prinz hatte ihn vom b&#246;sen Riesen befreit. Nun aber tobt der Riese wieder in der Welt umher. Der Drache m&#246;chte seinen Prinzen besch&#252;tzen und k&#228;mpft gegen den Riesen. Zum Gl&#252;ck gibt es wunderbare Drachenmedizin f&#252;r alle F&#228;lle!
+Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/cf/f9/cff9fc53-ccc5-4cf5-950c-4be415df706a/ff9dd019-a04d-42be-a051-0b22f91aa59e_e28cbe24-eb03-443b-adbe-97215a9e00c6.mp3" type="audio/x-mpeg" length="6391360"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/cf/f9/cff9fc53-ccc5-4cf5-950c-4be415df706a/ff9dd019-a04d-42be-a051-0b22f91aa59e_e28cbe24-eb03-443b-adbe-97215a9e00c6.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:39</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/07-So-Ma-rchen_16x9.png.png/rendition=07SoMaerchen_1400.png.png"/>
+				<itunes:keywords>Kinder, Sonntag</itunes:keywords>
+			</item>
+
+		<item>
+				<title>M&#228;rchen: Die R&#252;be</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/5e/25/5e256b3b-fc29-4739-ac6e-be9c613bee99/16421da8-e7cc-4bd8-a821-5126abe7a5c2_e6ddb951-c0c3-4c10-b710-ceb58767064d.mp3</link>
+				<pubDate>Sun, 02 Jul 2023 19:04:00 +0200</pubDate>
+				<description><![CDATA[Es waren einmal ein armer und ein reicher Bruder. Der arme Bruder pflanzte sich eine R&#252;be. Diese wuchs und wuchs und wurde riesengro&#223;. Bedeutet dieses Wunder nun Gl&#252;ck oder Ungl&#252;ck f&#252;r den armen Bauern? Das Sandm&#228;nnchen hat dir aber nicht nur diese Geschichte mitgebracht, sondern auch noch ein Kinderlied.]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/5e/25/5e256b3b-fc29-4739-ac6e-be9c613bee99/16421da8-e7cc-4bd8-a821-5126abe7a5c2_e6ddb951-c0c3-4c10-b710-ceb58767064d.mp3" type="audio/x-mpeg" length="6111270"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/5e/25/5e256b3b-fc29-4739-ac6e-be9c613bee99/16421da8-e7cc-4bd8-a821-5126abe7a5c2_e6ddb951-c0c3-4c10-b710-ceb58767064d.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:06:22</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/07-So-Ma-rchen_16x9.png.png/rendition=07SoMaerchen_1400.png.png"/>
+				<itunes:keywords>Kinder, Sonntag</itunes:keywords>
+			</item>
+
+
+		<item>
+				<title>Unser Sandm&#228;nnchen Geschichten und Lieder Woche 33</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/69/62/6962be14-27c7-4dfb-a776-652d645878c8/567e5231-6ed2-4d48-84ad-9927ab57934c_5a0f3616-73de-40c9-b683-ac2931343028.mp3</link>
+				<pubDate>Sun, 20 Aug 2023 07:00:00 +0200</pubDate>
+				<description><![CDATA[Das Sandm&#228;nnchen hat dir viele Geschichten mitgebracht. Freu dich auf &#8220;Rita und das Krokodil&#8221; mit&#8221; Blaubeeren&#8221;, Jan und Henry mit "Dier Dinosaurier mit dem Handy", Kalli mit "Kalli-Pinguin", Piggeldy und Frederick mit &#8221;Fu&#223;ball&#8221;, freu dich auch auf Herrn Fuchs und Frau Elster mit "Prost Mahlzeit", das M&#228;rchen "Der Froschk&#246;nig" und auf viele Kinder und Kinderlieder!]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/69/62/6962be14-27c7-4dfb-a776-652d645878c8/567e5231-6ed2-4d48-84ad-9927ab57934c_5a0f3616-73de-40c9-b683-ac2931343028.mp3" type="audio/x-mpeg" length="42620544"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/69/62/6962be14-27c7-4dfb-a776-652d645878c8/567e5231-6ed2-4d48-84ad-9927ab57934c_5a0f3616-73de-40c9-b683-ac2931343028.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:44:24</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/08-Lang-Sandmann_16x9.png.png/rendition=08LangSandmann_1400x.png.png"/>
+				<itunes:keywords>Kinder, Langversion</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Unser Sandm&#228;nnchen Geschichten und Lieder Woche 32</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/75/21/75219156-6559-4310-b734-d1c2b300d5fa/0f3a02ec-3b81-484e-bc2b-ad9615476f46_21dfa2ff-d0fb-477a-a60b-aae7eb66bc86.mp3</link>
+				<pubDate>Sun, 13 Aug 2023 07:00:00 +0200</pubDate>
+				<description><![CDATA[Das Sandm&#228;nnchen hat dir viele Geschichten mitgebracht. Freu dich auf &#8220;Rita und das Krokodil&#8221; mit &#8221;Das Gem&#252;sebeet&#8221;, Jan und Henry mit "Das h&#252;pfende Nashorn", Kalli mit "Kalli-Rennauto", Piggeldy und Frederick mit &#8221;Das Gewitter&#8221;, freu dich auch auf Pittiplatsch mit "Die Blume in der Gie&#223;kanne", das M&#228;rchen "Das Wolkenschaf" und auf viele Kinder und Kinderlieder!]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/75/21/75219156-6559-4310-b734-d1c2b300d5fa/0f3a02ec-3b81-484e-bc2b-ad9615476f46_21dfa2ff-d0fb-477a-a60b-aae7eb66bc86.mp3" type="audio/x-mpeg" length="47138304"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/75/21/75219156-6559-4310-b734-d1c2b300d5fa/0f3a02ec-3b81-484e-bc2b-ad9615476f46_21dfa2ff-d0fb-477a-a60b-aae7eb66bc86.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:49:06</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/08-Lang-Sandmann_16x9.png.png/rendition=08LangSandmann_1400x.png.png"/>
+				<itunes:keywords>Kinder, Langversion</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Unser Sandm&#228;nnchen Geschichten und Lieder Woche 31</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/80/e3/80e37f1b-bb85-4822-bdd3-a8bab41c69e5/470d4490-df1c-4412-9736-c5d62843b28d_d0f6cf9c-18f9-419c-80ba-808d53a9f2fd.mp3</link>
+				<pubDate>Sun, 06 Aug 2023 07:00:00 +0200</pubDate>
+				<description><![CDATA[Das Sandm&#228;nnchen hat dir viele Geschichten mitgebracht. Freu dich auf &#8220;Rita und das Krokodil&#8221; mit "Ein Pf&#252;tzentag&#8221;, Jan und Henry mit "Die Oma in der Ritterr&#252;stung", Kalli mit "Kalli-Rotk&#228;ppchen", Piggeldy und Frederick mit &#8221;Das Haus&#8221;, freu dich auch auf Herrn Fuchs und Frau Elster mit "Der Sonnenschirm", das M&#228;rchen "Der wundersame Pilz" und auf viele Kinder und Kinderlieder!]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/80/e3/80e37f1b-bb85-4822-bdd3-a8bab41c69e5/470d4490-df1c-4412-9736-c5d62843b28d_d0f6cf9c-18f9-419c-80ba-808d53a9f2fd.mp3" type="audio/x-mpeg" length="43407376"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/80/e3/80e37f1b-bb85-4822-bdd3-a8bab41c69e5/470d4490-df1c-4412-9736-c5d62843b28d_d0f6cf9c-18f9-419c-80ba-808d53a9f2fd.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:45:13</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/08-Lang-Sandmann_16x9.png.png/rendition=08LangSandmann_1400x.png.png"/>
+				<itunes:keywords>Kinder, Langversion</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Unser Sandm&#228;nnchen der Woche - 030</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/58/d6/58d625de-d238-4e34-80b7-41ec1c84ed56/1361ae9a-e21c-42e7-acda-efb19204a1ce_77bcd05d-e89f-4f57-850c-22733b0a9c53.mp3</link>
+				<pubDate>Sun, 30 Jul 2023 07:00:00 +0200</pubDate>
+				<description><![CDATA[Das Sandm&#228;nnchen hat dir viele Geschichten mitgebracht. Freu dich auf "Meine Schmusedecke" mit dem Elefanten, Jan und Henry mit "Der sprechende Au&#223;erirdische", Kalli mit "Kalli-Feuerwehr", Piggeldy und Frederick mit "Seiltanzen", Pittiplatsch mit "Pitti und das Planschbecken", das M&#228;rchen "Der fr&#246;hliche Schuster" und auf viele Kinder und Musik!]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/58/d6/58d625de-d238-4e34-80b7-41ec1c84ed56/1361ae9a-e21c-42e7-acda-efb19204a1ce_77bcd05d-e89f-4f57-850c-22733b0a9c53.mp3" type="audio/x-mpeg" length="43473375"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/58/d6/58d625de-d238-4e34-80b7-41ec1c84ed56/1361ae9a-e21c-42e7-acda-efb19204a1ce_77bcd05d-e89f-4f57-850c-22733b0a9c53.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:45:17</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/08-Lang-Sandmann_16x9.png.png/rendition=08LangSandmann_1400x.png.png"/>
+				<itunes:keywords>Kinder, Langversion</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Unser Sandm&#228;nnchen der Woche - 29</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/2c/93/2c934806-ce65-40d8-9359-83a64f9b3f3c/73be50db-2a42-49a7-9ef9-49a7e3c81bfa_4c4b50a0-5af1-43eb-89e4-846d6b491b84.mp3</link>
+				<pubDate>Sun, 23 Jul 2023 07:00:00 +0200</pubDate>
+				<description><![CDATA[Das Sandm&#228;nnchen hat dir viele Geschichten mitgebracht. Freu dich auf &#8220;Meine Schmusedecke&#8221; mit der Maus, Jan und Henry mit "Der spuckende L&#246;we", Kalli mit "Kalli-Biber", Piggeldy und Frederick mit "Das Wandern", freu dich auch auf Herrn Fuchs und Frau Elster mit "Eine merkw&#252;rdige Erscheinung", das M&#228;rchen "Strohhalm, Kohle und Bohne" und auf viele Kinder und Kinderlieder!]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/2c/93/2c934806-ce65-40d8-9359-83a64f9b3f3c/73be50db-2a42-49a7-9ef9-49a7e3c81bfa_4c4b50a0-5af1-43eb-89e4-846d6b491b84.mp3" type="audio/x-mpeg" length="38353146"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/2c/93/2c934806-ce65-40d8-9359-83a64f9b3f3c/73be50db-2a42-49a7-9ef9-49a7e3c81bfa_4c4b50a0-5af1-43eb-89e4-846d6b491b84.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:39:57</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/08-Lang-Sandmann_16x9.png.png/rendition=08LangSandmann_1400x.png.png"/>
+				<itunes:keywords>Kinder, Langversion</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Unser Sandm&#228;nnchen der Woche - 28</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/55/9f/559f4314-885f-498c-853f-4b03a7ad84a2/e43a5e51-aa95-47b6-9a42-df96aa875174_916a99c8-a39c-47bb-a3aa-fed22d42fa11.mp3</link>
+				<pubDate>Sun, 16 Jul 2023 07:00:00 +0200</pubDate>
+				<description><![CDATA[Das Sandm&#228;nnchen hat dir viele Geschichten mitgebracht. Freu dich auf "Meine Schmusedecke" mit der Raupe, Jan und Henry mit "Die Toilette im Weltraum", Kalli mit "Kalli-Polo", Raketenflieger Piggeldy und Frederick mit "Der Himmel", Pittiplatsch mit "Zei Eiswaffeln im Briefkasten", das M&#228;rchen "Der s&#252;&#223;e Brei" und auf viele Kinder und Musik!]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/55/9f/559f4314-885f-498c-853f-4b03a7ad84a2/e43a5e51-aa95-47b6-9a42-df96aa875174_916a99c8-a39c-47bb-a3aa-fed22d42fa11.mp3" type="audio/x-mpeg" length="41900121"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/55/9f/559f4314-885f-498c-853f-4b03a7ad84a2/e43a5e51-aa95-47b6-9a42-df96aa875174_916a99c8-a39c-47bb-a3aa-fed22d42fa11.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:43:39</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/08-Lang-Sandmann_16x9.png.png/rendition=08LangSandmann_1400x.png.png"/>
+				<itunes:keywords>Kinder, Langversion</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Unser Sandm&#228;nnchen der Woche - 27</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/2c/b3/2cb3ae3a-ad15-4a5f-9b5b-e93bca755c8f/47b15792-3994-4b67-9466-da39f62b2f43_a93e908a-7719-423d-98f9-28b260c5e70c.mp3</link>
+				<pubDate>Sun, 09 Jul 2023 07:00:00 +0200</pubDate>
+				<description><![CDATA[Das Sandm&#228;nnchen hat dir viele Geschichten mitgebracht. Freu dich auf &#8220;Meine Schmusedecke&#8221; mit der Fliege, Jan und Henry mit "Der musizierende Fu&#223;ballspieler", Kalli mit "Kalli-K&#228;nguru", Piggeldy und Frederick mit "Fernweh", freu dich auch auf Herrn Fuchs und Frau Elster mit "Das verr&#252;ckte Automobil", das M&#228;rchen "Der Prinz und der Drache" und auf viele Kinder und Kinderlieder!]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/2c/b3/2cb3ae3a-ad15-4a5f-9b5b-e93bca755c8f/47b15792-3994-4b67-9466-da39f62b2f43_a93e908a-7719-423d-98f9-28b260c5e70c.mp3" type="audio/x-mpeg" length="44641152"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/2c/b3/2cb3ae3a-ad15-4a5f-9b5b-e93bca755c8f/47b15792-3994-4b67-9466-da39f62b2f43_a93e908a-7719-423d-98f9-28b260c5e70c.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:46:30</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/08-Lang-Sandmann_16x9.png.png/rendition=08LangSandmann_1400x.png.png"/>
+				<itunes:keywords>Kinder, Langversion</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Unser Sandm&#228;nnchen der Woche - 26</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/9a/8c/9a8cd166-575c-4b66-bdf2-003238076761/f17da881-c2e7-45be-928d-08ba731faf9e_269ca39d-9bf4-40e8-bd3f-ca2cd69cd33c.mp3</link>
+				<pubDate>Sun, 02 Jul 2023 07:00:00 +0200</pubDate>
+				<description><![CDATA[Das Sandm&#228;nnchen hat dir viele Geschichten mitgebracht. Freu dich auf "Meine Schmusedecke" mit dem Seestern,  Jan und Henry mit "Der Koala mit der Pizza", Kalli mit "Kalli-Robinson", Piggeldy und Frederick  mit "Geburtstag", Pittiplatsch mit "Als die Nixe Pitti raubte", das M&#228;rchen "Die R&#252;be" und auf viele Kinder und Musik!]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/9a/8c/9a8cd166-575c-4b66-bdf2-003238076761/f17da881-c2e7-45be-928d-08ba731faf9e_269ca39d-9bf4-40e8-bd3f-ca2cd69cd33c.mp3" type="audio/x-mpeg" length="42518729"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/9a/8c/9a8cd166-575c-4b66-bdf2-003238076761/f17da881-c2e7-45be-928d-08ba731faf9e_269ca39d-9bf4-40e8-bd3f-ca2cd69cd33c.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:44:17</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/08-Lang-Sandmann_16x9.png.png/rendition=08LangSandmann_1400x.png.png"/>
+				<itunes:keywords>Kinder, Langversion</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Unser Sandm&#228;nnchen der Woche - 25</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/91/51/915171f2-f7db-49eb-9f9f-55e3cde628ea/6c44d363-c2f2-4970-a449-7307eb092e0b_501ce12a-6775-44e3-b1b3-960caad63eea.mp3</link>
+				<pubDate>Sun, 25 Jun 2023 07:00:00 +0200</pubDate>
+				<description><![CDATA[Das Sandm&#228;nnchen hat dir viele Geschichten mitgebracht. Freu dich auf &#8220;Meine Schmusedecke&#8221; mit dem Ameisenb&#228;ren, Jan und Henry mit "Die Spinnen im Wanderurlaub", Kalli mit "Kalli-Teddy", Piggeldy und Frederick mit "Blubberlinks", freu dich auch auf Herrn Fuchs und Frau Elster mit "Erdbeerernte", das M&#228;rchen "Woher das G&#228;nsebl&#252;mchen seine R&#246;te hat" und auf viele Kinder und Kinderlieder!]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/91/51/915171f2-f7db-49eb-9f9f-55e3cde628ea/6c44d363-c2f2-4970-a449-7307eb092e0b_501ce12a-6775-44e3-b1b3-960caad63eea.mp3" type="audio/x-mpeg" length="41238152"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/91/51/915171f2-f7db-49eb-9f9f-55e3cde628ea/6c44d363-c2f2-4970-a449-7307eb092e0b_501ce12a-6775-44e3-b1b3-960caad63eea.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:42:57</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/08-Lang-Sandmann_16x9.png.png/rendition=08LangSandmann_1400x.png.png"/>
+				<itunes:keywords>Kinder, Langversion</itunes:keywords>
+			</item>
+
+		<item>
+				<title>Unser Sandm&#228;nnchen der Woche - 24</title>
+				<link>https://rbbmediapmdp-a.akamaihd.net/content/48/44/4844d101-b579-42cd-86ab-913f39e80ab6/9fccada9-563d-4316-846f-e4d5a54ff681_55ed835f-b088-4e8d-a850-defe5250a9d5.mp3</link>
+				<pubDate>Sun, 18 Jun 2023 07:00:00 +0200</pubDate>
+				<description><![CDATA[Das Sandm&#228;nnchen hat dir viele Geschichten mitgebracht. Freu dich auf die Schmusedecke mit "Der Koboldmaki", Jan und Henry mit "Das Seeungeheuer im Restaurant", Kalli mit "Kalli-Ballon", Piggeldy und Frederick mit "Der Regenbogen", Pittiplatsch mit "Als Moppi seine Gartenbank einweihen wollte", das M&#228;rchen "Der gestiefelte Kater" und auf viele Kinder und Musik!
+]]></description>
+				<enclosure url="https://rbbmediapmdp-a.akamaihd.net/content/48/44/4844d101-b579-42cd-86ab-913f39e80ab6/9fccada9-563d-4316-846f-e4d5a54ff681_55ed835f-b088-4e8d-a850-defe5250a9d5.mp3" type="audio/x-mpeg" length="41789935"/>
+					<guid >https://rbbmediapmdp-a.akamaihd.net/content/48/44/4844d101-b579-42cd-86ab-913f39e80ab6/9fccada9-563d-4316-846f-e4d5a54ff681_55ed835f-b088-4e8d-a850-defe5250a9d5.mp3</guid>
+				
+				
+				
+				
+				<itunes:duration>00:43:32</itunes:duration>
+				<itunes:image href="https://www.rbb-online.de/content/dam/rbb/ant/unser_sandmaennchen/08-Lang-Sandmann_16x9.png.png/rendition=08LangSandmann_1400x.png.png"/>
+				<itunes:keywords>Kinder, Langversion</itunes:keywords>
+			</item>
+
+
+
+
+
+
+
+
+	</channel>
+</rss>
+
