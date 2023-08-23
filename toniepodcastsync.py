@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-from podcast import Podcast
+from podcast import Podcast, Episode
 import os, shutil, logging
 import wget
 
@@ -71,7 +71,7 @@ class ToniePodcastSync:
                 tonieDict[_t] = _hh
         return tonieDict
 
-    def __uploadEpisode(self, ep, tonie):
+    def __uploadEpisode(self, ep: Episode, tonie):
         # upload a given episode to a creative tonie
         hh = self.__tonieDict[tonie]
         f = os.path.join(ep.fpath, ep.fname)
@@ -82,7 +82,7 @@ class ToniePodcastSync:
         hh = self.__tonieDict[tonie]
         return self.__api.households[hh].creativetonies[tonie].remove_all_chapters()
 
-    def __cachePodcastUpTo(self, podcast, maxMin=90):
+    def __cachePodcastUpTo(self, podcast: Podcast, maxMin=90):
         # local download of all episodes of a podcast, limited to maxMin minutes in total
         if maxMin == 0:
             maxMin = 90  # default to 90 minutes
@@ -91,7 +91,7 @@ class ToniePodcastSync:
 
         __totalSeconds = 0
         __no = 0
-        epList = []
+        epList: list[Episode] = []
 
         for ep in podcast.epList:
             if (maxMin > 0) and ((__totalSeconds + ep.durationSec) >= (maxMin * 60)):
@@ -105,7 +105,7 @@ class ToniePodcastSync:
         log.info(f"%s: providing all %s episodes with %d.1 min total", podcast.title, __no, (__totalSeconds / 60))
         return epList
 
-    def __cacheEpisode(self, ep):
+    def __cacheEpisode(self, ep: Episode):
         # local download of a single episode into a subfolder
         # file name is build according to __generateFilename
         path = self.__generatePath(ep.podcast)
@@ -137,9 +137,9 @@ class ToniePodcastSync:
             log.error(f"%s writing to disk failed: %s", ep.guid, e)
             return False
 
-    def __generateFilename(self, ep):
+    def __generateFilename(self, ep: Episode):
         # generates canonical filename for local episode cache
-        fname = ep.date + " " + ep.title
+        fname = ep.published + " " + ep.title
         if fname[-4] != ".mp3":
             fname = fname + ".mp3"
         return fname
@@ -158,9 +158,9 @@ class ToniePodcastSync:
             log.info(f"cleaning up directory %s...", "podcasts")
             shutil.rmtree("podcasts")
 
-    def __generateChapterTitle(self, ep):
+    def __generateChapterTitle(self, ep: Episode):
         # generate chapter title used when writing on tonie
-        return ep.title + " (" + ep.date + ")"
+        return ep.title + " (" + ep.published + ")"
 
     def __getFirstChapterOnTonie(self, tonie):
         # returns the first chapter on tonie
