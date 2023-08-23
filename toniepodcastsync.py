@@ -57,13 +57,13 @@ class ToniePodcastSync:
         )
         for e in cachedEps:
             self.__uploadEpisode(e, tonie)
-            print(podcast.title + ': uploaded "' + e.title + '" (from ' + e.date + ")")
+            print(podcast.title + ': uploaded "' + e.title + '" (from ' + e.published + ")")
         self.__cleanupCache(podcast)
 
     def __refreshTonieDict(self):
         # returns a dictionary with mapping tonies to households
         tonieDict = {}
-        _hhL = self.__api.households_update()
+        _hhL = self.__api.households_update() or []
         for _hh in _hhL:
             _tL = self.__api.households[_hh].creativetonies_update()
             for _t in _tL:
