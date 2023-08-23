@@ -133,3 +133,6 @@ dmypy.json
 *.yaml
 test.py
 todo.md
+
+# vscode
+.vscode
