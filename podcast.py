@@ -32,7 +32,14 @@ class Podcast:
     def refreshFeed(self: "Podcast"):
         # reads feed and populates the episode list
         for item in self.feed.entries:
-            self.epList.append(Episode(podcast=self.title, raw=item))
+            # for most feeds, the item.id contains a URL to the audio file
+            # but not in all cases. The audio file is to my knowledge available
+            # in the enclosure section as href.
+            url=item.id
+            for iterator in item.links:
+                if iterator['rel'] == 'enclosure':
+                    url = iterator['href']
+            self.epList.append(Episode(podcast=self.title, raw=item, url=url))
 
         match self.epSorting:
             case EpisodeSorting.BY_DATE_NEWEST_FIRST:
@@ -54,7 +61,7 @@ class Episode:
     title: str = field(init=False)
     published: str = field(init=False)  # date when published
     published_parsed: struct_time = field(init=False)  # parsed published date
-    url: str = field(init=False)
+    url: str = ""
     guid: str = field(init=False)
     fname: str = ""
     fpath: str = ""
@@ -65,7 +72,6 @@ class Episode:
         self.title = self.raw.title
         self.published = self.raw.published
         self.published_parsed = self.raw.published_parsed
-        self.url = self.raw.id
         self.guid = self.raw.id
         self.durationStr = self.raw.itunes_duration
         self.durationSec = self.__durStr2sec(self.durationStr)
