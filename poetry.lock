@@ -281,25 +281,6 @@ files = [
 ]
 
 [[package]]
-name = "tonie_api"
-version = "0.1"
-description = ""
-optional = false
-python-versions = "*"
-files = []
-develop = false
-
-[package.dependencies]
-oauthlib = "*"
-requests_oauthlib = "*"
-
-[package.source]
-type = "git"
-url = "https://github.com/moritzj29/tonie_api.git"
-reference = "HEAD"
-resolved_reference = "d4fc2fbc451c50eb37a1616bf8a91645b2a93fc4"
-
-[[package]]
 name = "urllib3"
 version = "2.0.4"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
@@ -329,4 +310,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10.11"
-content-hash = "afd627b726ca7e362fe09972274244096e8b3051c9a9d41c0005442ae2be45a6"
+content-hash = "2bbb741cfa83157b3076865006fd60da76aa3c73fceb9698170390463ebbf868"
