@@ -1,181 +1,190 @@
-#! /usr/bin/env python3
-from podcast import Podcast, Episode
-import os, shutil, logging
-import wget
+"""The Tonie Podcast Sync API."""
+import logging
+import shutil
+from pathlib import Path
 
-from tonie_api.tonie_api import TonieAPI
+import requests
+from rich.console import Console
+from rich.progress import track
+from rich.table import Table
+from tonie_api.api import TonieAPI
 
+from podcast import Episode, Podcast
+
+console = Console()
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 
+MAXIMUM_TONIE_MINUTES = 90
+
 
 class ToniePodcastSync:
-    def __init__(self, user, pwd):
+    """The class of syncing podcasts to given tonies."""
+
+    def __init__(self, user: str, pwd: str) -> None:
+        """Initialitaion of the ToniePodcastSync and connecting to the TonieAPI.
+
+        Args:
+            user (str): the username to the tonie Cloud API
+            pwd (_type_): the password to the tonie Cloud API
+        """
         self.__api = TonieAPI(user, pwd)
-        self.__tonieDict = self.__refreshTonieDict()  # tonies + households
+        self._households = {x.id: x for x in self.__api.get_households()}
+        self._update_tonies()
 
-    def printToniesOverview(self):
-        print("List of available creative tonies:")
-        for t in self.__tonieDict:
-            print(
-                "   tonie ID " + t + " with name " + self.__api.households[self.__tonieDict[t]].creativetonies[t].name
+    def _update_tonies(self) -> None:
+        self.__tonieDict = {x.id: x for x in self.__api.get_all_creative_tonies()}
+
+    def print_tonies_overview(self) -> None:
+        """Print out a table to console of all available tonies."""
+        table = Table(title="List of all creative tonies.")
+        table.add_column("ID", no_wrap=True)
+        table.add_column("Name of Tonie")
+        table.add_column("Time of last update")
+        table.add_column("Household")
+        table.add_column("Latest Episode name")
+        for tonie in self.__tonieDict.values():
+            table.add_row(
+                tonie.id,
+                tonie.name,
+                tonie.lastUpdate.strftime("%c") if tonie.lastUpdate else None,
+                self._households[tonie.householdId].name,
+                tonie.chapters[0].title if tonie.chaptersPresent > 0 else "No latest chapter available.",
             )
+        console.print(table)
 
-    def syncPodcast2Tonie(self, podcast: Podcast, tonie, maxMin=90):
-        # sync new episodes from podcast feed to creative tonie
-        # - this is done by wiping the tonie and writing all new episodes
-        # limit episodes on tonie to maxMin minutes in total
-        # return if no new episodes in feed
-        if not tonie in self.__tonieDict:
-            log.error(f"%s: cant find tonie", tonie)
-            print("error: tried, but cant find tonie with ID " + tonie)
+    def sync_podcast_to_tonie(self, podcast: Podcast, tonie_id: str, max_minutes: int = 90) -> None:
+        """Sync new episodes from podcast feed to creative Tonie.
+
+        It is done by wiping the tonie and writing all new episodes. Limit episodes on tonie to max_minutes in total.
+        If no new episode exists in podcast, nothing will happen.
+
+        Args:
+            podcast (Podcast): The podcast to get the newest episodes from
+            tonie_id (str): The id of the tonie
+            max_minutes (int, optional): The maximum time of podcasts in length. Defaults to 90.
+        """
+        if tonie_id not in self.__tonieDict:
+            msg = f"ERROR: Cannot find tonie with ID {tonie_id}"
+            log.error(msg)
+            console.print(msg, style="red")
             return
         if len(podcast.epList) == 0:
-            log.warn(f"%s: cant find any epsiodes at all", podcast.title)
-            print(podcast.title + ": cant find any epsiodes at all, feed is empty")
+            msg = (
+                f"ERROR: Cannot find any episodes at all for podcast '{podcast.title}'"
+                f"to put on tonie with ID {tonie_id}"
+            )
+            log.warning(msg)
+            console.print(msg, style="orange")
             return
-        if self.__isTonieEmpty(tonie) == False:
+        if not self.__is_tonie_empty(tonie_id):
             # check if new feed has newer epsiodes than tonie
-            latestEpFeed = self.__generateChapterTitle(podcast.epList[0])
-            latestEpTonie = self.__getFirstChapterOnTonie(tonie)["title"]
-            if latestEpTonie == latestEpFeed:
-                log.info(f"%s: no new podcast epsiodes, latest episode is %s", podcast.title, latestEpTonie)
-                print(podcast.title + ': no new podcast epsiodes, latest is "' + latestEpTonie + '"')
+            latest_episode_feed = self.__generate_chapter_title(podcast.epList[0])
+            latest_episode_tonie = self.__tonieDict[tonie_id].chapters[0].title
+            if latest_episode_tonie == latest_episode_feed:
+                msg = f"Podcast '{podcast.title}' has no new episodes, latest episode is '{latest_episode_tonie}'"
+                log.info(msg)
+                console.print(msg)
                 return
         else:
-            log.info(f"### tonie is empty")
+            log.info("### tonie is empty")
         # add new episodes to tonie
-        self.__wipeTonie(tonie)
-        print(podcast.title + ": fetching new episodes...")
-        cachedEps = self.__cachePodcastUpTo(podcast, maxMin)
-        print(
-            podcast.title
-            + ": transferring "
-            + str(len(cachedEps))
-            + " episodes to "
-            + self.__api.households[self.__tonieDict[tonie]].creativetonies[tonie].name
+        self.__wipe_tonie(tonie_id)
+        cached_episodes = self.__cache_podcast_episodes(podcast, max_minutes)
+
+        for e in track(
+            cached_episodes,
+            description=(
+                f"{podcast.title}: transferring {len(cached_episodes)} episodes"
+                f" to {self.__tonieDict[tonie_id].name}"
+            ),
+            total=len(cached_episodes),
+            transient=True,
+            refresh_per_second=2,
+        ):
+            self.__upload_episode(e, tonie_id)
+        console.print(
+            f"{podcast.title}: Successfully uploaded {cached_episodes} to tonie '{self.__tonieDict[tonie_id]}'",
         )
-        for e in cachedEps:
-            self.__uploadEpisode(e, tonie)
-            print(podcast.title + ': uploaded "' + e.title + '" (from ' + e.published + ")")
-        self.__cleanupCache(podcast)
+        self.__cleanup_cache()
 
-    def __refreshTonieDict(self):
-        # returns a dictionary with mapping tonies to households
-        tonieDict = {}
-        _hhL = self.__api.households_update() or []
-        for _hh in _hhL:
-            _tL = self.__api.households[_hh].creativetonies_update()
-            for _t in _tL:
-                log.info(f"found creative tonie %s in household %s", _t, _hh)
-                tonieDict[_t] = _hh
-        return tonieDict
-
-    def __uploadEpisode(self, ep: Episode, tonie):
+    def __upload_episode(self, ep: Episode, tonie_id: str) -> None:
         # upload a given episode to a creative tonie
-        hh = self.__tonieDict[tonie]
-        f = os.path.join(ep.fpath, ep.fname)
-        return self.__api.households[hh].creativetonies[tonie].upload(f, self.__generateChapterTitle(ep))
+        tonie = self.__tonieDict[tonie_id]
+        self.__api.upload_file_to_tonie(tonie, ep.fpath, self.__generate_chapter_title(ep))
 
-    def __wipeTonie(self, tonie):
-        # delete all content on a tonie
-        hh = self.__tonieDict[tonie]
-        return self.__api.households[hh].creativetonies[tonie].remove_all_chapters()
+    def __wipe_tonie(self, tonie_id: str) -> None:
+        tonie = self.__tonieDict[tonie_id]
+        console.print(f"Wipe all chapters of Tonie '{tonie.name}'")
+        self.__api.clear_all_chapter_of_tonie(tonie)
+        self._update_tonies()
 
-    def __cachePodcastUpTo(self, podcast: Podcast, maxMin=90):
+    def __cache_podcast_episodes(self, podcast: Podcast, max_minutes: int = MAXIMUM_TONIE_MINUTES) -> list[Episode]:
         # local download of all episodes of a podcast, limited to maxMin minutes in total
-        if maxMin == 0:
-            maxMin = 90  # default to 90 minutes
-        if maxMin > 90:
-            maxMin = 90  # tonies can't carry more than 90 minutes
+        if max_minutes <= 0 or max_minutes > MAXIMUM_TONIE_MINUTES:
+            max_minutes = MAXIMUM_TONIE_MINUTES
 
-        __totalSeconds = 0
-        __no = 0
-        epList: list[Episode] = []
-
+        episodes_to_cache = []
+        total_seconds = 0
         for ep in podcast.epList:
-            if (maxMin > 0) and ((__totalSeconds + ep.durationSec) >= (maxMin * 60)):
-                log.info(f"%s: providing %s episodes with %d.1 min total", podcast.title, __no, (__totalSeconds / 60))
-                return epList
-            else:
-                __no += 1
-                __totalSeconds += ep.durationSec
-                self.__cacheEpisode(ep)
-                epList.append(ep)
-        log.info(f"%s: providing all %s episodes with %d.1 min total", podcast.title, __no, (__totalSeconds / 60))
-        return epList
+            if (total_seconds + ep.duration_sec) >= (max_minutes * 60):
+                break
+            total_seconds += ep.duration_sec
+            episodes_to_cache.append(ep)
+        ep_list: list[Episode] = []
 
-    def __cacheEpisode(self, ep: Episode):
+        for ep in track(
+            episodes_to_cache,
+            description=f"{podcast.title}: Cache episodes ...",
+            total=len(episodes_to_cache),
+            transient=True,
+            refresh_per_second=2,
+        ):
+            if self.__cache_episode(ep):
+                ep_list.append(ep)  # noqa: PERF401: need a regular loop for progress
+
+        log.info(
+            "%s: providing all %s episodes with %d.1 min total",
+            podcast.title,
+            len(episodes_to_cache),
+            (total_seconds / 60),
+        )
+        return ep_list
+
+    def __cache_episode(self, ep: Episode) -> bool:
         # local download of a single episode into a subfolder
         # file name is build according to __generateFilename
-        path = self.__generatePath(ep.podcast)
-        # check if directory exists
-        try:
-            if not os.path.exists(path):
-                log.info(f"directory %s created: ", path)
-                os.makedirs(path)
-        except Exception as e:
-            log.error(f"dir %s failed to create: %s", path, e)
-            return False
+        podcast_path = Path("podcasts") / ep.podcast
+        podcast_path.mkdir(parents=True, exist_ok=True)
 
-        fname = self.__generateFilename(ep)
-        # check if file exists already
-        if os.path.exists(os.path.join(path, fname)):
-            log.info(f"file %s exists already, will be overwritten", ep.guid)
-            try:
-                os.remove(os.path.join(path, fname))
-            except Exception as e:
-                log.error(f"file %s already existing, but failed to overwrite: %s", ep.guid, e)
+        fname = podcast_path / self.__generate_filename(ep)
+        if fname.exists():
+            log.info("file %s exists already, will be overwritten", ep.guid)
+            fname.unlink()
 
         # the download part
-        try:
-            wget.download(ep.url, out=os.path.join(path, fname), bar=None)
-            ep.fpath = path
-            ep.fname = fname
+        r = requests.get(ep.url, timeout=180)
+        if r.ok:
+            with fname.open("wb") as _fs:
+                _fs.write(r.content)
+                ep.fpath = fname
             return True
-        except Exception as e:
-            log.error(f"%s writing to disk failed: %s", ep.guid, e)
-            return False
 
-    def __generateFilename(self, ep: Episode):
+        log.error("Was not able to get file from %s with error %s - %s", ep.url, r.status_code, r.text)
+        return False
+
+    def __generate_filename(self, ep: Episode) -> str:
         # generates canonical filename for local episode cache
-        fname = ep.published + " " + ep.title
-        if fname[-4] != ".mp3":
-            fname = fname + ".mp3"
-        return fname
+        return f"{ep.published} {ep.title}.mp3"
 
-    def __generatePath(self, podcastTitle):
-        # generates canonical path for local episode cache
-        path = os.path.join("podcasts", podcastTitle)
-        return path
+    def __cleanup_cache(self) -> None:
+        console.print("Cleanup the cache folder.")
+        shutil.rmtree(Path("podcasts"))
 
-    def __cleanupCache(self, podcast):
-        # delete all cached files and folders from local storage
-        path = self.__generatePath(podcast.title)
-        log.info(f"cleaning up directory %s...", path)
-        shutil.rmtree(path)
-        if os.path.exists("podcasts") and os.path.isdir("podcasts") and not os.listdir("podcasts"):
-            log.info(f"cleaning up directory %s...", "podcasts")
-            shutil.rmtree("podcasts")
-
-    def __generateChapterTitle(self, ep: Episode):
+    def __generate_chapter_title(self, ep: Episode) -> str:
         # generate chapter title used when writing on tonie
         return ep.title + " (" + ep.published + ")"
 
-    def __getFirstChapterOnTonie(self, tonie):
-        # returns the first chapter on tonie
-        hh = self.__tonieDict[tonie]
-        first = self.__api.households[hh].creativetonies[tonie].chapters[0]
-        return first
-
-    def __getChapterOnTonie(self, tonie, chapterPos):
-        # returns chapter at chapterPos on tonie
-        hh = self.__tonieDict[tonie]
-        return self.__api.households[hh].creativetonies[tonie].chapters[chapterPos]
-
-    def __isTonieEmpty(self, tonie):
-        hh = self.__tonieDict[tonie]
-        if len(self.__api.households[hh].creativetonies[tonie].chapters) == 0:
-            return True
-        else:
-            return False
+    def __is_tonie_empty(self, tonie_id: str) -> bool:
+        tonie = self.__tonieDict[tonie_id]
+        return tonie.chaptersPresent == 0

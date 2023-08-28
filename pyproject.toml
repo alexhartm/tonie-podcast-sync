@@ -11,26 +11,33 @@ packages = [{ include = "toniepodcastsync.py" }, { include = "podcast.py" }]
 
 [tool.poetry.dependencies]
 python = "^3.10.11"
-wget = "^3.2"
 feedparser = "^6.0.10"
-tonie-api = "^0.1.0"
+tonie-api = "^0.1.1"
+rich = "^13.5.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"
+pytest-mock = "^3.11.1"
 
 [tool.ruff]
 # Add "Q" to the list of enabled codes.
 select = ["ALL"]
-ignore = ["ANN101"]
+ignore = ["ANN101", "D105"]
 line-length = 120
 target-version = "py310"
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.ruff.flake8-quotes]
+docstring-quotes = "double"
+
+[tool.ruff.per-file-ignores]
+"tests/*.py" = ["D", "A", "ANN", "S", "SLF", "PLR2004", "ARG002", "INP001"]
 
 [tool.black]
 line-length = 120
 target-version = ["py310"]
-
-[tool.ruff.flake8-quotes]
-docstring-quotes = "double"
 
 [build-system]
 requires = ["poetry-core"]

@@ -1,9 +1,11 @@
 """The podcast module to fetch all information of a podcast feed."""
 import logging
-from enum import Enum
 import random
 from dataclasses import dataclass, field
+from enum import Enum
+from pathlib import Path
 from time import struct_time
+
 import feedparser
 
 log = logging.getLogger(__name__)
@@ -19,26 +21,38 @@ class EpisodeSorting(Enum):
 
 
 class Podcast:
+    """The representation of a podcast feed."""
+
     def __init__(
-        self: "Podcast", url: str, episode_sorting: EpisodeSorting = EpisodeSorting.BY_DATE_NEWEST_FIRST
+        self,
+        url: str,
+        episode_sorting: EpisodeSorting = EpisodeSorting.BY_DATE_NEWEST_FIRST,
     ) -> None:
+        """Initializes the podcast feed and fetches all episodes.
+
+        Args:
+            url (str): The url of the podcast
+            episode_sorting (EpisodeSorting, optional): Set how the episodes are sorted.
+                                                        Defaults to EpisodeSorting.BY_DATE_NEWEST_FIRST.
+        """
         self.epList = []  # a list of all episodes
         self.epSorting = episode_sorting  # the sorting of the episode list
 
         self.feed = feedparser.parse(url)
         self.title = self.feed.feed.title  # title of podcast
-        self.refreshFeed()  # reads feed and populates the episode list
+        self.refresh_feed()  # reads feed and populates the episode list
 
-    def refreshFeed(self: "Podcast"):
+    def refresh_feed(self) -> None:
+        """Refresh the podcast feed and get the episodes list."""
         # reads feed and populates the episode list
         for item in self.feed.entries:
             # for most feeds, the item.id contains a URL to the audio file
             # but not in all cases. The audio file is to my knowledge available
             # in the enclosure section as href.
-            url=item.id
+            url = item.id
             for iterator in item.links:
-                if iterator['rel'] == 'enclosure':
-                    url = iterator['href']
+                if iterator["rel"] == "enclosure":
+                    url = iterator["href"]
             self.epList.append(Episode(podcast=self.title, raw=item, url=url))
 
         match self.epSorting:
@@ -54,7 +68,7 @@ class Podcast:
 
 @dataclass
 class Episode:
-    """A dataclass for a podcast episode"""
+    """A dataclass for a podcast episode."""
 
     podcast: str  # Podcast Title this episode belongs to
     raw: dict
@@ -63,29 +77,28 @@ class Episode:
     published_parsed: struct_time = field(init=False)  # parsed published date
     url: str = ""
     guid: str = field(init=False)
-    fname: str = ""
-    fpath: str = ""
-    durationStr: str = field(init=False)
-    durationSec: int = field(init=False)
+    fpath: Path = field(init=False, compare=False)
+    duration_str: str = field(init=False)
+    duration_sec: int = field(init=False)
 
-    def __post_init__(self):
-        self.title = self.raw.title
-        self.published = self.raw.published
-        self.published_parsed = self.raw.published_parsed
-        self.guid = self.raw.id
-        self.durationStr = self.raw.itunes_duration
-        self.durationSec = self.__durStr2sec(self.durationStr)
+    def __post_init__(self) -> None:
+        self.title = self.raw["title"]
+        self.published = self.raw["published"]
+        self.published_parsed = self.raw["published_parsed"]
+        self.guid = self.raw["id"]
+        self.duration_str = self.raw["itunes_duration"]
+        self.duration_sec = self.__dur_str_in_sec(self.duration_str)
 
     @staticmethod
-    def __durStr2sec(str):
+    def __dur_str_in_sec(duration_str: str) -> int:
         h, m, s = 0, 0, 0
-        match str.count(":"):
+        match duration_str.count(":"):
             case 0:
-                s = str
+                s = duration_str
             case 1:
-                m, s = str.split(":")
+                m, s = duration_str.split(":")
             case 2:
-                h, m, s = str.split(":")
+                h, m, s = duration_str.split(":")
             case _:
                 log.warning("Could not match time string.")
 
