@@ -3,7 +3,7 @@ from podcast import Podcast
 
 
 def main():
-    tps = ToniePodcastSync("meierhofwilli@gmail.com", "U6ECoZ3jKo3HnB!jt3NX3")
+    tps = ToniePodcastSync("some_one", some_pass")
     tps.print_tonies_overview()
     podcast = Podcast("https://feeds.br.de/lachlabor/feed.xml")
     tps.sync_podcast_to_tonie(podcast, "C295B412500304E0")
