@@ -1,7 +1,8 @@
 from pathlib import Path
-from podcast import Podcast, EpisodeSorting
 
 import pytest
+
+from podcast import EpisodeSorting, Podcast
 
 
 def test_url_type():
@@ -14,11 +15,10 @@ def test_url_type():
     "feed,title,length",
     [
         (str(Path(__file__).parent / "res" / "sandmann.xml"), "Unser Sandmännchen", 67),
-        (str(Path(__file__).parent / "res" / "kakadu.xml"), "Kakadu – Der Kinderpodcast", 51),
+        (str(Path(__file__).parent / "res" / "kakadu.xml"), "Kakadu - Der Kinderpodcast", 51),
         (str(Path(__file__).parent / "res" / "true_crime.xml"), "Crime Junkie", 334),
         (str(Path(__file__).parent / "res" / "pumuckl.xml"), "Pumuckl - Der Hörspiel-Klassiker", 15),
         (str(Path(__file__).parent / "res" / "diemaus.xml"), "Die Maus zum Hören", 47),
-
     ],
 )
 class TestPodcast:
@@ -46,7 +46,4 @@ class TestPodcast:
 
 def is_list_sorted(objects: list) -> bool:
     sorted_objects = sorted(objects, key=lambda x: x.published_parsed)
-    for i in range(len(sorted_objects)):
-        if sorted_objects[i] != objects[i]:
-            return True
-    return False
+    return any(sorted_objects[i] != objects[i] for i in range(len(sorted_objects)))

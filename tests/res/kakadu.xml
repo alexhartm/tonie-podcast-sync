@@ -4,7 +4,7 @@
     xmlns:atom="http://www.w3.org/2005/Atom"
     xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
     <channel>        <!--/esi/podcast-xml-podcast-summary.xml?drsearch%3Aprops=%7B%22__typename%22%3A%22Page%22%2C%22pageType%22%3A%22page-podcast-only%22%2C%22sophoraId%22%3A%22kakadu-104%22%2C%22sophoraExternalId%22%3A%22PAPAYA_PODCAST_2730_253%22%2C%22contentType%22%3Anull%2C%22siteOrigin%22%3A%22deutschlandfunk-kultur%22%7D-->
-        <title>Kakadu – Der Kinderpodcast</title>
+        <title>Kakadu - Der Kinderpodcast</title>
         <link>https://www.kakadu.de/kakadu-104.html</link>
         <atom:link rel="self" type="application/rss+xml" href="https://www.kakadu.de/kakadu-104.xml" />
         <description>Kakadu ist der Kinderpodcast von Deutschlandfunk Kultur: Bunt, frech, fröhlich und schlau. Wir entdecken gemeinsam die Welt und beantworten die Fragen, die neugierige Kinder stellen! </description>
@@ -16,7 +16,7 @@
         <lastBuildDate>Tue, 18 Apr 2023 14:11:13 +0200</lastBuildDate>
         <image>
             <url>https://bilder.deutschlandfunk.de/FI/LE/_8/69/FILE_869f7ed9b25625bceb9bfe2d15fe6f96/dlfk-kakadu-podcast-1zu1-3000x3000px-jpg-100-1920x1920.jpg?t=1603448094558</url>
-            <title>Kakadu – Der Kinderpodcast</title>
+            <title>Kakadu - Der Kinderpodcast</title>
             <link>https://www.kakadu.de/kakadu-104.html</link>
             <description>Kakadu ist der Kinderpodcast von Deutschlandfunk Kultur: Bunt, frech, fröhlich und schlau. Wir entdecken gemeinsam die Welt und beantworten die Fragen, die neugierige Kinder stellen! </description>
         </image>
@@ -66,7 +66,7 @@
             <title>Vom Gewinnen und Verlieren - Warum spielen wir so gern?</title>
             <link>https://www.kakadu.de/kinderfrage-warum-wir-spielen-100.html</link>
             <description>
-                <![CDATA[<img src="https://bilder.deutschlandfunk.de/2f/9b/73/fb/2f9b73fb-4190-4346-8458-65d9aadda39a/kinder-spielen-brettspiel-100-2400x1350.jpg?t=1690877530740" alt="Ein Mädchen und ein Junge spielen Mensch-ärgere-dich-nicht. Der Junge bewegt eine Spielfigur auf dem Spielbrett." title="Ein Mädchen und ein Junge spielen Mensch-ärgere-dich-nicht. Der Junge bewegt eine Spielfigur auf dem Spielbrett." width="144" height="81" border="0" align="left" hspace="4" vspace="4"/>Brettspiele, Rätselraten, Mutter-Vater-Kind - es gibt super viele verschiedene Spiele. Warum vertreiben sie nicht nur die Langeweile, sondern machen uns manchmal sogar glücklich? Und was lernen wir dabei über uns – und die anderen?<br clear="all"/><br/>mit Fabian und Luzie<br/><a title="Direkter Link zur Audiodatei" href="https://podcast-mp3.dradio.de/podcast/2023/08/15/kakadu_podcast_warum_spielen_wir_voe_am_15082023_drk_20230815_1400_26ceac12.mp3?refId=kakadu-104">Direkter Link zur Audiodatei</a><br/><p><br/></p>]]>
+                <![CDATA[<img src="https://bilder.deutschlandfunk.de/2f/9b/73/fb/2f9b73fb-4190-4346-8458-65d9aadda39a/kinder-spielen-brettspiel-100-2400x1350.jpg?t=1690877530740" alt="Ein Mädchen und ein Junge spielen Mensch-ärgere-dich-nicht. Der Junge bewegt eine Spielfigur auf dem Spielbrett." title="Ein Mädchen und ein Junge spielen Mensch-ärgere-dich-nicht. Der Junge bewegt eine Spielfigur auf dem Spielbrett." width="144" height="81" border="0" align="left" hspace="4" vspace="4"/>Brettspiele, Rätselraten, Mutter-Vater-Kind - es gibt super viele verschiedene Spiele. Warum vertreiben sie nicht nur die Langeweile, sondern machen uns manchmal sogar glücklich? Und was lernen wir dabei über uns - und die anderen?<br clear="all"/><br/>mit Fabian und Luzie<br/><a title="Direkter Link zur Audiodatei" href="https://podcast-mp3.dradio.de/podcast/2023/08/15/kakadu_podcast_warum_spielen_wir_voe_am_15082023_drk_20230815_1400_26ceac12.mp3?refId=kakadu-104">Direkter Link zur Audiodatei</a><br/><p><br/></p>]]>
             </description>
             <content:encoded>
                 <![CDATA[]]>
