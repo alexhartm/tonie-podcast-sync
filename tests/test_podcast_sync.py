@@ -1,13 +1,16 @@
 import datetime
 from pathlib import Path
 from unittest import mock
+import locale
 
 import pytest
 import responses
 from tonie_api.models import Chapter, CreativeTonie, Household
 
-from podcast import Podcast
-from toniepodcastsync import ToniePodcastSync
+from tonie_podcast_sync.podcast import Podcast
+from tonie_podcast_sync.toniepodcastsync import ToniePodcastSync
+
+locale.setlocale(locale.LC_TIME, "en_US")
 
 HOUSEHOLD = Household(id="1234", name="My House", ownerName="John", access="owner", canLeave=True)
 CHAPTER_1 = Chapter(id="chap-1", title="The great chapter", file="123456789A", seconds=4711, transcoding=False)
@@ -52,7 +55,7 @@ def _get_tonie_api_mock() -> mock.MagicMock:
 
 @pytest.fixture()
 def mocked_tonie_api():
-    with mock.patch("toniepodcastsync.TonieAPI") as _mock:
+    with mock.patch("tonie_podcast_sync.toniepodcastsync.TonieAPI") as _mock:
         yield _mock
 
 
@@ -97,6 +100,6 @@ def test_upload_podcast(mocked_tonie_api: mock.Mock, mocked_responses: responses
         TONIE_1,
         Path("podcasts")
         / "Kakadu - Der Kinderpodcast"
-        / "Wed, 23 Aug 2023 03:00:15 +0200 Vorurteile - Muss ich mich vor Hexen fürchten?.mp3",
-        "Vorurteile - Muss ich mich vor Hexen fürchten? (Wed, 23 Aug 2023 03:00:15 +0200)",
+        / "mon-14-aug-2023-10-35-24-0200_vom-gewinnen-und-verlieren-warum-spielen-wir-so-gern.mp3",
+        "Vom Gewinnen und Verlieren - Warum spielen wir so gern? (Mon, 14 Aug 2023 10:35:24 +0200)",
     )

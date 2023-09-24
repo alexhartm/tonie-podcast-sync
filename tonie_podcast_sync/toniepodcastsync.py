@@ -3,13 +3,15 @@ import logging
 import shutil
 from pathlib import Path
 
+from slugify import slugify
+
 import requests
 from rich.console import Console
 from rich.progress import track
 from rich.table import Table
 from tonie_api.api import TonieAPI
 
-from podcast import Episode, Podcast
+from tonie_podcast_sync.podcast import Episode, Podcast
 
 console = Console()
 log = logging.getLogger(__name__)
@@ -175,7 +177,7 @@ class ToniePodcastSync:
 
     def __generate_filename(self, ep: Episode) -> str:
         # generates canonical filename for local episode cache
-        return f"{ep.published} {ep.title}.mp3"
+        return f"{slugify(ep.published)}_{slugify(ep.title)}.mp3"
 
     def __cleanup_cache(self) -> None:
         console.print("Cleanup the cache folder.")
