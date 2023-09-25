@@ -132,3 +132,5 @@ todo.md
 
 # vscode
 .vscode
+# Ignore dynaconf secret files
+.secrets.*
