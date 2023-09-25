@@ -1,7 +1,9 @@
 import datetime
+import locale
+import platform
+import textwrap
 from pathlib import Path
 from unittest import mock
-import locale
 
 import pytest
 import responses
@@ -10,7 +12,7 @@ from tonie_api.models import Chapter, CreativeTonie, Household
 from tonie_podcast_sync.podcast import Podcast
 from tonie_podcast_sync.toniepodcastsync import ToniePodcastSync
 
-locale.setlocale(locale.LC_TIME, "en_US")
+locale.setlocale(locale.LC_TIME, "en_US")  # is only set for consistent tests
 
 HOUSEHOLD = Household(id="1234", name="My House", ownerName="John", access="owner", canLeave=True)
 CHAPTER_1 = Chapter(id="chap-1", title="The great chapter", file="123456789A", seconds=4711, transcoding=False)
@@ -43,6 +45,32 @@ TONIE_2 = CreativeTonie(
     chapters=[CHAPTER_1, CHAPTER_2],
 )
 
+WINDOWS_RESULT = [
+    "                         List of all creative tonies.                          ",
+    "┌────┬───────────────┬──────────────────────┬───────────┬─────────────────────┐",
+    "│ ID │ Name of Tonie │ Time of last update  │ Household │ Latest Episode name │",
+    "├────┼───────────────┼──────────────────────┼───────────┼─────────────────────┤",
+    "│ 42 │ Tonie #1      │                      │ My House  │ No latest chapter   │",
+    "│    │               │                      │           │ available.          │",
+    "│ 73 │ Tonie #2      │ 11/25/2016 12:00:00  │ My House  │ The great chapter   │",
+    "│    │               │ PM                   │           │                     │",
+    "└────┴───────────────┴──────────────────────┴───────────┴─────────────────────┘",
+    "",
+]
+
+LINUX_RESULT = [
+    "                          List of all creative tonies.                          ",
+    "┏━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓",
+    "┃ ID ┃ Name of Tonie ┃ Time of last update  ┃ Household ┃ Latest Episode name  ┃",
+    "┡━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━┩",
+    "│ 42 │ Tonie #1      │                      │ My House  │ No latest chapter    │",
+    "│    │               │                      │           │ available.           │",
+    "│ 73 │ Tonie #2      │ 11/25/2016 12:00:00  │ My House  │ The great chapter    │",
+    "│    │               │ PM                   │           │                      │",
+    "└────┴───────────────┴──────────────────────┴───────────┴──────────────────────┘",
+    "",
+]
+
 
 def _get_tonie_api_mock() -> mock.MagicMock:
     tonie_api_mock = mock.MagicMock()
@@ -66,7 +94,20 @@ def mocked_responses():
         yield rsps
 
 
-def test_show_overview(mocked_tonie_api: mock.Mock, capfd: pytest.CaptureFixture):
+@pytest.fixture()
+def overview_result():
+    result = []
+    match platform.system():
+        case "Windows":
+            result = WINDOWS_RESULT
+        case "Linux":
+            result = LINUX_RESULT
+        case _unknown:
+            raise NotImplementedError(_unknown)
+    return textwrap.dedent("\n".join(result))
+
+
+def test_show_overview(mocked_tonie_api: mock.Mock, capfd: pytest.CaptureFixture, overview_result):
     tonie_api_mock = _get_tonie_api_mock()
     mocked_tonie_api.return_value = tonie_api_mock
     tps = ToniePodcastSync("some user", "some_pass")
@@ -74,20 +115,7 @@ def test_show_overview(mocked_tonie_api: mock.Mock, capfd: pytest.CaptureFixture
     mocked_tonie_api.assert_called_once_with("some user", "some_pass")
     tonie_api_mock.get_households.assert_called_once()
     captured = capfd.readouterr()
-    assert captured.out == "\n".join(
-        [
-            "                          List of all creative tonies.                          ",
-            "┏━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓",
-            "┃ ID ┃ Name of Tonie ┃ Time of last update  ┃ Household ┃ Latest Episode name  ┃",
-            "┡━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━┩",
-            "│ 42 │ Tonie #1      │                      │ My House  │ No latest chapter    │",
-            "│    │               │                      │           │ available.           │",
-            "│ 73 │ Tonie #2      │ Fri Nov 25 12:00:00  │ My House  │ The great chapter    │",
-            "│    │               │ 2016                 │           │                      │",
-            "└────┴───────────────┴──────────────────────┴───────────┴──────────────────────┘",
-            "",
-        ],
-    )
+    assert captured.out == overview_result
 
 
 def test_upload_podcast(mocked_tonie_api: mock.Mock, mocked_responses: responses.RequestsMock):
