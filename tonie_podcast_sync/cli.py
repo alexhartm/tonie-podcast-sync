@@ -31,7 +31,7 @@ def create_settings_file() -> None:
 
     for tonie in tonies:
         podcast = Prompt.ask(
-            f"Which podcast do you want to set for Tonie {tonie.name} with ID {tonie.id}? "
+            f"Which podcast do you want to set for Tonie {tonie.name} with ID {tonie.id}?\n"
             "Please enter the URL to the podcast, or leave empty if you don't want to set it.",
         )
         if podcast:
@@ -40,8 +40,9 @@ def create_settings_file() -> None:
             continue
 
         maximum_length_input = IntPrompt.ask(
-            "What should be the maximum length of the podcast?"
+            "What should be the maximum length of the podcast?\n"
             f"Defaults to the maximum of {MAXIMUM_TONIE_MINUTES} minutes.",
+            default=90,
         )
         match maximum_length_input:
             case None:
@@ -57,3 +58,7 @@ def create_settings_file() -> None:
 
     with Path(Path.home() / ".toniepodcastsync" / "settings.toml").open("wb") as _fs:
         tomli_w.dump(data, _fs)
+
+
+if __name__ == "__main__":
+    app()
