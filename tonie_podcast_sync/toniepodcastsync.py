@@ -113,9 +113,11 @@ class ToniePodcastSync:
             refresh_per_second=2,
         ):
             self.__upload_episode(e, tonie_id)
-        console.print(
-            f"{podcast.title}: Successfully uploaded {cached_episodes} to tonie '{self.__tonieDict[tonie_id]}'",
-        )
+        console.print(f"Podcast: {podcast.title}")
+        console.print(f"\tTonie: '{self.__tonieDict[tonie_id].name}({tonie_id})'")
+        console.print("\tSuccessfully uploaded episodes:")
+        for x in cached_episodes:
+            console.print(f"\t\t'{x.title}'")
         self.__cleanup_cache()
 
     def __upload_episode(self, ep: Episode, tonie_id: str) -> None:
