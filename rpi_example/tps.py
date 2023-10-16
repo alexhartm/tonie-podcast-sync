@@ -22,5 +22,5 @@ tps = ToniePodcastSync("address-used-for-toniecloud@your-mailprovider.com", "ton
 grauerTonie = "A12345678901234Z"
 piratenTonie = "B12345678901234Z"
 
-tps.syncPodcast2Tonie(anne_und_die_wilden_tiere, grauerTonie)
-tps.syncPodcast2Tonie(pumuckl, piratenTonie)
+tps.sync_podcast_to_tonie(anne_und_die_wilden_tiere, grauerTonie)
+tps.sync_podcast_to_tonie(pumuckl, piratenTonie)

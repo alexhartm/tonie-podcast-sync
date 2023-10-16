@@ -36,7 +36,7 @@ maus = Podcast("https://kinder.wdr.de/radio/diemaus/audio/gute-nacht-mit-der-mau
 tps = ToniePodcastSync("<toniecloud-username>", "<toniecloud-password>")
 
 # for an overview of your creative tonies and their IDs
-tps.printToniesOverview()
+tps.print_tonies_overview()
 
 # define creative tonies based on their ID
 greenTonie = "<your-tonieID>"
@@ -45,12 +45,12 @@ orangeTonie = "<your-tonieID>"
 # Fetch new podcast episodes and copy them to greenTonie.
 # The tonie will be filled with as much episodes as fit (90 min max).
 # Episode are ordered with newest first.
-tps.syncPodcast2Tonie(pumuckl, greenTonie)
+tps.sync_podcast_to_tonie(pumuckl, greenTonie)
 
 # Kid's should fall asleep, so let's limit the podcast 
 # episodes on this tonie to 60 minutes in total.
 # Use the optional parameter for this:
-tps.syncPodcast2Tonie(maus, orangeTonie, 60)  
+tps.sync_podcast_to_tonie(maus, orangeTonie, 60)  
 ```
 
 For the tonie to fetch new content from tonie-cloud, you have to press one ear for 3s (until the "ping" sound) with no tonie on the box (refer also to TonieBox manual).
