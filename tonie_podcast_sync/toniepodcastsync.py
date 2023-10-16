@@ -7,9 +7,11 @@ import requests
 from rich.console import Console
 from rich.progress import track
 from rich.table import Table
+from slugify import slugify
 from tonie_api.api import TonieAPI
+from tonie_api.models import CreativeTonie
 
-from podcast import Episode, Podcast
+from tonie_podcast_sync.podcast import Episode, Podcast
 
 console = Console()
 log = logging.getLogger(__name__)
@@ -34,6 +36,14 @@ class ToniePodcastSync:
 
     def _update_tonies(self) -> None:
         self.__tonieDict = {x.id: x for x in self.__api.get_all_creative_tonies()}
+
+    def get_tonies(self) -> list[CreativeTonie]:
+        """Returns a list of all tonies.
+
+        Returns:
+            [CreativeTonie]: A list of CreativeTonies.
+        """
+        return list(self.__tonieDict.values())
 
     def print_tonies_overview(self) -> None:
         """Print out a table to console of all available tonies."""
@@ -103,9 +113,11 @@ class ToniePodcastSync:
             refresh_per_second=2,
         ):
             self.__upload_episode(e, tonie_id)
-        console.print(
-            f"{podcast.title}: Successfully uploaded {cached_episodes} to tonie '{self.__tonieDict[tonie_id]}'",
-        )
+        console.print(f"Podcast: {podcast.title}")
+        console.print(f"\tTonie: '{self.__tonieDict[tonie_id].name}({tonie_id})'")
+        console.print("\tSuccessfully uploaded episodes:")
+        for x in cached_episodes:
+            console.print(f"\t\t'{x.title}'")
         self.__cleanup_cache()
 
     def __upload_episode(self, ep: Episode, tonie_id: str) -> None:
@@ -175,7 +187,7 @@ class ToniePodcastSync:
 
     def __generate_filename(self, ep: Episode) -> str:
         # generates canonical filename for local episode cache
-        return f"{ep.published} {ep.title}.mp3"
+        return f"{slugify(ep.published)}_{slugify(ep.title)}.mp3"
 
     def __cleanup_cache(self) -> None:
         console.print("Cleanup the cache folder.")
