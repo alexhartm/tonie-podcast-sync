@@ -27,6 +27,7 @@ class Podcast:
         self,
         url: str,
         episode_sorting: EpisodeSorting = EpisodeSorting.BY_DATE_NEWEST_FIRST,
+        volume_adjustment: int = 0
     ) -> None:
         """Initializes the podcast feed and fetches all episodes.
 
@@ -34,7 +35,11 @@ class Podcast:
             url (str): The url of the podcast
             episode_sorting (EpisodeSorting, optional): Set how the episodes are sorted.
                                                         Defaults to EpisodeSorting.BY_DATE_NEWEST_FIRST.
+            volume_adjustment (int, option): If set, the downloaded audio will be adjust by the given amount in dB
+                                                        Defaults to 0, i.e. no adjustment
         """
+        self.volume_adjustment = volume_adjustment
+
         self.epList = []  # a list of all episodes
         self.epSorting = episode_sorting  # the sorting of the episode list
 
@@ -53,7 +58,7 @@ class Podcast:
             for iterator in item.links:
                 if iterator["rel"] == "enclosure":
                     url = iterator["href"]
-            self.epList.append(Episode(podcast=self.title, raw=item, url=url))
+            self.epList.append(Episode(podcast=self.title, raw=item, url=url, volume_adjustment=self.volume_adjustment))
 
         match self.epSorting:
             case EpisodeSorting.BY_DATE_NEWEST_FIRST:
@@ -80,6 +85,7 @@ class Episode:
     fpath: Path = field(init=False, compare=False)
     duration_str: str = field(init=False)
     duration_sec: int = field(init=False)
+    volume_adjustment: int = 0
 
     def __post_init__(self) -> None:
         self.title = self.raw["title"]

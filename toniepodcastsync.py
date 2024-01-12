@@ -8,6 +8,8 @@ from rich.console import Console
 from rich.progress import track
 from rich.table import Table
 from tonie_api.api import TonieAPI
+from pydub import AudioSegment
+from io import BytesIO
 
 from podcast import Episode, Podcast
 
@@ -166,7 +168,8 @@ class ToniePodcastSync:
         r = requests.get(ep.url, timeout=180)
         if r.ok:
             with fname.open("wb") as _fs:
-                _fs.write(r.content)
+                adjusted_content = self.__adjust_volume__(r.content, ep.volume_adjustment)
+                _fs.write(adjusted_content)
                 ep.fpath = fname
             return True
 
@@ -188,3 +191,17 @@ class ToniePodcastSync:
     def __is_tonie_empty(self, tonie_id: str) -> bool:
         tonie = self.__tonieDict[tonie_id]
         return tonie.chaptersPresent == 0
+
+    def __adjust_volume__(self, audio_bytes: bytes, volume_adjustment: int) -> bytes:
+        if volume_adjustment == 0:
+            return audio_bytes
+        else:
+            audio = AudioSegment.from_file(BytesIO(audio_bytes), format="mp3")
+
+            adjusted_audio = audio + volume_adjustment
+
+            byte_io = BytesIO()
+            adjusted_audio.export(byte_io, format="mp3")
+            adjusted_audio_bytes = byte_io.getvalue()
+
+            return adjusted_audio_bytes
