@@ -35,7 +35,7 @@ class Podcast:
             url (str): The url of the podcast
             episode_sorting (EpisodeSorting, optional): Set how the episodes are sorted.
                                                         Defaults to EpisodeSorting.BY_DATE_NEWEST_FIRST.
-            volume_adjustment (int, option): If set, the downloaded audio will be adjust by the given amount in dB
+            volume_adjustment (int, optional): If set, the downloaded audio will be adjusted by the given amount in dB.
                                                         Defaults to 0, i.e. no adjustment
         """
         self.volume_adjustment = volume_adjustment
