@@ -1,20 +1,17 @@
-name: TEST Build and publish
+name: Build and publish python package
 
 on:
   workflow_dispatch:
-  release:
-    types: [ published ]
 
 jobs:
   publish-service-client-package:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Publish PyPi package
-        uses: code-specialist/pypi-poetry-publish@v1.2
+        uses: code-specialist/pypi-poetry-publish@v1
         with:
-          PACKAGE_DIRECTORY: "."
+          PACKAGE_DIRECTORY: "./"
+          PYTHON_VERSION: "3.11"
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_REGISTRY_PASSWORD: ${{ secrets.TEST_PYPI_TOKEN }}
-          PUBLISH_REGISTRY: "https://test.pypi.org/simple/"
+          PUBLISH_REGISTRY: "https://test.pypi.org/legacy/"
