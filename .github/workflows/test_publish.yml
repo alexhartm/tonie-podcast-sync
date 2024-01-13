@@ -12,7 +12,7 @@ jobs:
       contents: write
     steps:
       - name: Publish PyPi package
-        uses: code-specialist/pypi-poetry-publish@v1
+        uses: code-specialist/pypi-poetry-publish@v1.2
         with:
           PACKAGE_DIRECTORY: "."
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
