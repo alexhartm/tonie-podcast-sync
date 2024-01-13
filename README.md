@@ -8,7 +8,7 @@ This is a purely private project and has no association with Boxine GmbH.
 
 - currently limited to podcasts providing mp3 files
 - tested with the following podcasts:
-    - WDR [Maus Podcasts](https://www.wdrmaus.de/hoeren/MausLive/Podcasts/podcasts.php5), e.g. 
+    - WDR [Maus Podcasts](https://www.wdrmaus.de/hoeren/MausLive/Podcasts/podcasts.php5), e.g.
         - [Gute Nacht mit der Maus](https://kinder.wdr.de/radio/diemaus/audio/gute-nacht-mit-der-maus/diemaus-gute-nacht-104.podcast)
         - [Maus zum Hören - 60 Minuten](https://kinder.wdr.de/radio/diemaus/audio/diemaus-60/diemaus-60-106.podcast)
         - [Maus Zoom - Kindernachrichten](https://kinder.wdr.de/radio/diemaus/audio/maus-zoom/maus-zoom-106.podcast)
@@ -47,13 +47,24 @@ orangeTonie = "<your-tonieID>"
 # Episode are ordered with newest first.
 tps.sync_podcast_to_tonie(pumuckl, greenTonie)
 
-# Kid's should fall asleep, so let's limit the podcast 
+# Kid's should fall asleep, so let's limit the podcast
 # episodes on this tonie to 60 minutes in total.
 # Use the optional parameter for this:
-tps.sync_podcast_to_tonie(maus, orangeTonie, 60)  
+tps.sync_podcast_to_tonie(maus, orangeTonie, 60)
 ```
 
 For the tonie to fetch new content from tonie-cloud, you have to press one ear for 3s (until the "ping" sound) with no tonie on the box (refer also to TonieBox manual).
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 
 # builds upon work of / kudos to
