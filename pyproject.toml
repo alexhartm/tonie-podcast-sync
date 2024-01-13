@@ -26,7 +26,7 @@ responses = "^0.23.3"
 [tool.ruff]
 # Add "Q" to the list of enabled codes.
 select = ["ALL"]
-ignore = ["ANN101", "D105"]
+ignore = ["ANN101", "D105", "N999"]
 line-length = 120
 target-version = "py310"
 
