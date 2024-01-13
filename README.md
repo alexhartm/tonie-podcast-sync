@@ -55,7 +55,7 @@ tps.sync_podcast_to_tonie(maus, orangeTonie, 60)
 
 For the tonie to fetch new content from tonie-cloud, you have to press one ear for 3s (until the "ping" sound) with no tonie on the box (refer also to TonieBox manual).
 
-## Contributors
+# Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -68,7 +68,7 @@ For the tonie to fetch new content from tonie-cloud, you have to press one ear f
 
 > Use the [all-contributors github bot](https://allcontributors.org/docs/en/bot/usage) to add contributors here.
 
-# builds upon work of / kudos to
+## builds upon work of / kudos to
 - moritj29's awesome [tonie_api](https://github.com/moritzj29/tonie_api)
 - [Tobias Raabe](https://tobiasraabe.github.io/blog/how-to-download-files-with-python.html)
 - [Matthew Wimberly](https://codeburst.io/building-an-rss-feed-scraper-with-python-73715ca06e1f)
