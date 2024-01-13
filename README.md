@@ -15,7 +15,7 @@ This is a purely private project and has no association with Boxine GmbH.
     - [Bayern 2: Pumuckl - Der Hörspiel-Klassiker](https://www.br.de/mediathek/podcast/pumuckl/830)
     - [Checker Tobi Podcast](https://www.br.de/mediathek/podcast/checkpod-der-podcast-mit-checker-tobi/859)
     - [Anna und die wilden Tiere - der Podcast](https://www.br.de/mediathek/podcast/anna-und-die-wilden-tiere/858)
-- ... but in general, it should hopefully work with all podcasts out there
+- ... but in general, it should hopefully work with all podcasts out there.
 
 # Usage
 
