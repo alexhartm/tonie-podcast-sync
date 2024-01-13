@@ -1,6 +1,7 @@
 name: TEST Build and publish
 
 on:
+  workflow_dispatch:
   release:
     types: [ published ]
 
