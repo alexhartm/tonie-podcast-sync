@@ -15,7 +15,7 @@ tps = ToniePodcastSync("address-used-for-toniecloud@your-mailprovider.com", "ton
 # a list of all your creative-tonies and their IDs
 # and then exit this script:
 #
-# tps.printToniesOverview()
+# tps.print_tonies_overview()
 # exit()
 
 grauer_tonie = "A12345678901234Z"
