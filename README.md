@@ -66,6 +66,7 @@ For the tonie to fetch new content from tonie-cloud, you have to press one ear f
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
+> Use the [all-contributors github bot](https://allcontributors.org/docs/en/bot/usage) to add contributors here.
 
 # builds upon work of / kudos to
 - moritj29's awesome [tonie_api](https://github.com/moritzj29/tonie_api)
