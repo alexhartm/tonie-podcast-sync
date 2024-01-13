@@ -133,6 +133,7 @@ dmypy.json
 *.yaml
 test.py
 todo.md
+!.pre-commit-config.yaml
 
 # vscode
 .vscode
