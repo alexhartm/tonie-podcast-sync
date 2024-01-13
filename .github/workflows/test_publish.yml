@@ -1,6 +1,7 @@
 name: TEST Build and publish
 
 on:
+  workflow_dispatch:
   release:
     types: [ published ]
 
@@ -14,5 +15,5 @@ jobs:
         uses: code-specialist/pypi-poetry-publish@v1
         with:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_REGISTRY_PASSWORD: ${{ secrets.TEST_PYPI_TOKEN }}
+          PUBLISH_REGISTRY_PASSWORD: ${{ secrets.PYPI_TOKEN }}
           PUBLISH_REGISTRY: "https://test.pypi.org/simple/"
