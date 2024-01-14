@@ -30,6 +30,15 @@
         "maintenance",
         "test"
       ]
+    },
+    {
+      "login": "maltebaer",
+      "name": "Malte Bär",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29504917?v=4",
+      "profile": "https://cv.maltebaer.vercel.app/",
+      "contributions": [
+        "bug"
+      ]
     }
   ]
 }
