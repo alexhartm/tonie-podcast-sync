@@ -26,8 +26,7 @@ tonie-podcast-sync is available as [a pip package on pypi](https://pypi.org/proj
 Then, use it as shown in the following example code:
 
 ```python
-from toniepodcastsync import ToniePodcastSync, Podcast
-from podcast import EpisodeSorting
+from toniepodcastsync import ToniePodcastSync, Podcast, EpisodeSorting
 
 # create some Podcast objects, providing the feed URL to each
 pumuckl = Podcast("https://feeds.br.de/pumuckl/feed.xml")
