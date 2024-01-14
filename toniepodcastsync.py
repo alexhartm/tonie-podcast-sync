@@ -9,7 +9,11 @@ from rich.progress import track
 from rich.table import Table
 from tonie_api.api import TonieAPI
 
-from podcast import Episode, Podcast
+from podcast import (
+    Episode,
+    EpisodeSorting,  # noqa: F401
+    Podcast,
+)
 
 console = Console()
 log = logging.getLogger(__name__)

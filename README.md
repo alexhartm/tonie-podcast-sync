@@ -27,10 +27,14 @@ Then, use it as shown in the following example code:
 
 ```python
 from toniepodcastsync import ToniePodcastSync, Podcast
+from podcast import EpisodeSorting
 
-# create two Podcast objects, providing the feed URL to each
+# create some Podcast objects, providing the feed URL to each
 pumuckl = Podcast("https://feeds.br.de/pumuckl/feed.xml")
 maus = Podcast("https://kinder.wdr.de/radio/diemaus/audio/gute-nacht-mit-der-maus/diemaus-gute-nacht-104.podcast")
+# by default, podcasts are placed onto the tonies by newest first (EpisodeSorting.BY_DATE_NEWEST_FIRST)
+# it is also possible to sort BY_DATE_OLDEST_FIRST or RANDOM
+checker_tobi = Podcast("https://feeds.br.de/checkpod-der-podcast-mit-checker-tobi/feed.xml", EpisodeSorting.RANDOM)
 
 # create instance of ToniePodcastSync
 tps = ToniePodcastSync("<toniecloud-username>", "<toniecloud-password>")

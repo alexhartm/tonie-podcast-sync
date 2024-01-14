@@ -1,13 +1,13 @@
 #! /usr/bin/env python3
 """example python script for using tonie-podcast-sync."""
-# ruff: noqa: ERA001
+# ruff: noqa: ERA001, INP001
 
-from toniepodcastsync import Podcast, ToniePodcastSync
+from toniepodcastsync import EpisodeSorting, Podcast, ToniePodcastSync
 
 maus = Podcast("https://kinder.wdr.de/radio/diemaus/audio/gute-nacht-mit-der-maus/diemaus-gute-nacht-104.podcast")
 pumuckl = Podcast("https://feeds.br.de/pumuckl/feed.xml")
-checkertobi = Podcast("https://feeds.br.de/checkpod-der-podcast-mit-checker-tobi/feed.xml")
-anne_und_die_wilden_tiere = Podcast("https://feeds.br.de/anna-und-die-wilden-tiere/feed.xml")
+checkertobi = Podcast("https://feeds.br.de/checkpod-der-podcast-mit-checker-tobi/feed.xml", EpisodeSorting.RANDOM)
+anne_und_die_wilden_tiere = Podcast("https://feeds.br.de/anna-und-die-wilden-tiere/feed.xml", EpisodeSorting.RANDOM)
 
 tps = ToniePodcastSync("address-used-for-toniecloud@your-mailprovider.com", "toniecloud-password")
 
