@@ -31,14 +31,16 @@ from toniepodcastsync import ToniePodcastSync, Podcast, EpisodeSorting
 # create some Podcast objects, providing the feed URL to each
 pumuckl = Podcast("https://feeds.br.de/pumuckl/feed.xml")
 maus = Podcast("https://kinder.wdr.de/radio/diemaus/audio/gute-nacht-mit-der-maus/diemaus-gute-nacht-104.podcast")
-# by default, podcasts are placed onto the tonies by newest first (EpisodeSorting.BY_DATE_NEWEST_FIRST)
-# it is also possible to sort BY_DATE_OLDEST_FIRST or RANDOM
+# by default, podcasts are placed onto tonies by newest episode first
+# (EpisodeSorting.BY_DATE_NEWEST_FIRST).
+# it is also possible to sort BY_DATE_OLDEST_FIRST or getting RANDOM episodes:
 checker_tobi = Podcast("https://feeds.br.de/checkpod-der-podcast-mit-checker-tobi/feed.xml", EpisodeSorting.RANDOM)
 
 # create instance of ToniePodcastSync
 tps = ToniePodcastSync("<toniecloud-username>", "<toniecloud-password>")
 
 # for an overview of your creative tonies and their IDs
+# the IDs are needed to address specific tonies in the next step
 tps.print_tonies_overview()
 
 # define creative tonies based on their ID
@@ -47,7 +49,6 @@ orangeTonie = "<your-tonieID>"
 
 # Fetch new podcast episodes and copy them to greenTonie.
 # The tonie will be filled with as much episodes as fit (90 min max).
-# Episode are ordered with newest first.
 tps.sync_podcast_to_tonie(pumuckl, greenTonie)
 
 # Kid's should fall asleep, so let's limit the podcast
