@@ -4,6 +4,7 @@ import shutil
 from pathlib import Path
 
 import requests
+from pathvalidate import sanitize_filename, sanitize_filepath
 from rich.console import Console
 from rich.progress import track
 from rich.table import Table
@@ -11,7 +12,11 @@ from tonie_api.api import TonieAPI
 from pydub import AudioSegment
 from io import BytesIO
 
-from podcast import Episode, Podcast
+from podcast import (
+    Episode,
+    EpisodeSorting,  # noqa: F401
+    Podcast,
+)
 
 console = Console()
 log = logging.getLogger(__name__)
@@ -105,9 +110,13 @@ class ToniePodcastSync:
             refresh_per_second=2,
         ):
             self.__upload_episode(e, tonie_id)
+
+        episode_info = [f"{episode.title} ({episode.published})" for episode in cached_episodes]
         console.print(
-            f"{podcast.title}: Successfully uploaded {cached_episodes} to tonie '{self.__tonieDict[tonie_id]}'",
+            f"{podcast.title}: Successfully uploaded {episode_info} to "
+            f"{self.__tonieDict[tonie_id].name} ({self.__tonieDict[tonie_id].id})",
         )
+
         self.__cleanup_cache()
 
     def __upload_episode(self, ep: Episode, tonie_id: str) -> None:
@@ -156,7 +165,7 @@ class ToniePodcastSync:
     def __cache_episode(self, ep: Episode) -> bool:
         # local download of a single episode into a subfolder
         # file name is build according to __generateFilename
-        podcast_path = Path("podcasts") / ep.podcast
+        podcast_path = Path("podcasts") / sanitize_filepath(ep.podcast)
         podcast_path.mkdir(parents=True, exist_ok=True)
 
         fname = podcast_path / self.__generate_filename(ep)
@@ -178,7 +187,7 @@ class ToniePodcastSync:
 
     def __generate_filename(self, ep: Episode) -> str:
         # generates canonical filename for local episode cache
-        return f"{ep.published} {ep.title}.mp3"
+        return sanitize_filename(f"{ep.published} {ep.title}.mp3")
 
     def __cleanup_cache(self) -> None:
         console.print("Cleanup the cache folder.")

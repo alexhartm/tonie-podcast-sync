@@ -1,0 +1,44 @@
+{
+  "projectName": "tonie-podcast-sync",
+  "projectOwner": "alexhartm",
+  "files": [
+    "README.md"
+  ],
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributorsPerLine": 7,
+  "contributors": [
+    {
+      "login": "alexhartm",
+      "name": "Alexander Hartmann",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16985220?v=4",
+      "profile": "https://github.com/alexhartm",
+      "contributions": [
+        "code",
+        "ideas",
+        "maintenance"
+      ]
+    },
+    {
+      "login": "Wilhelmsson177",
+      "name": "Wilhelmsson177",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16141053?v=4",
+      "profile": "https://github.com/Wilhelmsson177",
+      "contributions": [
+        "code",
+        "ideas",
+        "maintenance",
+        "test"
+      ]
+    },
+    {
+      "login": "maltebaer",
+      "name": "Malte Bär",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29504917?v=4",
+      "profile": "https://cv.maltebaer.vercel.app/",
+      "contributions": [
+        "bug"
+      ]
+    }
+  ]
+}
