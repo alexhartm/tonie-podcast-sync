@@ -1,6 +1,7 @@
 """The Tonie Podcast Sync API."""
 import logging
 import shutil
+import subprocess
 from io import BytesIO
 from pathlib import Path
 
@@ -177,12 +178,13 @@ class ToniePodcastSync:
         r = requests.get(ep.url, timeout=180)
         if r.ok:
             with fname.open("wb") as _fs:
-                if (ep.volume_adjustment != 0):
+                if (ep.volume_adjustment != 0 and self.__is_ffmpeg_available()):
                     adjusted_content = self.__adjust_volume__(r.content, ep.volume_adjustment)
                 else:
                     adjusted_content = r.content
-                    _fs.write(adjusted_content)
-                    ep.fpath = fname
+
+                _fs.write(adjusted_content)
+                ep.fpath = fname
             return True
 
         log.error("Was not able to get file from %s with error %s - %s", ep.url, r.status_code, r.text)
@@ -214,3 +216,12 @@ class ToniePodcastSync:
         adjusted_audio.export(byte_io, format="mp3")
 
         return byte_io.getvalue()
+
+    def __is_ffmpeg_available(self) -> bool:
+        try:
+            subprocess.run(['ffmpeg', '-version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+            return True
+        except FileNotFoundError:
+            return False
+        except subprocess.CalledProcessError:
+            return False
