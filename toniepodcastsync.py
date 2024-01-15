@@ -1,8 +1,8 @@
 """The Tonie Podcast Sync API."""
 import logging
+import platform
 import shutil
 import subprocess
-import platform
 from io import BytesIO
 from pathlib import Path
 
@@ -220,10 +220,16 @@ class ToniePodcastSync:
 
     def __is_ffmpeg_available(self) -> bool:
         try:
+            # Safe to use untrusted input: executable is hardcoded
+            # noqa: S603
             executable = "ffmpeg" if platform.system().lower() != "windows" else "ffmpeg.exe"
-            subprocess.run([executable, "-version"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
-            return True
-        except FileNotFoundError:
+            subprocess.run([executable, "-version"], check=True, capture_output=True)
+        except (FileNotFoundError, subprocess.CalledProcessError):
+            console.print(
+                "Warning: you tried to adjust the volume without having 'ffmpeg' available. "
+                "Please install 'ffmpeg' or set no volume adjustmet.",
+                style="red",
+            )
+
             return False
-        except subprocess.CalledProcessError:
-            return False
+        return True
