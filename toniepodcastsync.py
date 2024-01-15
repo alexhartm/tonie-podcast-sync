@@ -1,16 +1,16 @@
 """The Tonie Podcast Sync API."""
 import logging
 import shutil
+from io import BytesIO
 from pathlib import Path
 
 import requests
 from pathvalidate import sanitize_filename, sanitize_filepath
+from pydub import AudioSegment
 from rich.console import Console
 from rich.progress import track
 from rich.table import Table
 from tonie_api.api import TonieAPI
-from pydub import AudioSegment
-from io import BytesIO
 
 from podcast import (
     Episode,
@@ -177,9 +177,12 @@ class ToniePodcastSync:
         r = requests.get(ep.url, timeout=180)
         if r.ok:
             with fname.open("wb") as _fs:
-                adjusted_content = self.__adjust_volume__(r.content, ep.volume_adjustment)
-                _fs.write(adjusted_content)
-                ep.fpath = fname
+                if (ep.volume_adjustment != 0):
+                    adjusted_content = self.__adjust_volume__(r.content, ep.volume_adjustment)
+                else:
+                    adjusted_content = r.content
+                    _fs.write(adjusted_content)
+                    ep.fpath = fname
             return True
 
         log.error("Was not able to get file from %s with error %s - %s", ep.url, r.status_code, r.text)
@@ -202,15 +205,12 @@ class ToniePodcastSync:
         return tonie.chaptersPresent == 0
 
     def __adjust_volume__(self, audio_bytes: bytes, volume_adjustment: int) -> bytes:
-        if volume_adjustment == 0:
-            return audio_bytes
-        else:
-            audio = AudioSegment.from_file(BytesIO(audio_bytes), format="mp3")
+        audio = AudioSegment.from_file(BytesIO(audio_bytes), format="mp3")
 
-            adjusted_audio = audio + volume_adjustment
+        adjusted_audio = audio + volume_adjustment
 
-            byte_io = BytesIO()
-            adjusted_audio.export(byte_io, format="mp3")
-            adjusted_audio_bytes = byte_io.getvalue()
+        byte_io = BytesIO()
 
-            return adjusted_audio_bytes
+        adjusted_audio.export(byte_io, format="mp3")
+
+        return byte_io.getvalue()
