@@ -2,6 +2,7 @@
 import logging
 import shutil
 import subprocess
+import platform
 from io import BytesIO
 from pathlib import Path
 
@@ -219,7 +220,8 @@ class ToniePodcastSync:
 
     def __is_ffmpeg_available(self) -> bool:
         try:
-            subprocess.run(["ffmpeg", "-version"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+            executable = "ffmpeg" if platform.system().lower() != "windows" else "ffmpeg.exe"
+            subprocess.run([executable, "-version"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
             return True
         except FileNotFoundError:
             return False
