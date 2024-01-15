@@ -178,7 +178,7 @@ class ToniePodcastSync:
         r = requests.get(ep.url, timeout=180)
         if r.ok:
             with fname.open("wb") as _fs:
-                if (ep.volume_adjustment != 0 and self.__is_ffmpeg_available()):
+                if ep.volume_adjustment != 0 and self.__is_ffmpeg_available():
                     adjusted_content = self.__adjust_volume__(r.content, ep.volume_adjustment)
                 else:
                     adjusted_content = r.content
@@ -219,7 +219,7 @@ class ToniePodcastSync:
 
     def __is_ffmpeg_available(self) -> bool:
         try:
-            subprocess.run(['ffmpeg', '-version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+            subprocess.run(["ffmpeg", "-version"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
             return True
         except FileNotFoundError:
             return False
