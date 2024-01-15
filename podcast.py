@@ -27,7 +27,7 @@ class Podcast:
         self,
         url: str,
         episode_sorting: EpisodeSorting = EpisodeSorting.BY_DATE_NEWEST_FIRST,
-        volume_adjustment: int = 0
+        volume_adjustment: int = 0,
     ) -> None:
         """Initializes the podcast feed and fetches all episodes.
 
