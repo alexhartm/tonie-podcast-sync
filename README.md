@@ -28,22 +28,35 @@ Then, use it as shown in the following example code:
 ```python
 from toniepodcastsync import ToniePodcastSync, Podcast, EpisodeSorting
 
-# create some Podcast objects, providing the feed URL to each
+# Create some Podcast objects, providing the feed URL to each
 pumuckl = Podcast("https://feeds.br.de/pumuckl/feed.xml")
-maus = Podcast("https://kinder.wdr.de/radio/diemaus/audio/gute-nacht-mit-der-maus/diemaus-gute-nacht-104.podcast")
-# by default, podcasts are placed onto tonies by newest episode first
-# (EpisodeSorting.BY_DATE_NEWEST_FIRST).
-# it is also possible to sort BY_DATE_OLDEST_FIRST or getting RANDOM episodes:
-checker_tobi = Podcast("https://feeds.br.de/checkpod-der-podcast-mit-checker-tobi/feed.xml", EpisodeSorting.RANDOM)
 
-# create instance of ToniePodcastSync
+# By default, podcasts are placed onto Tonies by newest episode first
+# If you want to change the episode sorting, following options are available
+# - EpisodeSorting.BY_DATE_NEWEST_FIRST (default)
+# - EpisodeSorting.BY_DATE_OLDEST_FIRST
+# - EpisodeSorting.RADNOM
+maus = Podcast(
+    "https://kinder.wdr.de/radio/diemaus/audio/gute-nacht-mit-der-maus/diemaus-gute-nacht-104.podcast",
+    episode_sorting = EpisodeSorting.RANDOM
+)
+
+# If you want to adjust the volume of a podcast, set volume_adjustment to an integer other than 0
+# The audio will be adjusted (+/-) by that amount in dB
+checker_tobi = Podcast(
+    "https://feeds.br.de/checkpod-der-podcast-mit-checker-tobi/feed.xml",
+    episode_sorting = EpisodeSorting.RANDOM,
+    volume_adjustment = 6
+)
+
+# Create instance of ToniePodcastSync
 tps = ToniePodcastSync("<toniecloud-username>", "<toniecloud-password>")
 
-# for an overview of your creative tonies and their IDs
-# the IDs are needed to address specific tonies in the next step
+# For an overview of your creative Tonies and their IDs
+# The IDs are needed to address specific Tonies in the next step
 tps.print_tonies_overview()
 
-# define creative tonies based on their ID
+# Define creative Tonies based on their ID
 greenTonie = "<your-tonieID>"
 orangeTonie = "<your-tonieID>"
 
@@ -52,7 +65,7 @@ orangeTonie = "<your-tonieID>"
 tps.sync_podcast_to_tonie(pumuckl, greenTonie)
 
 # Kid's should fall asleep, so let's limit the podcast
-# episodes on this tonie to 60 minutes in total.
+# Episodes on this tonie to 60 minutes in total.
 # Use the optional parameter for this:
 tps.sync_podcast_to_tonie(maus, orangeTonie, 60)
 ```
