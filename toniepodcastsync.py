@@ -221,9 +221,8 @@ class ToniePodcastSync:
     def __is_ffmpeg_available(self) -> bool:
         try:
             # Safe to use untrusted input: executable is hardcoded
-            # noqa: S603
             executable = "ffmpeg" if platform.system().lower() != "windows" else "ffmpeg.exe"
-            subprocess.run([executable, "-version"], check=True, capture_output=True)
+            subprocess.run([executable, "-version"], check=True, capture_output=True)  # noqa: S603
         except (FileNotFoundError, subprocess.CalledProcessError):
             console.print(
                 "Warning: you tried to adjust the volume without having 'ffmpeg' available. "
