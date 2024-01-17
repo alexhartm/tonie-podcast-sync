@@ -1,10 +1,14 @@
 """The Tonie Podcast Sync API."""
 import logging
+import platform
 import shutil
+import subprocess
+from io import BytesIO
 from pathlib import Path
 
 import requests
 from pathvalidate import sanitize_filename, sanitize_filepath
+from pydub import AudioSegment
 from rich.console import Console
 from rich.progress import track
 from rich.table import Table
@@ -175,7 +179,12 @@ class ToniePodcastSync:
         r = requests.get(ep.url, timeout=180)
         if r.ok:
             with fname.open("wb") as _fs:
-                _fs.write(r.content)
+                if ep.volume_adjustment != 0 and self.__is_ffmpeg_available():
+                    adjusted_content = self.__adjust_volume__(r.content, ep.volume_adjustment)
+                else:
+                    adjusted_content = r.content
+
+                _fs.write(adjusted_content)
                 ep.fpath = fname
             return True
 
@@ -197,3 +206,29 @@ class ToniePodcastSync:
     def __is_tonie_empty(self, tonie_id: str) -> bool:
         tonie = self.__tonieDict[tonie_id]
         return tonie.chaptersPresent == 0
+
+    def __adjust_volume__(self, audio_bytes: bytes, volume_adjustment: int) -> bytes:
+        audio = AudioSegment.from_file(BytesIO(audio_bytes), format="mp3")
+
+        adjusted_audio = audio + volume_adjustment
+
+        byte_io = BytesIO()
+
+        adjusted_audio.export(byte_io, format="mp3")
+
+        return byte_io.getvalue()
+
+    def __is_ffmpeg_available(self) -> bool:
+        try:
+            # Safe to use untrusted input: executable is hardcoded
+            executable = "ffmpeg" if platform.system().lower() != "windows" else "ffmpeg.exe"
+            subprocess.run([executable, "-version"], check=True, capture_output=True)  # noqa: S603
+        except (FileNotFoundError, subprocess.CalledProcessError):
+            console.print(
+                "Warning: you tried to adjust the volume without having 'ffmpeg' available. "
+                "Please install 'ffmpeg' or set no volume adjustmet.",
+                style="red",
+            )
+
+            return False
+        return True
