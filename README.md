@@ -80,7 +80,7 @@ tps.sync_podcast_to_tonie(pumuckl, greenTonie)
 # Kid's should fall asleep, so let's limit the podcast
 # Episodes on this tonie to 60 minutes in total.
 # Use the optional parameter for this:
-tps.sync_podcast_to_tonie(maus_60min, orangeTonie, 60)
+tps.sync_podcast_to_tonie(maus_gute_nacht, orangeTonie, 60)
 ```
 
 For the tonie to fetch new content from tonie-cloud, you have to press one ear for 3s (until the "ping" sound) with no tonie on the box (refer also to TonieBox manual).
