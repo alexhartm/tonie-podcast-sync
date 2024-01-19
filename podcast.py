@@ -28,6 +28,7 @@ class Podcast:
         url: str,
         episode_sorting: EpisodeSorting = EpisodeSorting.BY_DATE_NEWEST_FIRST,
         volume_adjustment: int = 0,
+        episode_min_duration_sec: int = 0,
     ) -> None:
         """Initializes the podcast feed and fetches all episodes.
 
@@ -37,8 +38,11 @@ class Podcast:
                                                         Defaults to EpisodeSorting.BY_DATE_NEWEST_FIRST.
             volume_adjustment (int, optional): If set, the downloaded audio will be adjusted by the given amount in dB.
                                                         Defaults to 0, i.e. no adjustment
+            episode_min_duration_sec (int, optional): all episodes with duration < this value
+                                                        [in seconds] will be ignored
         """
         self.volume_adjustment = volume_adjustment
+        self.episode_min_duration_sec = episode_min_duration_sec
 
         self.epList = []  # a list of all episodes
         self.epSorting = episode_sorting  # the sorting of the episode list
