@@ -43,10 +43,19 @@ maus = Podcast(
 
 # If you want to adjust the volume of a podcast, set volume_adjustment to an integer other than 0
 # The audio will be adjusted (+/-) by that amount in dB
+anne_und_die_wilden_tiere = Podcast(
+    "https://feeds.br.de/anna-und-die-wilden-tiere/feed.xml",
+    episode_sorting = EpisodeSorting.RANDOM,
+    volume_adjustment = 6
+)
+
+# Some Podcasts inject episodes that are very short (e.g. announcing a holiday break).
+# `episode_min_duration_sec` can be used to filter out all episodes shorter then this value.
+# the example below will skip all episodes shorter then 30 seconds.
 checker_tobi = Podcast(
     "https://feeds.br.de/checkpod-der-podcast-mit-checker-tobi/feed.xml",
     episode_sorting = EpisodeSorting.RANDOM,
-    volume_adjustment = 6
+    episode_min_duration_sec = 30
 )
 
 # Create instance of ToniePodcastSync

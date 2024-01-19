@@ -140,8 +140,18 @@ class ToniePodcastSync:
         episodes_to_cache = []
         total_seconds = 0
         for ep in podcast.epList:
+            # this is to stop if we are already over the maximum specified time
             if (total_seconds + ep.duration_sec) >= (max_minutes * 60):
                 break
+            # this filters out all episodes of the podcast that are shorter then the given time
+            if ep.duration_sec < podcast.episode_min_duration_sec:
+                log.info(
+                    "%s: skipping episode %s as too short (%d sec)",
+                    podcast.title,
+                    ep.title,
+                    ep.duration_sec,
+                )
+                continue
             total_seconds += ep.duration_sec
             episodes_to_cache.append(ep)
         ep_list: list[Episode] = []
@@ -197,7 +207,7 @@ class ToniePodcastSync:
 
     def __cleanup_cache(self) -> None:
         console.print("Cleanup the cache folder.")
-        shutil.rmtree(Path("podcasts"))
+        shutil.rmtree(Path("podcasts"), ignore_errors=True)
 
     def __generate_chapter_title(self, ep: Episode) -> str:
         # generate chapter title used when writing on tonie
