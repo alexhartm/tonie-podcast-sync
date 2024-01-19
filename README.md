@@ -36,7 +36,11 @@ pumuckl = Podcast("https://feeds.br.de/pumuckl/feed.xml")
 # - EpisodeSorting.BY_DATE_NEWEST_FIRST (default)
 # - EpisodeSorting.BY_DATE_OLDEST_FIRST
 # - EpisodeSorting.RADNOM
-maus = Podcast(
+maus_60min = Podcast(
+    "https://kinder.wdr.de/radio/diemaus/audio/diemaus-60/diemaus-60-106.podcast",
+    episode_sorting = EpisodeSorting.BY_DATE_NEWEST_FIRST
+)
+maus_gute_nacht = Podcast(
     "https://kinder.wdr.de/radio/diemaus/audio/gute-nacht-mit-der-maus/diemaus-gute-nacht-104.podcast",
     episode_sorting = EpisodeSorting.RANDOM
 )
@@ -76,7 +80,7 @@ tps.sync_podcast_to_tonie(pumuckl, greenTonie)
 # Kid's should fall asleep, so let's limit the podcast
 # Episodes on this tonie to 60 minutes in total.
 # Use the optional parameter for this:
-tps.sync_podcast_to_tonie(maus, orangeTonie, 60)
+tps.sync_podcast_to_tonie(maus_60min, orangeTonie, 60)
 ```
 
 For the tonie to fetch new content from tonie-cloud, you have to press one ear for 3s (until the "ping" sound) with no tonie on the box (refer also to TonieBox manual).
