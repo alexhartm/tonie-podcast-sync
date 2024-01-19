@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tonie-podcast-sync"
-version = "2.1.0"
+version = "2.2.0"
 description = "allows synching podcast episodes to creative tonies"
 authors = ["Alexander Hartmann <16985220+alexhartm@users.noreply.github.com>"]
 repository = "https://github.com/alexhartm/tonie-podcast-sync"
