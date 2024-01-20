@@ -17,6 +17,11 @@ This is a purely private project and has no association with Boxine GmbH.
     - [Anna und die wilden Tiere - der Podcast](https://www.br.de/mediathek/podcast/anna-und-die-wilden-tiere/858)
 - ... but in general, it should hopefully work with all podcasts out there
 
+# Prerequisites
+
+- requires Python >= 3.10.11
+- if you use the `volume_adjustment` feature for a Podcast, `ffmpeg` needs to be installed
+
 # Usage
 
 tonie-podcast-sync is available as [a pip package on pypi](https://pypi.org/project/tonie-podcast-sync). Install via
