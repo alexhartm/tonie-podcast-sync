@@ -75,7 +75,8 @@ class ToniePodcastSync:
         """
         with tempfile.TemporaryDirectory() as podcast_cache_directory:
             self.podcast_cache_directory = Path(podcast_cache_directory)
-
+            msg = f"DEBUG: cache path is {self.podcast_cache_directory}"
+            log.debug(msg)
             if tonie_id not in self.__tonieDict:
                 msg = f"ERROR: Cannot find tonie with ID {tonie_id}"
                 log.error(msg)
