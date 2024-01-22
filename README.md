@@ -55,7 +55,7 @@ maus_gute_nacht = Podcast(
 anne_und_die_wilden_tiere = Podcast(
     "https://feeds.br.de/anna-und-die-wilden-tiere/feed.xml",
     episode_sorting = EpisodeSorting.RANDOM,
-    volume_adjustment = 6
+    volume_adjustment = -2
 )
 
 # Some Podcasts inject episodes that are very short (e.g. announcing a holiday break).
