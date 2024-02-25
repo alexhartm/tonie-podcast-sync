@@ -1,13 +1,17 @@
 """The Tonie Podcast Sync API."""
 import logging
-import shutil
+import platform
+import subprocess
+import tempfile
+from io import BytesIO
 from pathlib import Path
 
 import requests
+from pathvalidate import sanitize_filename, sanitize_filepath
+from pydub import AudioSegment
 from rich.console import Console
 from rich.progress import track
 from rich.table import Table
-from slugify import slugify
 from tonie_api.api import TonieAPI
 from tonie_api.models import CreativeTonie
 
@@ -74,51 +78,55 @@ class ToniePodcastSync:
             tonie_id (str): The id of the tonie
             max_minutes (int, optional): The maximum time of podcasts in length. Defaults to 90.
         """
-        if tonie_id not in self.__tonieDict:
-            msg = f"ERROR: Cannot find tonie with ID {tonie_id}"
-            log.error(msg)
-            console.print(msg, style="red")
-            return
-        if len(podcast.epList) == 0:
-            msg = (
-                f"ERROR: Cannot find any episodes at all for podcast '{podcast.title}'"
-                f"to put on tonie with ID {tonie_id}"
-            )
-            log.warning(msg)
-            console.print(msg, style="orange")
-            return
-        if not self.__is_tonie_empty(tonie_id):
-            # check if new feed has newer epsiodes than tonie
-            latest_episode_feed = self.__generate_chapter_title(podcast.epList[0])
-            latest_episode_tonie = self.__tonieDict[tonie_id].chapters[0].title
-            if latest_episode_tonie == latest_episode_feed:
-                msg = f"Podcast '{podcast.title}' has no new episodes, latest episode is '{latest_episode_tonie}'"
-                log.info(msg)
-                console.print(msg)
+        with tempfile.TemporaryDirectory() as podcast_cache_directory:
+            self.podcast_cache_directory = Path(podcast_cache_directory)
+            msg = f"DEBUG: cache path is {self.podcast_cache_directory}"
+            log.debug(msg)
+            if tonie_id not in self.__tonieDict:
+                msg = f"ERROR: Cannot find tonie with ID {tonie_id}"
+                log.error(msg)
+                console.print(msg, style="red")
                 return
-        else:
-            log.info("### tonie is empty")
-        # add new episodes to tonie
-        self.__wipe_tonie(tonie_id)
-        cached_episodes = self.__cache_podcast_episodes(podcast, max_minutes)
+            if len(podcast.epList) == 0:
+                msg = (
+                    f"ERROR: Cannot find any episodes at all for podcast '{podcast.title}'"
+                    f"to put on tonie with ID {tonie_id}"
+                )
+                log.warning(msg)
+                console.print(msg, style="orange")
+                return
+            if not self.__is_tonie_empty(tonie_id):
+                # check if new feed has newer epsiodes than tonie
+                latest_episode_feed = self.__generate_chapter_title(podcast.epList[0])
+                latest_episode_tonie = self.__tonieDict[tonie_id].chapters[0].title
+                if latest_episode_tonie == latest_episode_feed:
+                    msg = f"Podcast '{podcast.title}' has no new episodes, latest episode is '{latest_episode_tonie}'"
+                    log.info(msg)
+                    console.print(msg)
+                    return
+            else:
+                log.info("### tonie is empty")
+            # add new episodes to tonie
+            self.__wipe_tonie(tonie_id)
+            cached_episodes = self.__cache_podcast_episodes(podcast, max_minutes)
 
-        for e in track(
-            cached_episodes,
-            description=(
-                f"{podcast.title}: transferring {len(cached_episodes)} episodes"
-                f" to {self.__tonieDict[tonie_id].name}"
-            ),
-            total=len(cached_episodes),
-            transient=True,
-            refresh_per_second=2,
-        ):
-            self.__upload_episode(e, tonie_id)
-        console.print(f"Podcast: {podcast.title}")
-        console.print(f"\tTonie: '{self.__tonieDict[tonie_id].name}({tonie_id})'")
-        console.print("\tSuccessfully uploaded episodes:")
-        for x in cached_episodes:
-            console.print(f"\t\t'{x.title}'")
-        self.__cleanup_cache()
+            for e in track(
+                cached_episodes,
+                description=(
+                    f"{podcast.title}: transferring {len(cached_episodes)} episodes"
+                    f" to {self.__tonieDict[tonie_id].name}"
+                ),
+                total=len(cached_episodes),
+                transient=True,
+                refresh_per_second=2,
+            ):
+                self.__upload_episode(e, tonie_id)
+
+            episode_info = [f"{episode.title} ({episode.published})" for episode in cached_episodes]
+            console.print(
+                f"{podcast.title}: Successfully uploaded {episode_info} to "
+                f"{self.__tonieDict[tonie_id].name} ({self.__tonieDict[tonie_id].id})",
+            )
 
     def __upload_episode(self, ep: Episode, tonie_id: str) -> None:
         # upload a given episode to a creative tonie
@@ -139,8 +147,18 @@ class ToniePodcastSync:
         episodes_to_cache = []
         total_seconds = 0
         for ep in podcast.epList:
+            # this is to stop if we are already over the maximum specified time
             if (total_seconds + ep.duration_sec) >= (max_minutes * 60):
                 break
+            # this filters out all episodes of the podcast that are shorter then the given time
+            if ep.duration_sec < podcast.episode_min_duration_sec:
+                log.info(
+                    "%s: skipping episode %s as too short (%d sec)",
+                    podcast.title,
+                    ep.title,
+                    ep.duration_sec,
+                )
+                continue
             total_seconds += ep.duration_sec
             episodes_to_cache.append(ep)
         ep_list: list[Episode] = []
@@ -166,7 +184,7 @@ class ToniePodcastSync:
     def __cache_episode(self, ep: Episode) -> bool:
         # local download of a single episode into a subfolder
         # file name is build according to __generateFilename
-        podcast_path = Path("podcasts") / ep.podcast
+        podcast_path = self.podcast_cache_directory / sanitize_filepath(ep.podcast)
         podcast_path.mkdir(parents=True, exist_ok=True)
 
         fname = podcast_path / self.__generate_filename(ep)
@@ -178,7 +196,12 @@ class ToniePodcastSync:
         r = requests.get(ep.url, timeout=180)
         if r.ok:
             with fname.open("wb") as _fs:
-                _fs.write(r.content)
+                if ep.volume_adjustment != 0 and self.__is_ffmpeg_available():
+                    adjusted_content = self.__adjust_volume__(r.content, ep.volume_adjustment)
+                else:
+                    adjusted_content = r.content
+
+                _fs.write(adjusted_content)
                 ep.fpath = fname
             return True
 
@@ -187,11 +210,7 @@ class ToniePodcastSync:
 
     def __generate_filename(self, ep: Episode) -> str:
         # generates canonical filename for local episode cache
-        return f"{slugify(ep.published)}_{slugify(ep.title)}.mp3"
-
-    def __cleanup_cache(self) -> None:
-        console.print("Cleanup the cache folder.")
-        shutil.rmtree(Path("podcasts"))
+        return sanitize_filename(f"{ep.published} {ep.title}.mp3")
 
     def __generate_chapter_title(self, ep: Episode) -> str:
         # generate chapter title used when writing on tonie
@@ -200,3 +219,29 @@ class ToniePodcastSync:
     def __is_tonie_empty(self, tonie_id: str) -> bool:
         tonie = self.__tonieDict[tonie_id]
         return tonie.chaptersPresent == 0
+
+    def __adjust_volume__(self, audio_bytes: bytes, volume_adjustment: int) -> bytes:
+        audio = AudioSegment.from_file(BytesIO(audio_bytes), format="mp3")
+
+        adjusted_audio = audio + volume_adjustment
+
+        byte_io = BytesIO()
+
+        adjusted_audio.export(byte_io, format="mp3")
+
+        return byte_io.getvalue()
+
+    def __is_ffmpeg_available(self) -> bool:
+        try:
+            # Safe to use untrusted input: executable is hardcoded
+            executable = "ffmpeg" if platform.system().lower() != "windows" else "ffmpeg.exe"
+            subprocess.run([executable, "-version"], check=True, capture_output=True)  # noqa: S603
+        except (FileNotFoundError, subprocess.CalledProcessError):
+            console.print(
+                "Warning: you tried to adjust the volume without having 'ffmpeg' available. "
+                "Please install 'ffmpeg' or set no volume adjustmet.",
+                style="red",
+            )
+
+            return False
+        return True

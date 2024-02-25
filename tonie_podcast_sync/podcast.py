@@ -12,12 +12,12 @@ log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 
 
-class EpisodeSorting(Enum):
+class EpisodeSorting(str, Enum):
     """An enum to select which sorting of the episode shall be applied."""
 
-    BY_DATE_NEWEST_FIRST = 1
-    BY_DATE_OLDEST_FIRST = 2
-    RANDOM = 3
+    BY_DATE_NEWEST_FIRST = "by_date_newest_first"
+    BY_DATE_OLDEST_FIRST = "by_date_oldest_first"
+    RANDOM = "random"
 
 
 class Podcast:
