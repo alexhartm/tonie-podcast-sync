@@ -4,6 +4,8 @@ tonie-podcast-sync allows synching podcast episodes to [creative tonies](https:/
 
 This is a purely private project and has no association with Boxine GmbH.
 
+[![asciicast](https://asciinema.org/a/4kNjo5V1pgYsyStDIqm6zGB3W.svg)](https://asciinema.org/a/4kNjo5V1pgYsyStDIqm6zGB3W)
+
 # Constraints and Limitations
 
 - currently limited to podcasts providing mp3 files
