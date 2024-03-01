@@ -7,23 +7,30 @@ repository = "https://github.com/alexhartm/tonie-podcast-sync"
 readme = "README.md"
 license = "MIT"
 keywords = ["toniebox", "podcast"]
-packages = [{ include = "toniepodcastsync.py" }, { include = "podcast.py" }]
+packages = [{ include = "tonie_podcast_sync" }]
 
 [tool.poetry.dependencies]
 python = "^3.10.11"
 feedparser = "^6.0.10"
 tonie-api = "^0.1.1"
 rich = "^13.5.2"
-ruff = "^0.1.13"
-black = "^23.12.1"
-pre-commit = "^3.6.0"
 pathvalidate = "^3.2.0"
 pydub = "^0.25.1"
+python-slugify = "^8.0.1"
+dynaconf = "^3.2.3"
+typer = { extras = ["all"], version = "^0.9.0" }
+tomli-w = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"
 pytest-mock = "^3.11.1"
+ruff = "^0.1.13"
+black = "^23.12.1"
+pre-commit = "^3.6.0"
 responses = "^0.23.3"
+
+[tool.poetry.scripts]
+tonie-podcast-sync = "tonie_podcast_sync.cli:app"
 
 [tool.ruff]
 # Add "Q" to the list of enabled codes.

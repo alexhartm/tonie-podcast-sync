@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from podcast import EpisodeSorting, Podcast
+from tonie_podcast_sync.podcast import EpisodeSorting, Podcast
 
 
 def test_url_type():

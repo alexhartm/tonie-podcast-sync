@@ -133,10 +133,11 @@ dmypy.json
 
 # Other
 *.code-workspace
-*.yaml
 test.py
 todo.md
 !.pre-commit-config.yaml
 
 # vscode
 .vscode
+# Ignore dynaconf secret files
+.secrets.*

@@ -13,12 +13,9 @@ from rich.console import Console
 from rich.progress import track
 from rich.table import Table
 from tonie_api.api import TonieAPI
+from tonie_api.models import CreativeTonie
 
-from podcast import (
-    Episode,
-    EpisodeSorting,  # noqa: F401
-    Podcast,
-)
+from tonie_podcast_sync.podcast import Episode, Podcast
 
 console = Console()
 log = logging.getLogger(__name__)
@@ -43,6 +40,14 @@ class ToniePodcastSync:
 
     def _update_tonies(self) -> None:
         self.__tonieDict = {x.id: x for x in self.__api.get_all_creative_tonies()}
+
+    def get_tonies(self) -> list[CreativeTonie]:
+        """Returns a list of all tonies.
+
+        Returns:
+            [CreativeTonie]: A list of CreativeTonies.
+        """
+        return list(self.__tonieDict.values())
 
     def print_tonies_overview(self) -> None:
         """Print out a table to console of all available tonies."""
