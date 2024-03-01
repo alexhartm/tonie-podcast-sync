@@ -68,7 +68,7 @@ provides an overview about these and other available commands.
 You can use `tonie-podcast-sync` by importing it into your own Python scripts, as in this example code:
 
 ```python
-from toniepodcastsync import ToniePodcastSync, Podcast, EpisodeSorting
+from tonie_podcast_sync.toniepodcastsync import ToniePodcastSync, Podcast, EpisodeSorting
 
 # Create some Podcast objects, providing the feed URL to each
 pumuckl = Podcast("https://feeds.br.de/pumuckl/feed.xml")
