@@ -3,7 +3,7 @@
 # ruff: noqa: ERA001, INP001
 
 
-from tonie_podcast_sync.toniepodcastsync import Podcast, ToniePodcastSync
+from tonie_podcast_sync.toniepodcastsync import EpisodeSorting, Podcast, ToniePodcastSync
 
 maus = Podcast("https://kinder.wdr.de/radio/diemaus/audio/gute-nacht-mit-der-maus/diemaus-gute-nacht-104.podcast")
 pumuckl = Podcast("https://feeds.br.de/pumuckl/feed.xml")

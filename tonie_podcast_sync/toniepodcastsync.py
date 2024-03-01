@@ -15,7 +15,11 @@ from rich.table import Table
 from tonie_api.api import TonieAPI
 from tonie_api.models import CreativeTonie
 
-from tonie_podcast_sync.podcast import Episode, Podcast
+from tonie_podcast_sync.podcast import (
+    Episode,
+    EpisodeSorting,  # noqa: F401
+    Podcast,
+)
 
 console = Console()
 log = logging.getLogger(__name__)
