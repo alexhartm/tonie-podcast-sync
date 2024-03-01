@@ -28,7 +28,44 @@ tonie-podcast-sync is available as [a pip package on pypi](https://pypi.org/proj
 
 `pip install tonie-podcast-sync`
 
-Then, use it as shown in the following example code:
+You then have two options of using this: via its CLI or as a python library.
+
+## via CLI
+
+The most convienent way is to just use the CLI:
+
+
+A first step is to configure `tonie-podcast-sync`
+
+```bash
+tonie-podcast-sync create-settings-file
+```
+
+The command will guide you through the process. The settings and optionally also a secret file will be stored in `~/.toniepodcastsync`.
+
+Afterwards, you can run
+
+```bash
+tonie-podcast-sync update-tonies
+```
+
+to fetch new podcast episodes and download them onto the tonies.
+If you want to perform changes (e.g. switch to another podcast), you can edit the settings file `~/.toniepodcastsync/settings.toml` in a text editor.
+
+To periodically fetch for new episodes, you can schedule `tonie-podcast-sync` e.g. via systemd (on a Linux OS).
+
+In addition,
+
+```bash
+tonie-podcast-sync --help
+```
+
+provides an overview about these and other available commands.
+
+
+## in your own Python scripts
+
+You can use `tonie-podcast-sync` by importing it into your own Python scripts, as in this example code:
 
 ```python
 from toniepodcastsync import ToniePodcastSync, Podcast, EpisodeSorting
