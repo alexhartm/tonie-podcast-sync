@@ -71,7 +71,7 @@ class ToniePodcastSync:
             )
         console.print(table)
 
-    def sync_podcast_to_tonie(self, podcast: Podcast, tonie_id: str, max_minutes: int = 90) -> None:
+    def sync_podcast_to_tonie(self, podcast: Podcast, tonie_id: str, max_minutes: int = 90, wipe: bool = True) -> None:
         """Sync new episodes from podcast feed to creative Tonie.
 
         It is done by wiping the tonie and writing all new episodes. Limit episodes on tonie to max_minutes in total.
@@ -111,7 +111,8 @@ class ToniePodcastSync:
             else:
                 log.info("### tonie is empty")
             # add new episodes to tonie
-            self.__wipe_tonie(tonie_id)
+            if wipe:
+                self.__wipe_tonie(tonie_id)
             cached_episodes = self.__cache_podcast_episodes(podcast, max_minutes)
 
             for e in track(
