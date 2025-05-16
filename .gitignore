@@ -138,6 +138,11 @@ test.py
 todo.md
 !.pre-commit-config.yaml
 
+# node stuff
+node_modules/
+package-lock.json
+package.json
+
 # vscode
 .vscode
 # Ignore dynaconf secret files
