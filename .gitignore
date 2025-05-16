@@ -132,6 +132,7 @@ dmypy.json
 .pyre/
 
 # Other
+mise.local.toml
 *.code-workspace
 test.py
 todo.md
