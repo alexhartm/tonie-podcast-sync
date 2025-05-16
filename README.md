@@ -117,6 +117,7 @@ tps.print_tonies_overview()
 # Define creative Tonies based on their ID
 greenTonie = "<your-tonieID>"
 orangeTonie = "<your-tonieID>"
+greyTonie = "<your-tonieID>"
 
 # Fetch new podcast episodes and copy them to greenTonie.
 # The tonie will be filled with as much episodes as fit (90 min max).
@@ -126,6 +127,13 @@ tps.sync_podcast_to_tonie(pumuckl, greenTonie)
 # Episodes on this tonie to 60 minutes in total.
 # Use the optional parameter for this:
 tps.sync_podcast_to_tonie(maus_gute_nacht, orangeTonie, 60)
+
+# By default, syncing a podcast to a tonie will remove all
+# existing content on that tonie:
+tps.sync_podcast_to_tonie(checker_tobi, greyTonie, 30)
+# If you want to add episodes without deleting existing content
+# on the tonie, use the wipe=False parameter:
+tps.sync_podcast_to_tonie(checker_tobi, greyTonie, 30, wipe=False)
 ```
 
 For the tonie to fetch new content from tonie-cloud, you have to press one ear for 3s (until the "ping" sound) with no tonie on the box (refer also to TonieBox manual).
