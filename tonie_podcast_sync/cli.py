@@ -106,8 +106,7 @@ def _ask_maximum_tonie_length(data: dict, tonie: CreativeTonie) -> None:
             data[tonie.id]["maximum_length"] = maximum_length_input
         case maximum_length if maximum_length <= 0 or maximum_length > MAXIMUM_TONIE_MINUTES:
             Console().print(
-                "The value you have entered is out of range."
-                f"Will be set to default value of {MAXIMUM_TONIE_MINUTES}.",
+                f"The value you have entered is out of range.Will be set to default value of {MAXIMUM_TONIE_MINUTES}.",
             )
             data[tonie.id]["maximum_length"] = MAXIMUM_TONIE_MINUTES
 

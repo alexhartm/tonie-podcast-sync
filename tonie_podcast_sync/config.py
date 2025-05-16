@@ -1,4 +1,5 @@
 """The configuration module for the tonie_podcast_sync."""
+
 from pathlib import Path
 
 from dynaconf import Dynaconf

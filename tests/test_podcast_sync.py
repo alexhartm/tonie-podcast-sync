@@ -81,20 +81,20 @@ def _get_tonie_api_mock() -> mock.MagicMock:
     return tonie_api_mock
 
 
-@pytest.fixture()
+@pytest.fixture
 def mocked_tonie_api():
     with mock.patch("tonie_podcast_sync.toniepodcastsync.TonieAPI") as _mock:
         yield _mock
 
 
-@pytest.fixture()
+@pytest.fixture
 def mocked_responses():
     with responses.RequestsMock() as rsps:
         rsps._add_from_file("tests/res/responses.yaml")
         yield rsps
 
 
-@pytest.fixture()
+@pytest.fixture
 def overview_result():
     result = []
     match platform.system():

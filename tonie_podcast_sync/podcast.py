@@ -1,4 +1,5 @@
 """The podcast module to fetch all information of a podcast feed."""
+
 import logging
 import random
 from dataclasses import dataclass, field
@@ -48,7 +49,7 @@ class Podcast:
         self.epSorting = episode_sorting  # the sorting of the episode list
 
         self.feed = feedparser.parse(url)
-        if(self.feed.bozo):
+        if self.feed.bozo:
             raise self.feed.bozo_exception
         self.title = self.feed.feed.title  # title of podcast
         self.refresh_feed()  # reads feed and populates the episode list

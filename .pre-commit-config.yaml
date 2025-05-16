@@ -11,13 +11,8 @@ repos:
       - id: poetry-check
   - repo: local
     hooks:
-      - id: black
-        name: black
-        entry: poetry run black
-        language: system
-        types: [python]
-      - id: ruff
+      - id: ruff format
         name: ruff
-        entry: poetry run ruff . --fix
+        entry: ruff format
         language: system
         types: [python]
