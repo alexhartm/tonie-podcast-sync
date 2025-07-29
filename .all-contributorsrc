@@ -60,6 +60,16 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "goldbricklemon",
+      "name": "GoldBrickLemon",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9368670?v=4",
+      "profile": "https://github.com/goldbricklemon",
+      "contributions": [
+        "bug",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

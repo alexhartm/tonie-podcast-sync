@@ -1,36 +1,36 @@
-[tool.poetry]
+[project]
 name = "tonie-podcast-sync"
-version = "3.1.1"
+version = "3.1.2"
 description = "allows synching podcast episodes to creative tonies"
-authors = ["Alexander Hartmann <16985220+alexhartm@users.noreply.github.com>"]
-repository = "https://github.com/alexhartm/tonie-podcast-sync"
-readme = "README.md"
+authors = [{ name = "Alexander Hartmann", email = "16985220+alexhartm@users.noreply.github.com" }]
 license = "MIT"
+readme = "README.md"
+requires-python = ">=3.10"
 keywords = ["toniebox", "podcast"]
-packages = [{ include = "tonie_podcast_sync" }]
+dependencies = [
+    "feedparser>=6.0.10",
+    "tonie-api>=0.1.1",
+    "rich>=13.5.2",
+    "pathvalidate>=3.2.0",
+    "pydub>=0.25.1",
+    "python-slugify>=8.0.1",
+    "dynaconf>=3.2.3",
+    "typer>=0.16.0",
+    "tomli-w>=1.0.0",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10.11"
-feedparser = "^6.0.10"
-tonie-api = "^0.1.1"
-rich = "^13.5.2"
-pathvalidate = "^3.2.0"
-pydub = "^0.25.1"
-python-slugify = "^8.0.1"
-dynaconf = "^3.2.3"
-typer = "^0.16.0"
-tomli-w = "^1.0.0"
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.4.0"
-pytest-mock = "^3.11.1"
-ruff = "^0.1.13"
-black = "^23.12.1"
-pre-commit = "^3.6.0"
-responses = "^0.23.3"
-
-[tool.poetry.scripts]
+[project.scripts]
 tonie-podcast-sync = "tonie_podcast_sync.cli:app"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-mock>=3.11.1",
+    "ruff>=0.1.13",
+    "black>=23.12.1",
+    "pre-commit>=3.6.0",
+    "responses>=0.23.3",
+]
 
 [tool.ruff]
 # Add "Q" to the list of enabled codes.
@@ -63,5 +63,5 @@ line-length = 120
 target-version = ["py310"]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
