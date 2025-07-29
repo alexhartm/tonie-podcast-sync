@@ -1,0 +1,75 @@
+[env]
+# Use the project name derived from the current directory
+PROJECT_NAME = "{{ config_root | basename }}"
+
+# Automatic virtualenv activation
+_.python.venv = { path = ".venv", create = true }
+
+[tools]
+python = "3.10"
+poetry = "latest"
+ruff = "latest"
+yarn = "latest"
+
+[tasks.install]
+description = "Install dependencies"
+alias = "i"
+run = "uv sync"
+
+[tasks.info]
+description = "Print project information"
+run = '''
+echo "Project: $PROJECT_NAME"
+echo "Virtual Environment: $VIRTUAL_ENV"
+'''
+
+[tasks.setup]
+description = "Setup the project"
+# since mise creates a virtualenv, we can use uv to install dependencies
+run = '''
+uv sync
+uv pip install -e ."[dev]"
+uv run pre-commit install
+'''
+
+[tasks.contributors-check]
+description = "run all-contributors CLI"
+run = 'npm exec all-contributors-cli'
+
+[tasks.test-unittests]
+description = "Run unit tests"
+alias = ["ut", "tests", "test"]
+run = '''
+uv pip install -e .[dev]
+uv run pytest tests/
+'''
+
+[tasks.build]
+depends = ["lint"]
+description = "Build"
+run = "uv build"
+
+[tasks.lint]
+description = "Lint the code"
+run = "ruff format --check --diff"
+
+[tasks.test-publish-release]
+description = "Test the release process. Build first, then publish to test.pypi.org"
+depends = ["build"]
+run = '''
+source .env
+uv publish \
+  --username $UV_PUBLISH_USERNAME \
+  --password $UV_PUBLISH_PASSWORD_TEST \
+  --publish-url https://test.pypi.org/legacy/
+'''
+
+[tasks.publish-release]
+description = "Release builds to PyPI"
+run = '''
+source .env
+uv publish \
+  --username $UV_PUBLISH_USERNAME \
+  --password $UV_PUBLISH_PASSWORD_PROD \
+  --publish-url https://upload.pypi.org/legacy/
+'''
