@@ -18,7 +18,7 @@ pathvalidate = "^3.2.0"
 pydub = "^0.25.1"
 python-slugify = "^8.0.1"
 dynaconf = "^3.2.3"
-typer = { extras = ["all"], version = "^0.9.0" }
+typer = "^0.16.0"
 tomli-w = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
