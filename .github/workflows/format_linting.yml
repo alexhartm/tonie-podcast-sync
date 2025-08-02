@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           source ~/.cargo/env
-          uv pip install -e .[dev]
+          uv pip install -e .[dev] --system
       - name: Lint with ruff
         run: |
           source ~/.cargo/env
