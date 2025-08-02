@@ -12,7 +12,7 @@ def test_url_type():
 
 
 @pytest.mark.parametrize(
-    "feed,title,length",
+    ("feed", "title", "length"),
     [
         (str(Path(__file__).parent / "res" / "sandmann.xml"), "Unser Sandmännchen", 67),
         (str(Path(__file__).parent / "res" / "kakadu.xml"), "Kakadu - Der Kinderpodcast", 51),
