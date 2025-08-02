@@ -1,7 +1,5 @@
 import datetime
 import locale
-import platform
-import textwrap
 from unittest import mock
 
 import pytest
