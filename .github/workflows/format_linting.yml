@@ -32,4 +32,4 @@ jobs:
       - name: Format with ruff
         run: |
           source ~/.cargo/env
-          ruff format .
+          ruff format --check --diff

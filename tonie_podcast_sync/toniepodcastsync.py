@@ -72,7 +72,13 @@ class ToniePodcastSync:
             )
         console.print(table)
 
-    def sync_podcast_to_tonie(self, podcast: Podcast, tonie_id: str, max_minutes: int = 90, wipe: bool = True) -> None:
+    def sync_podcast_to_tonie(
+        self,
+        podcast: Podcast,
+        tonie_id: str,
+        max_minutes: int = 90,
+        wipe: bool = True,  # noqa: FBT001, FBT002
+    ) -> None:
         """Sync new episodes from podcast feed to creative Tonie.
 
         It is done by wiping the tonie and writing all new episodes. Limit episodes on tonie to max_minutes in total.
@@ -82,6 +88,7 @@ class ToniePodcastSync:
             podcast (Podcast): The podcast to get the newest episodes from
             tonie_id (str): The id of the tonie
             max_minutes (int, optional): The maximum time of podcasts in length. Defaults to 90.
+            wipe (bool, optional): Wipes the tonie before syncing. Defaults to True.
         """
         with tempfile.TemporaryDirectory() as podcast_cache_directory:
             self.podcast_cache_directory = Path(podcast_cache_directory)
@@ -177,7 +184,7 @@ class ToniePodcastSync:
             refresh_per_second=2,
         ):
             if self.__cache_episode(ep):
-                ep_list.append(ep)  # noqa: PERF401: need a regular loop for progress
+                ep_list.append(ep)  # noqa: PERF401
 
         log.info(
             "%s: providing all %s episodes with %d.1 min total",

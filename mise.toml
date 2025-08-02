@@ -45,13 +45,17 @@ uv run pytest tests/
 '''
 
 [tasks.build]
-depends = ["lint"]
+depends = ["lint", "format"]
 description = "Build"
 run = "uv build"
 
+[tasks.format]
+description = "Format the code"
+run = "ruff format --check --diff"
+
 [tasks.lint]
 description = "Lint the code"
-run = "ruff format --check --diff"
+run = "ruff check ."
 
 [tasks.test-publish-release]
 description = "Test the release process. Build first, then publish to test.pypi.org"
