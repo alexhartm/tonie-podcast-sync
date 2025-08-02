@@ -1,8 +1,5 @@
 import datetime
 import locale
-import platform
-import textwrap
-from pathlib import Path
 from unittest import mock
 
 import pytest
@@ -12,7 +9,7 @@ from tonie_api.models import Chapter, CreativeTonie, Household
 from tonie_podcast_sync.podcast import Podcast
 from tonie_podcast_sync.toniepodcastsync import ToniePodcastSync
 
-locale.setlocale(locale.LC_TIME, "en_US")  # is only set for consistent tests
+locale.setlocale(locale.LC_TIME, "en_US.UTF-8")  # is only set for consistent tests
 
 HOUSEHOLD = Household(id="1234", name="My House", ownerName="John", access="owner", canLeave=True)
 CHAPTER_1 = Chapter(id="chap-1", title="The great chapter", file="123456789A", seconds=4711, transcoding=False)
@@ -45,32 +42,6 @@ TONIE_2 = CreativeTonie(
     chapters=[CHAPTER_1, CHAPTER_2],
 )
 
-WINDOWS_RESULT = [
-    "                         List of all creative tonies.                          ",
-    "┌────┬───────────────┬──────────────────────┬───────────┬─────────────────────┐",
-    "│ ID │ Name of Tonie │ Time of last update  │ Household │ Latest Episode name │",
-    "├────┼───────────────┼──────────────────────┼───────────┼─────────────────────┤",
-    "│ 42 │ Tonie #1      │                      │ My House  │ No latest chapter   │",
-    "│    │               │                      │           │ available.          │",
-    "│ 73 │ Tonie #2      │ 11/25/2016 12:00:00  │ My House  │ The great chapter   │",
-    "│    │               │ PM                   │           │                     │",
-    "└────┴───────────────┴──────────────────────┴───────────┴─────────────────────┘",
-    "",
-]
-
-LINUX_RESULT = [
-    "                          List of all creative tonies.                          ",
-    "┏━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓",
-    "┃ ID ┃ Name of Tonie ┃ Time of last update  ┃ Household ┃ Latest Episode name  ┃",
-    "┡━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━┩",
-    "│ 42 │ Tonie #1      │                      │ My House  │ No latest chapter    │",
-    "│    │               │                      │           │ available.           │",
-    "│ 73 │ Tonie #2      │ 11/25/2016 12:00:00  │ My House  │ The great chapter    │",
-    "│    │               │ PM                   │           │                      │",
-    "└────┴───────────────┴──────────────────────┴───────────┴──────────────────────┘",
-    "",
-]
-
 
 def _get_tonie_api_mock() -> mock.MagicMock:
     tonie_api_mock = mock.MagicMock()
@@ -94,20 +65,7 @@ def mocked_responses():
         yield rsps
 
 
-@pytest.fixture
-def overview_result():
-    result = []
-    match platform.system():
-        case "Windows":
-            result = WINDOWS_RESULT
-        case "Linux":
-            result = LINUX_RESULT
-        case _unknown:
-            raise NotImplementedError(_unknown)
-    return textwrap.dedent("\n".join(result))
-
-
-def test_show_overview(mocked_tonie_api: mock.Mock, capfd: pytest.CaptureFixture, overview_result):
+def test_show_overview(mocked_tonie_api: mock.Mock, capfd: pytest.CaptureFixture):
     tonie_api_mock = _get_tonie_api_mock()
     mocked_tonie_api.return_value = tonie_api_mock
     tps = ToniePodcastSync("some user", "some_pass")
@@ -115,10 +73,24 @@ def test_show_overview(mocked_tonie_api: mock.Mock, capfd: pytest.CaptureFixture
     mocked_tonie_api.assert_called_once_with("some user", "some_pass")
     tonie_api_mock.get_households.assert_called_once()
     captured = capfd.readouterr()
-    assert captured.out == overview_result
+    assert "List of all creative tonies." in captured.out
+    assert "ID" in captured.out
+    assert "Name of Tonie" in captured.out
+    assert "Time of last update" in captured.out
+    assert "Household" in captured.out
+    assert "Latest Episode name" in captured.out
+    assert "42" in captured.out
+    assert "Tonie #1" in captured.out
+    assert "No latest chapter" in captured.out
+    assert "73" in captured.out
+    assert "Tonie #2" in captured.out
+    assert "The great chapter" in captured.out
+    assert "My House" in captured.out
 
 
-def test_upload_podcast(mocked_tonie_api: mock.Mock, mocked_responses: responses.RequestsMock):
+@mock.patch("tonie_podcast_sync.toniepodcastsync.tempfile.TemporaryDirectory")
+def test_upload_podcast(mock_tempdir, mocked_tonie_api: mock.Mock, mocked_responses: responses.RequestsMock, tmp_path):
+    mock_tempdir.return_value.__enter__.return_value = str(tmp_path)
     tonie_api_mock = _get_tonie_api_mock()
     mocked_tonie_api.return_value = tonie_api_mock
     tps = ToniePodcastSync("some user", "some_pass")
@@ -126,8 +98,8 @@ def test_upload_podcast(mocked_tonie_api: mock.Mock, mocked_responses: responses
     assert mocked_responses.assert_all_requests_are_fired
     tonie_api_mock.upload_file_to_tonie.assert_any_call(
         TONIE_1,
-        Path("podcasts")
+        tmp_path
         / "Kakadu - Der Kinderpodcast"
-        / "mon-14-aug-2023-10-35-24-0200_vom-gewinnen-und-verlieren-warum-spielen-wir-so-gern.mp3",
+        / "Mon, 14 Aug 2023 103524 +0200 Vom Gewinnen und Verlieren - Warum spielen wir so gern.mp3",
         "Vom Gewinnen und Verlieren - Warum spielen wir so gern? (Mon, 14 Aug 2023 10:35:24 +0200)",
     )

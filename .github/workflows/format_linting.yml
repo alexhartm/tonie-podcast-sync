@@ -16,20 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install uv
-        run: curl -LsSf https://astral.sh/uv/install.sh | sh
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
+        uses: astral-sh/setup-uv@v6
       - name: Install dependencies
-        run: |
-          source ~/.cargo/env
-          uv pip install -e .[dev] --system
+        run: uv sync --locked --all-extras --dev
       - name: Lint with ruff
         run: |
-          source ~/.cargo/env
-          ruff check .
+          uv run ruff check .
       - name: Format with ruff
         run: |
-          source ~/.cargo/env
-          ruff format --check --diff
+          uv run ruff format --check --diff
