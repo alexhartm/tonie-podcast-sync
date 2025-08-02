@@ -14,7 +14,7 @@ jobs:
       - name: install ffmpeg dependency
         run: |
           sudo apt-get update
-          sudo apt-get install --yes no-install-recommends \
+          sudo apt-get install --yes --no-install-recommends \
             ffmpeg
       - name: Install uv
         uses: astral-sh/setup-uv@v6
