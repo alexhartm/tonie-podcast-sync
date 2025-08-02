@@ -72,7 +72,13 @@ class ToniePodcastSync:
             )
         console.print(table)
 
-    def sync_podcast_to_tonie(self, podcast: Podcast, tonie_id: str, max_minutes: int = 90, wipe: bool = True) -> None:
+    def sync_podcast_to_tonie(
+        self,
+        podcast: Podcast,
+        tonie_id: str,
+        max_minutes: int = 90,
+        wipe: bool = True,  # noqa: FBT001, FBT002
+    ) -> None:
         """Sync new episodes from podcast feed to creative Tonie.
 
         It is done by wiping the tonie and writing all new episodes. Limit episodes on tonie to max_minutes in total.
