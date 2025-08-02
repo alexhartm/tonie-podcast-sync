@@ -27,25 +27,24 @@ dev = [
     "pytest>=7.4.0",
     "pytest-mock>=3.11.1",
     "ruff>=0.1.13",
-    "black>=23.12.1",
     "pre-commit>=3.6.0",
     "responses>=0.23.3",
 ]
 
 [tool.ruff]
 # Add "Q" to the list of enabled codes.
-select = ["ALL"]
-ignore = ["ANN101", "D105", "N999"]
+lint.select = ["ALL"]
+lint.ignore = ["D105", "N999", "COM812"]
 line-length = 120
 target-version = "py310"
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"
 
-[tool.ruff.flake8-quotes]
+[tool.ruff.lint.flake8-quotes]
 docstring-quotes = "double"
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "tests/*.py" = [
     "D",
     "A",
@@ -57,10 +56,6 @@ docstring-quotes = "double"
     "INP001",
     "FLY",
 ]
-
-[tool.black]
-line-length = 120
-target-version = ["py310"]
 
 [build-system]
 requires = ["hatchling"]
