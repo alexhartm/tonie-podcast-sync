@@ -11,7 +11,7 @@ from tonie_api.models import Chapter, CreativeTonie, Household
 from tonie_podcast_sync.podcast import Podcast
 from tonie_podcast_sync.toniepodcastsync import ToniePodcastSync
 
-locale.setlocale(locale.LC_TIME, "en_US")  # is only set for consistent tests
+locale.setlocale(locale.LC_TIME, "en_US.UTF-8")  # is only set for consistent tests
 
 HOUSEHOLD = Household(id="1234", name="My House", ownerName="John", access="owner", canLeave=True)
 CHAPTER_1 = Chapter(id="chap-1", title="The great chapter", file="123456789A", seconds=4711, transcoding=False)

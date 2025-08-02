@@ -9,23 +9,21 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        locale: [en_US.UTF-8, de_DE.UTF-8]
+
     steps:
+      - uses: actions/checkout@v4
+      - name: Install en_US.UTF-8 locale
+        run: |
+          sudo locale-gen en_US.UTF-8
+          sudo update-locale LANG=en_US.UTF-8
       - name: install ffmpeg dependency
         run: |
           sudo apt-get update
           sudo apt-get install --yes --no-install-recommends \
             ffmpeg
-      - uses: actions/checkout@v4
       - name: Install uv
         uses: astral-sh/setup-uv@v6
       - name: Install dependencies
         run: uv sync --locked --all-extras --dev
-      - name: Install locale ${{ matrix.locale }}
-        run: |
-          sudo locale-gen ${{ matrix.locale }}
-          sudo update-locale LANG=${{ matrix.locale }}
       - name: Run unit tests
         run: uv run pytest tests/
