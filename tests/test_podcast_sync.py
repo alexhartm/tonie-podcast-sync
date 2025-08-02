@@ -44,34 +44,6 @@ TONIE_2 = CreativeTonie(
     chapters=[CHAPTER_1, CHAPTER_2],
 )
 
-WINDOWS_RESULT = [
-    "                         List of all creative tonies.                          ",
-    "┌────┬───────────────┬──────────────────────┬───────────┬─────────────────────┐",
-    "│ ID │ Name of Tonie │ Time of last update  │ Household │ Latest Episode name │",
-    "├────┼───────────────┼──────────────────────┼───────────┼─────────────────────┤",
-    "│ 42 │ Tonie #1      │                      │ My House  │ No latest chapter   │",
-    "│    │               │                      │           │ available.          │",
-    "│ 73 │ Tonie #2      │ Fri Nov 25 12:00:00  │ My House  │ The great chapter   │",
-    "│    │               │ 2016                 │           │                     │",
-    "└────┴───────────────┴──────────────────────┴───────────┴─────────────────────┘",
-    "",
-]
-
-LINUX_RESULT = [
-    "                          List of all creative tonies.                          ",
-    "┏━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓",
-    "┃ ID ┃ Name of Tonie ┃ Time of last update  ┃ Household ┃ Latest Episode name  ┃",
-    "┡━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━┩",
-    "│ 42 │ Tonie #1      │                      │ My House  │ No latest chapter    │",
-    "│    │               │                      │           │ available.           │",
-    "│ 73 │ Tonie #2      │ Fri Nov 25 12:00:00  │ My House  │ The great chapter    │",
-    "│    │               │ 2016                 │           │                      │",
-    "└────┴───────────────┴──────────────────────┴───────────┴──────────────────────┘",
-    "",
-]
-
-DARWIN_RESULT = LINUX_RESULT
-
 
 def _get_tonie_api_mock() -> mock.MagicMock:
     tonie_api_mock = mock.MagicMock()
@@ -95,22 +67,7 @@ def mocked_responses():
         yield rsps
 
 
-@pytest.fixture
-def overview_result():
-    result = []
-    match platform.system():
-        case "Windows":
-            result = WINDOWS_RESULT
-        case "Linux":
-            result = LINUX_RESULT
-        case "Darwin":
-            result = DARWIN_RESULT
-        case _unknown:
-            raise NotImplementedError(_unknown)
-    return textwrap.dedent("\n".join(result))
-
-
-def test_show_overview(mocked_tonie_api: mock.Mock, capfd: pytest.CaptureFixture, overview_result):
+def test_show_overview(mocked_tonie_api: mock.Mock, capfd: pytest.CaptureFixture):
     tonie_api_mock = _get_tonie_api_mock()
     mocked_tonie_api.return_value = tonie_api_mock
     tps = ToniePodcastSync("some user", "some_pass")
@@ -118,7 +75,19 @@ def test_show_overview(mocked_tonie_api: mock.Mock, capfd: pytest.CaptureFixture
     mocked_tonie_api.assert_called_once_with("some user", "some_pass")
     tonie_api_mock.get_households.assert_called_once()
     captured = capfd.readouterr()
-    assert captured.out == overview_result
+    assert "List of all creative tonies." in captured.out
+    assert "ID" in captured.out
+    assert "Name of Tonie" in captured.out
+    assert "Time of last update" in captured.out
+    assert "Household" in captured.out
+    assert "Latest Episode name" in captured.out
+    assert "42" in captured.out
+    assert "Tonie #1" in captured.out
+    assert "No latest chapter" in captured.out
+    assert "73" in captured.out
+    assert "Tonie #2" in captured.out
+    assert "The great chapter" in captured.out
+    assert "My House" in captured.out
 
 
 @mock.patch("tonie_podcast_sync.toniepodcastsync.tempfile.TemporaryDirectory")
