@@ -1,6 +1,7 @@
 import datetime
 import locale
 import platform
+import tempfile
 import textwrap
 from pathlib import Path
 from unittest import mock
@@ -52,8 +53,8 @@ WINDOWS_RESULT = [
     "├────┼───────────────┼──────────────────────┼───────────┼─────────────────────┤",
     "│ 42 │ Tonie #1      │                      │ My House  │ No latest chapter   │",
     "│    │               │                      │           │ available.          │",
-    "│ 73 │ Tonie #2      │ 11/25/2016 12:00:00  │ My House  │ The great chapter   │",
-    "│    │               │ PM                   │           │                     │",
+    "│ 73 │ Tonie #2      │ Fri Nov 25 12:00:00  │ My House  │ The great chapter   │",
+    "│    │               │ 2016                 │           │                     │",
     "└────┴───────────────┴──────────────────────┴───────────┴─────────────────────┘",
     "",
 ]
@@ -65,11 +66,13 @@ LINUX_RESULT = [
     "┡━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━┩",
     "│ 42 │ Tonie #1      │                      │ My House  │ No latest chapter    │",
     "│    │               │                      │           │ available.           │",
-    "│ 73 │ Tonie #2      │ 11/25/2016 12:00:00  │ My House  │ The great chapter    │",
-    "│    │               │ PM                   │           │                      │",
+    "│ 73 │ Tonie #2      │ Fri Nov 25 12:00:00  │ My House  │ The great chapter    │",
+    "│    │               │ 2016                 │           │                      │",
     "└────┴───────────────┴──────────────────────┴───────────┴──────────────────────┘",
     "",
 ]
+
+DARWIN_RESULT = LINUX_RESULT
 
 
 def _get_tonie_api_mock() -> mock.MagicMock:
@@ -102,6 +105,8 @@ def overview_result():
             result = WINDOWS_RESULT
         case "Linux":
             result = LINUX_RESULT
+        case "Darwin":
+            result = DARWIN_RESULT
         case _unknown:
             raise NotImplementedError(_unknown)
     return textwrap.dedent("\n".join(result))
@@ -118,7 +123,9 @@ def test_show_overview(mocked_tonie_api: mock.Mock, capfd: pytest.CaptureFixture
     assert captured.out == overview_result
 
 
-def test_upload_podcast(mocked_tonie_api: mock.Mock, mocked_responses: responses.RequestsMock):
+@mock.patch("tonie_podcast_sync.toniepodcastsync.tempfile.TemporaryDirectory")
+def test_upload_podcast(mock_tempdir, mocked_tonie_api: mock.Mock, mocked_responses: responses.RequestsMock, tmp_path):
+    mock_tempdir.return_value.__enter__.return_value = str(tmp_path)
     tonie_api_mock = _get_tonie_api_mock()
     mocked_tonie_api.return_value = tonie_api_mock
     tps = ToniePodcastSync("some user", "some_pass")
@@ -126,8 +133,8 @@ def test_upload_podcast(mocked_tonie_api: mock.Mock, mocked_responses: responses
     assert mocked_responses.assert_all_requests_are_fired
     tonie_api_mock.upload_file_to_tonie.assert_any_call(
         TONIE_1,
-        Path("podcasts")
+        tmp_path
         / "Kakadu - Der Kinderpodcast"
-        / "mon-14-aug-2023-10-35-24-0200_vom-gewinnen-und-verlieren-warum-spielen-wir-so-gern.mp3",
+        / "Mon, 14 Aug 2023 103524 +0200 Vom Gewinnen und Verlieren - Warum spielen wir so gern.mp3",
         "Vom Gewinnen und Verlieren - Warum spielen wir so gern? (Mon, 14 Aug 2023 10:35:24 +0200)",
     )
