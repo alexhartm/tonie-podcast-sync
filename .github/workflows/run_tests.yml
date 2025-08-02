@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: install ffmpeg dependency
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-recommends ffmpeg
       - name: Install uv
         uses: astral-sh/setup-uv@v6
       - name: Install dependencies
