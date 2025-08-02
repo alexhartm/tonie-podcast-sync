@@ -21,7 +21,7 @@ jobs:
         run: uv sync --locked --all-extras --dev
       - name: Lint with ruff
         run: |
-          ruff check .
+          uv run ruff check .
       - name: Format with ruff
         run: |
-          ruff format --check --diff
+          uv run ruff format --check --diff
