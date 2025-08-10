@@ -1,11 +1,14 @@
 """The Tonie Podcast Sync API."""
 
 import logging
+import random
+import time
 import platform
 import subprocess
 import tempfile
 from io import BytesIO
 from pathlib import Path
+from datetime import timedelta
 
 import requests
 from pathvalidate import sanitize_filename, sanitize_filepath
@@ -258,3 +261,192 @@ class ToniePodcastSync:
 
             return False
         return True
+
+    def sync_combined_podcasts_to_tonies(
+        self,
+        podcast_urls: list[str],
+        tonie_ids: list[str],
+        max_minutes_per_tonie: int = MAXIMUM_TONIE_MINUTES,
+        episode_min_duration_sec: int = 0,
+        volume_adjustment: int = 0,
+        wipe: bool = True,  # noqa: FBT001, FBT002
+        episode_selection: EpisodeSorting = EpisodeSorting.BY_DATE_NEWEST_FIRST,
+        smart_random: bool = False,
+        smart_random_days: int = 7,
+        first_tonie_newest_then_random: bool = False,
+    ) -> None:
+        """Fill multiple tonies with newest episodes from multiple podcasts.
+
+        This method merges all episodes from the provided podcast feeds and distributes
+        them across the provided tonies.
+
+        Selection is controlled by ``episode_selection``. Supported values:
+        - EpisodeSorting.BY_DATE_NEWEST_FIRST: newest-first
+        - EpisodeSorting.BY_DATE_OLDEST_FIRST: oldest-first
+        - EpisodeSorting.RANDOM: random selection/order per tonie
+
+        Additionally, set ``smart_random=True`` to ensure all episodes from the last
+        ``smart_random_days`` are selected first, and fill remaining time with random
+        older episodes. If ``first_tonie_newest_then_random=True``, the first tonie is
+        filled newest-first while others are filled randomly.
+
+        Args:
+            podcast_urls (list[str]): List of podcast feed URLs.
+            tonie_ids (list[str]): List of creative tonie IDs to fill.
+            max_minutes_per_tonie (int, optional): Max minutes per tonie. Defaults to 90.
+            episode_min_duration_sec (int, optional): Skip episodes shorter than this.
+                Defaults to 0.
+            volume_adjustment (int, optional): Adjust volume (in dB) of downloaded audio.
+                Defaults to 0.
+            wipe (bool, optional): Wipe tonies before syncing. Defaults to True.
+        """
+        with tempfile.TemporaryDirectory() as podcast_cache_directory:
+            self.podcast_cache_directory = Path(podcast_cache_directory)
+
+            # Clamp minutes per tonie to valid bounds
+            if max_minutes_per_tonie <= 0 or max_minutes_per_tonie > MAXIMUM_TONIE_MINUTES:
+                max_minutes_per_tonie = MAXIMUM_TONIE_MINUTES
+
+            # Validate tonies
+            unknown_tonies = [tid for tid in tonie_ids if tid not in self.__tonieDict]
+            if unknown_tonies:
+                msg = f"ERROR: Cannot find tonies with IDs: {', '.join(unknown_tonies)}"
+                log.error(msg)
+                console.print(msg, style="red")
+                # Continue with valid tonies only
+                tonie_ids = [tid for tid in tonie_ids if tid in self.__tonieDict]
+                if not tonie_ids:
+                    return
+
+            # Build podcast objects and merge episode lists
+            podcasts: list[Podcast] = []
+            for url in podcast_urls:
+                try:
+                    podcasts.append(
+                        Podcast(
+                            url,
+                            episode_sorting=EpisodeSorting.BY_DATE_NEWEST_FIRST,
+                            volume_adjustment=volume_adjustment,
+                            episode_min_duration_sec=episode_min_duration_sec,
+                        ),
+                    )
+                except Exception as exc:  # noqa: BLE001
+                    log.warning("Skipping podcast '%s' due to error: %s", url, exc)
+
+            combined_episodes: list[Episode] = []
+            for podcast in podcasts:
+                combined_episodes.extend(podcast.epList)
+
+            if not combined_episodes:
+                msg = "ERROR: No episodes available across all provided podcasts."
+                log.error(msg)
+                console.print(msg, style="red")
+                return
+
+            # Pre-filter by minimum duration
+            combined_episodes = [ep for ep in combined_episodes if ep.duration_sec >= episode_min_duration_sec]
+
+            # Distribute episodes to each tonie, filling up to the max per tonie, without duplicates across tonies
+            for tonie_id in tonie_ids:
+                if wipe:
+                    self.__wipe_tonie(tonie_id)
+
+                total_seconds = 0
+                selected_for_tonie: list[Episode] = []
+
+                # Determine strategy for this tonie
+                use_smart_random = smart_random
+                if first_tonie_newest_then_random and tonie_id == tonie_ids[0]:
+                    use_smart_random = False
+                    effective_selection = EpisodeSorting.BY_DATE_NEWEST_FIRST
+                else:
+                    effective_selection = episode_selection
+
+                if use_smart_random:
+                    now_epoch = time.time()
+                    cutoff_epoch = now_epoch - (smart_random_days * 24 * 3600)
+
+                    # Priority: recent episodes within the last `smart_random_days`
+                    recent_candidates = [
+                        ep for ep in combined_episodes if time.mktime(ep.published_parsed) >= cutoff_epoch
+                    ]
+                    # Sort by newest first for priority portion
+                    recent_candidates.sort(key=lambda ep: ep.published_parsed, reverse=True)
+
+                    # Fill with recent episodes first
+                    idx = 0
+                    while idx < len(recent_candidates):
+                        ep = recent_candidates[idx]
+                        if (total_seconds + ep.duration_sec) >= (max_minutes_per_tonie * 60):
+                            break
+                        selected_for_tonie.append(ep)
+                        total_seconds += ep.duration_sec
+                        # Remove from global pool to avoid duplicates across tonies
+                        if ep in combined_episodes:
+                            combined_episodes.remove(ep)
+                        idx += 1
+
+                    # Fill remaining capacity with random episodes from the remaining pool
+                    if total_seconds < (max_minutes_per_tonie * 60) and combined_episodes:
+                        remaining_candidates = list(combined_episodes)
+                        random.shuffle(remaining_candidates)
+                        for ep in remaining_candidates:
+                            if (total_seconds + ep.duration_sec) >= (max_minutes_per_tonie * 60):
+                                break
+                            selected_for_tonie.append(ep)
+                            total_seconds += ep.duration_sec
+                            if ep in combined_episodes:
+                                combined_episodes.remove(ep)
+                else:
+                    # Standard strategies: newest, oldest, random
+                    if effective_selection == EpisodeSorting.BY_DATE_NEWEST_FIRST:
+                        ordered_pool = sorted(combined_episodes, key=lambda ep: ep.published_parsed, reverse=True)
+                    elif effective_selection == EpisodeSorting.BY_DATE_OLDEST_FIRST:
+                        ordered_pool = sorted(combined_episodes, key=lambda ep: ep.published_parsed)
+                    else:  # EpisodeSorting.RANDOM
+                        ordered_pool = list(combined_episodes)
+                        random.shuffle(ordered_pool)
+
+                    for ep in ordered_pool:
+                        if (total_seconds + ep.duration_sec) >= (max_minutes_per_tonie * 60):
+                            break
+                        selected_for_tonie.append(ep)
+                        total_seconds += ep.duration_sec
+                        if ep in combined_episodes:
+                            combined_episodes.remove(ep)
+
+                if not selected_for_tonie:
+                    console.print(
+                        f"No suitable episodes available to fill {self.__tonieDict[tonie_id].name} ({tonie_id}).",
+                        style="orange",
+                    )
+                    continue
+
+                # Order episodes on the tonie depending on selection. Keep random order when RANDOM.
+                if use_smart_random:
+                    # Keep newest first for clarity on tonie
+                    selected_for_tonie.sort(key=lambda ep: ep.published_parsed, reverse=True)
+                elif effective_selection == EpisodeSorting.BY_DATE_NEWEST_FIRST:
+                    selected_for_tonie.sort(key=lambda ep: ep.published_parsed, reverse=True)
+                elif effective_selection == EpisodeSorting.BY_DATE_OLDEST_FIRST:
+                    selected_for_tonie.sort(key=lambda ep: ep.published_parsed)
+                else:
+                    # RANDOM: keep the random order as selected
+                    pass
+
+                for ep in track(
+                    selected_for_tonie,
+                    description=(
+                        f"Transferring {len(selected_for_tonie)} episodes to {self.__tonieDict[tonie_id].name}"
+                    ),
+                    total=len(selected_for_tonie),
+                    transient=True,
+                    refresh_per_second=2,
+                ):
+                    if self.__cache_episode(ep):
+                        self.__upload_episode(ep, tonie_id)
+
+                episode_info = [f"{episode.title} ({episode.published})" for episode in selected_for_tonie]
+                console.print(
+                    f"Successfully uploaded {episode_info} to {self.__tonieDict[tonie_id].name} ({tonie_id})",
+                )
