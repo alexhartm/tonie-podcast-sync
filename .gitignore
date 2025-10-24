@@ -152,3 +152,4 @@ package.json
  
 # local helper script
 tonie_podcast_sync/tonie_update.py.DS_Store
+.DS_Store
