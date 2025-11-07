@@ -147,6 +147,10 @@ tps.sync_podcast_to_tonie(checker_tobi, greyTonie, 30, wipe=False)
 
 For the tonie to fetch new content from tonie-cloud, you have to press one ear for 3s (until the "ping" sound) with no tonie on the box (refer also to TonieBox manual).
 
+## as a docker container
+
+@goldbricklemon has created a docker container around this: [docker-tonie-podcast-sync](https://github.com/goldbricklemon/docker-tonie-podcast-sync).
+
 # Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
