@@ -1,6 +1,6 @@
 [project]
 name = "tonie-podcast-sync"
-version = "3.1.2"
+version = "3.2.0"
 description = "allows synching podcast episodes to creative tonies"
 authors = [{ name = "Alexander Hartmann", email = "16985220+alexhartm@users.noreply.github.com" }]
 license = "MIT"
