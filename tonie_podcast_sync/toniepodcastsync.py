@@ -9,9 +9,9 @@ from io import BytesIO
 from pathlib import Path
 
 import requests
-from requests.exceptions import HTTPError, RequestException
 from pathvalidate import sanitize_filename, sanitize_filepath
 from pydub import AudioSegment
+from requests.exceptions import HTTPError, RequestException
 from rich.console import Console
 from rich.progress import track
 from rich.table import Table
@@ -126,16 +126,17 @@ class ToniePodcastSync:
             else:
                 log.info("### tonie is empty")
 
-            cached_episodes: list[Episode] = []
-            for ep in track(
-                episodes_to_cache,
-                description=f"{podcast.title}: Cache episodes ...",
-                total=len(episodes_to_cache),
-                transient=True,
-                refresh_per_second=2,
-            ):
-                if self.__cache_episode(ep):
-                    cached_episodes.append(ep)
+            cached_episodes: list[Episode] = [
+                ep
+                for ep in track(
+                    episodes_to_cache,
+                    description=f"{podcast.title}: Cache episodes ...",
+                    total=len(episodes_to_cache),
+                    transient=True,
+                    refresh_per_second=2,
+                )
+                if self.__cache_episode(ep)
+            ]
 
             if len(cached_episodes) != len(episodes_to_cache):
                 log.warning(
@@ -146,19 +147,20 @@ class ToniePodcastSync:
                 return
 
             # First, upload all new episodes
-            successful_uploads = []
-            for e in track(
-                cached_episodes,
-                description=(
-                    f"{podcast.title}: transferring {len(cached_episodes)} episodes"
-                    f" to {self.__tonieDict[tonie_id].name}"
-                ),
-                total=len(cached_episodes),
-                transient=True,
-                refresh_per_second=2,
-            ):
-                if self.__upload_episode(e, tonie_id):
-                    successful_uploads.append(e)
+            successful_uploads = [
+                e
+                for e in track(
+                    cached_episodes,
+                    description=(
+                        f"{podcast.title}: transferring {len(cached_episodes)} episodes"
+                        f" to {self.__tonieDict[tonie_id].name}"
+                    ),
+                    total=len(cached_episodes),
+                    transient=True,
+                    refresh_per_second=2,
+                )
+                if self.__upload_episode(e, tonie_id)
+            ]
 
             # If not all uploads were successful, we stop here to avoid a partial sync
             if len(successful_uploads) != len(cached_episodes):
@@ -195,10 +197,11 @@ class ToniePodcastSync:
         for _i in range(UPLOAD_RETRY_COUNT):
             try:
                 self.__api.upload_file_to_tonie(tonie, ep.fpath, self.__generate_chapter_title(ep))
-                return True
-            except HTTPError as e:
+            except HTTPError as e:  # noqa: PERF203
                 log.warning("Upload failed for %s, retrying in %d seconds: %s", ep.title, RETRY_DELAY_SECONDS, e)
                 time.sleep(RETRY_DELAY_SECONDS)
+            else:
+                return True
         log.error("Was not able to upload file %s", ep.title)
         return False
 
@@ -264,11 +267,12 @@ class ToniePodcastSync:
 
                     _fs.write(adjusted_content)
                     ep.fpath = fname
-                return True
-            except RequestException as e:
+            except RequestException as e:  # noqa: PERF203
                 last_error = str(e)
                 log.warning("Download failed for %s, retrying in %d seconds: %s", ep.url, RETRY_DELAY_SECONDS, e)
                 time.sleep(RETRY_DELAY_SECONDS)
+            else:
+                return True
 
         log.error("Was not able to get file from %s. Error: %s", ep.url, last_error)
         return False
