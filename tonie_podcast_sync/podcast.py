@@ -65,6 +65,20 @@ class Podcast:
             for iterator in item.links:
                 if iterator["rel"] == "enclosure":
                     url = iterator["href"]
+
+            # filter out all episodes that are longer than the max capacity
+            # of 90 minutes per tonie
+            max_duration_min = 90
+            max_duration_sec = (max_duration_min * 60) - 5  # 5 seconds buffer
+            if Episode(podcast=self.title, raw=item, url=url).duration_sec >= max_duration_sec:
+                log.debug(
+                    "%s: skipping episode '%s' as it is longer than %s min.",
+                    self.title,
+                    item.title,
+                    max_duration_min,
+                )
+                continue
+
             self.epList.append(Episode(podcast=self.title, raw=item, url=url, volume_adjustment=self.volume_adjustment))
 
         match self.epSorting:

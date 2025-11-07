@@ -112,78 +112,33 @@ class ToniePodcastSync:
                 log.warning(msg)
                 console.print(msg, style="orange")
                 return
-            episodes_to_cache = self.__get_episodes_to_cache(podcast, max_minutes)
-
             if not self.__is_tonie_empty(tonie_id):
                 # check if new feed has newer epsiodes than tonie
-                new_episode_titles = {self.__generate_chapter_title(ep) for ep in episodes_to_cache}
-                tonie_episode_titles = {chapter.title for chapter in self.__tonieDict[tonie_id].chapters}
-                if new_episode_titles == tonie_episode_titles:
-                    msg = f"Podcast '{podcast.title}' has no new episodes, tonie is up to date."
+                latest_episode_feed = self.__generate_chapter_title(podcast.epList[0])
+                latest_episode_tonie = self.__tonieDict[tonie_id].chapters[0].title
+                if latest_episode_tonie == latest_episode_feed:
+                    msg = f"Podcast '{podcast.title}' has no new episodes, latest episode is '{latest_episode_tonie}'"
                     log.info(msg)
                     console.print(msg)
                     return
             else:
                 log.info("### tonie is empty")
-
-            cached_episodes: list[Episode] = [
-                ep
-                for ep in track(
-                    episodes_to_cache,
-                    description=f"{podcast.title}: Cache episodes ...",
-                    total=len(episodes_to_cache),
-                    transient=True,
-                    refresh_per_second=2,
-                )
-                if self.__cache_episode(ep)
-            ]
-
-            if len(cached_episodes) != len(episodes_to_cache):
-                log.warning(
-                    "%s: Not all episodes could be downloaded, skipping upload and wipe for tonie %s",
-                    podcast.title,
-                    tonie_id,
-                )
-                return
-
-            # First, upload all new episodes
-            successful_uploads = [
-                e
-                for e in track(
-                    cached_episodes,
-                    description=(
-                        f"{podcast.title}: transferring {len(cached_episodes)} episodes"
-                        f" to {self.__tonieDict[tonie_id].name}"
-                    ),
-                    total=len(cached_episodes),
-                    transient=True,
-                    refresh_per_second=2,
-                )
-                if self.__upload_episode(e, tonie_id)
-            ]
-
-            # If not all uploads were successful, we stop here to avoid a partial sync
-            if len(successful_uploads) != len(cached_episodes):
-                log.error(
-                    "%s: Not all episodes could be uploaded to tonie %s. The Tonie may be in an inconsistent state.",
-                    podcast.title,
-                    tonie_id,
-                )
-                return
-
-            # After all new episodes are uploaded, remove the old ones if wiping is enabled
+            # add new episodes to tonie
             if wipe:
-                tonie = self.__tonieDict[tonie_id]
-                new_chapter_titles = {self.__generate_chapter_title(ep) for ep in successful_uploads}
+                self.__wipe_tonie(tonie_id)
+            cached_episodes = self.__cache_podcast_episodes(podcast, max_minutes)
 
-                self._update_tonies()
-                tonie = self.__tonieDict[tonie_id]
-
-                chapters_to_keep = [chapter for chapter in tonie.chapters if chapter.title in new_chapter_titles]
-
-                console.print(f"Removing old chapters from Tonie '{tonie.name}'")
-                self.__api.sort_chapter_of_tonie(tonie, chapters_to_keep)
-                self._update_tonies()
+            for e in track(
+                cached_episodes,
+                description=(
+                    f"{podcast.title}: transferring {len(cached_episodes)} episodes"
+                    f" to {self.__tonieDict[tonie_id].name}"
+                ),
+                total=len(cached_episodes),
+                transient=True,
+                refresh_per_second=2,
+            ):
+                self.__upload_episode(e, tonie_id)
 
             episode_info = [f"{episode.title} ({episode.published})" for episode in cached_episodes]
             console.print(
@@ -191,7 +146,7 @@ class ToniePodcastSync:
                 f"{self.__tonieDict[tonie_id].name} ({self.__tonieDict[tonie_id].id})",
             )
 
-    def __upload_episode(self, ep: Episode, tonie_id: str) -> bool:
+    def __upload_episode(self, ep: Episode, tonie_id: str) -> None:
         # upload a given episode to a creative tonie
         tonie = self.__tonieDict[tonie_id]
         for _i in range(UPLOAD_RETRY_COUNT):
@@ -211,7 +166,7 @@ class ToniePodcastSync:
         self.__api.clear_all_chapter_of_tonie(tonie)
         self._update_tonies()
 
-    def __get_episodes_to_cache(self, podcast: Podcast, max_minutes: int = MAXIMUM_TONIE_MINUTES) -> list[Episode]:
+    def __cache_podcast_episodes(self, podcast: Podcast, max_minutes: int = MAXIMUM_TONIE_MINUTES) -> list[Episode]:
         # local download of all episodes of a podcast, limited to maxMin minutes in total
         if max_minutes <= 0 or max_minutes > MAXIMUM_TONIE_MINUTES:
             max_minutes = MAXIMUM_TONIE_MINUTES
@@ -233,6 +188,17 @@ class ToniePodcastSync:
                 continue
             total_seconds += ep.duration_sec
             episodes_to_cache.append(ep)
+        ep_list: list[Episode] = []
+
+        for ep in track(
+            episodes_to_cache,
+            description=f"{podcast.title}: Cache episodes ...",
+            total=len(episodes_to_cache),
+            transient=True,
+            refresh_per_second=2,
+        ):
+            if self.__cache_episode(ep):
+                ep_list.append(ep)  # noqa: PERF401
 
         log.info(
             "%s: providing all %s episodes with %d.1 min total",
@@ -240,7 +206,7 @@ class ToniePodcastSync:
             len(episodes_to_cache),
             (total_seconds / 60),
         )
-        return episodes_to_cache
+        return ep_list
 
     def __cache_episode(self, ep: Episode) -> bool:
         # local download of a single episode into a subfolder
@@ -254,7 +220,6 @@ class ToniePodcastSync:
             fname.unlink()
 
         # the download part
-        last_error = ""
         for _i in range(DOWNLOAD_RETRY_COUNT):
             try:
                 r = requests.get(ep.url, timeout=180)
@@ -268,13 +233,23 @@ class ToniePodcastSync:
                     _fs.write(adjusted_content)
                     ep.fpath = fname
             except RequestException as e:  # noqa: PERF203
-                last_error = str(e)
                 log.warning("Download failed for %s, retrying in %d seconds: %s", ep.url, RETRY_DELAY_SECONDS, e)
                 time.sleep(RETRY_DELAY_SECONDS)
             else:
                 return True
+        r = requests.get(ep.url, timeout=180)
+        if r.ok:
+            with fname.open("wb") as _fs:
+                if ep.volume_adjustment != 0 and self.__is_ffmpeg_available():
+                    adjusted_content = self.__adjust_volume__(r.content, ep.volume_adjustment)
+                else:
+                    adjusted_content = r.content
 
-        log.error("Was not able to get file from %s. Error: %s", ep.url, last_error)
+                _fs.write(adjusted_content)
+                ep.fpath = fname
+            return True
+
+        log.error("Was not able to get file from %s with error %s - %s", ep.url, r.status_code, r.text)
         return False
 
     def __generate_filename(self, ep: Episode) -> str:

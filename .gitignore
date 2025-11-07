@@ -136,7 +136,7 @@ mise.local.toml
 .ruff_cache/
 .vscode/
 *.code-workspace
-test.py
+test*.py
 todo.md
 !.pre-commit-config.yaml
 

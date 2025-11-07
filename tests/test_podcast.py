@@ -16,7 +16,7 @@ def test_url_type():
     [
         (str(Path(__file__).parent / "res" / "sandmann.xml"), "Unser Sandmännchen", 67),
         (str(Path(__file__).parent / "res" / "kakadu.xml"), "Kakadu - Der Kinderpodcast", 51),
-        (str(Path(__file__).parent / "res" / "true_crime.xml"), "Crime Junkie", 334),
+        (str(Path(__file__).parent / "res" / "true_crime.xml"), "Crime Junkie", 333),
         (str(Path(__file__).parent / "res" / "pumuckl.xml"), "Pumuckl - Der Hörspiel-Klassiker", 15),
         (str(Path(__file__).parent / "res" / "diemaus.xml"), "Die Maus zum Hören", 47),
     ],
