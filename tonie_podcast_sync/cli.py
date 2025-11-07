@@ -41,6 +41,19 @@ def update_tonies() -> None:
 
 
 @app.command()
+def list_tonies() -> None:
+    """Prints an overview of all creative-tonies."""
+    try:
+        tps = ToniePodcastSync(settings.TONIE_CLOUD_ACCESS.USERNAME, settings.TONIE_CLOUD_ACCESS.PASSWORD)
+        tps.print_tonies_overview()
+    except BoxError:
+        Console().print(
+            "Could not find credentials. Please run 'tonie-podcast-sync create-settings-file' first.",
+        )
+        return
+
+
+@app.command()
 def create_settings_file() -> None:
     """Create a settings file in your user home."""
     keep_secrets = False

@@ -52,10 +52,16 @@ The command will guide you through the process. The settings and optionally also
 Afterwards, you can run
 
 ```bash
+tonie-podcast-sync list-tonies
+```
+to get an overview about your tonies, and
+
+```bash
 tonie-podcast-sync update-tonies
 ```
 
-to fetch new podcast episodes and download them onto the tonies.
+to fetch new podcast episodes and download them onto the tonies and
+
 If you want to perform changes (e.g. switch to another podcast), you can edit the settings file `~/.toniepodcastsync/settings.toml` in a text editor.
 
 To periodically fetch for new episodes, you can schedule `tonie-podcast-sync` e.g. via systemd (on a Linux OS).
