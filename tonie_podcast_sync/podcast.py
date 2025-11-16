@@ -30,6 +30,7 @@ class Podcast:
         episode_sorting: EpisodeSorting = EpisodeSorting.BY_DATE_NEWEST_FIRST,
         volume_adjustment: int = 0,
         episode_min_duration_sec: int = 0,
+        episode_title_filter: list[str] | None = None,
     ) -> None:
         """Initializes the podcast feed and fetches all episodes.
 
@@ -41,9 +42,12 @@ class Podcast:
                                                         Defaults to 0, i.e. no adjustment
             episode_min_duration_sec (int, optional): all episodes with duration < this value
                                                         [in seconds] will be ignored
+            episode_title_filter (list[str] | None, optional): all episodes witch title contains one or more of these
+                                                        strings will be ignored
         """
         self.volume_adjustment = volume_adjustment
         self.episode_min_duration_sec = episode_min_duration_sec
+        self.episode_title_filter = episode_title_filter
 
         self.epList = []  # a list of all episodes
         self.epSorting = episode_sorting  # the sorting of the episode list

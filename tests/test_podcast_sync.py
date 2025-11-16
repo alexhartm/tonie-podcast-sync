@@ -65,6 +65,13 @@ def mocked_responses():
         yield rsps
 
 
+@pytest.fixture
+def mocked_responses_assert_false():
+    with responses.RequestsMock(assert_all_requests_are_fired=False) as rsps:
+        rsps._add_from_file("tests/res/responses.yaml")
+        yield rsps
+
+
 def test_show_overview(mocked_tonie_api: mock.Mock, capfd: pytest.CaptureFixture):
     tonie_api_mock = _get_tonie_api_mock()
     mocked_tonie_api.return_value = tonie_api_mock
@@ -89,13 +96,14 @@ def test_show_overview(mocked_tonie_api: mock.Mock, capfd: pytest.CaptureFixture
 
 
 @mock.patch("tonie_podcast_sync.toniepodcastsync.tempfile.TemporaryDirectory")
-def test_upload_podcast(mock_tempdir, mocked_tonie_api: mock.Mock, mocked_responses: responses.RequestsMock, tmp_path):
+def test_upload_podcast(
+    mock_tempdir, mocked_tonie_api: mock.Mock, mocked_responses_assert_false: responses.RequestsMock, tmp_path
+):
     mock_tempdir.return_value.__enter__.return_value = str(tmp_path)
     tonie_api_mock = _get_tonie_api_mock()
     mocked_tonie_api.return_value = tonie_api_mock
     tps = ToniePodcastSync("some user", "some_pass")
     tps.sync_podcast_to_tonie(Podcast("tests/res/kakadu.xml"), "42")
-    assert mocked_responses.assert_all_requests_are_fired
     tonie_api_mock.upload_file_to_tonie.assert_any_call(
         TONIE_1,
         tmp_path
@@ -103,3 +111,19 @@ def test_upload_podcast(mock_tempdir, mocked_tonie_api: mock.Mock, mocked_respon
         / "Mon, 14 Aug 2023 103524 +0200 Vom Gewinnen und Verlieren - Warum spielen wir so gern.mp3",
         "Vom Gewinnen und Verlieren - Warum spielen wir so gern? (Mon, 14 Aug 2023 10:35:24 +0200)",
     )
+
+
+@mock.patch("tonie_podcast_sync.toniepodcastsync.tempfile.TemporaryDirectory")
+def test_upload_podcast_with_title_filter(
+    mock_tempdir, mocked_tonie_api: mock.Mock, mocked_responses_assert_false: responses.RequestsMock, tmp_path
+):
+    mock_tempdir.return_value.__enter__.return_value = str(tmp_path)
+    tonie_api_mock = _get_tonie_api_mock()
+    mocked_tonie_api.return_value = tonie_api_mock
+    tps = ToniePodcastSync("some user", "some_pass")
+    tps.sync_podcast_to_tonie(
+        Podcast("tests/res/kakadu.xml", episode_title_filter=["Gewinnen"]),
+        "42",
+    )
+    assert len(mocked_responses_assert_false.calls) == 3
+    assert tonie_api_mock.upload_file_to_tonie.call_count == 3

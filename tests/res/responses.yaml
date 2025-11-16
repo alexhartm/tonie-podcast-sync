@@ -29,3 +29,13 @@ responses:
     method: GET
     status: 200
     url: https://podcast-mp3.dradio.de/podcast/2023/08/15/kakadu_podcast_warum_spielen_wir_voe_am_15082023_drk_20230815_1400_26ceac12.mp3?refId=kakadu-104
+- response:
+    auto_calculate_content_length: false
+    body: "ID3\x03\0\0\0\0\x06!TDAT\0\0\0\v\0\0\x01\uFFFD\uFFFD1\07\00\08\0TYER\0\0\
+      \0\v\0\0\x01\uFFFD\uFFFD2\00\02\03\0TLAN\0\0\0\t\0\0\x01\uFFFD\uFFFDD\0E\0U\0\
+      \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\
+      \uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD"
+    content_type: text/plain; charset=utf-8
+    method: GET
+    status: 200
+    url: https://podcast-mp3.dradio.de/podcast/2023/08/10/kakadu_update_warum_ist_gaehnen_ansteckend_drk_20230810_1400_13c4e069.mp3?refId=kakadu-104

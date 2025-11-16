@@ -184,6 +184,15 @@ class ToniePodcastSync:
         total_seconds = 0
         max_seconds = max_minutes * 60
         for ep in podcast.epList:
+            # this filters out all episodes witch title contains one or more of the given strings
+            if podcast.episode_title_filter and any(filter_str in ep.title for filter_str in podcast.episode_title_filter):
+                log.info(
+                    "%s: skipping episode %s as title is filtered out",
+                    podcast.title,
+                    ep.title,
+                )
+                continue
+
             # this filters out all episodes of the podcast that are shorter then the given time
             if ep.duration_sec < podcast.episode_min_duration_sec:
                 log.info(
