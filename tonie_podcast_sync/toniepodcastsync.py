@@ -2,6 +2,7 @@
 
 import logging
 import platform
+import random
 import subprocess
 import tempfile
 import time
@@ -32,6 +33,7 @@ MAXIMUM_TONIE_MINUTES = 90
 DOWNLOAD_RETRY_COUNT = 3
 UPLOAD_RETRY_COUNT = 3
 RETRY_DELAY_SECONDS = 3
+MAX_SHUFFLE_ATTEMPTS = 5
 
 
 class ToniePodcastSync:
@@ -124,6 +126,10 @@ class ToniePodcastSync:
                         log.info(msg)
                         console.print(msg)
                         return
+                else:
+                    # For RANDOM mode, re-shuffle to ensure first episode differs
+                    latest_episode_tonie = self.__tonieDict[tonie_id].chapters[0].title
+                    self.__reshuffle_until_different(podcast, latest_episode_tonie)
             else:
                 log.info("### tonie is empty")
             # add new episodes to tonie
@@ -287,6 +293,36 @@ class ToniePodcastSync:
     def __is_tonie_empty(self, tonie_id: str) -> bool:
         tonie = self.__tonieDict[tonie_id]
         return tonie.chaptersPresent == 0
+
+    def __reshuffle_until_different(self, podcast: Podcast, current_first_episode_title: str) -> None:
+        """Re-shuffle podcast episodes until first episode differs from current one on Tonie.
+
+        Args:
+            podcast (Podcast): The podcast with episodes to shuffle
+            current_first_episode_title (str): The title of the current first episode on the Tonie
+        """
+        for attempt in range(MAX_SHUFFLE_ATTEMPTS):
+            first_episode_title = self.__generate_chapter_title(podcast.epList[0])
+            if first_episode_title != current_first_episode_title:
+                log.info(
+                    "%s: Successfully shuffled to new first episode after %d attempt(s)",
+                    podcast.title,
+                    attempt + 1,
+                )
+                return
+
+            log.info(
+                "%s: Shuffle attempt %d - first episode still matches, re-shuffling",
+                podcast.title,
+                attempt + 1,
+            )
+            random.shuffle(podcast.epList)
+
+        log.warning(
+            "%s: Could not find different first episode after %d shuffle attempts",
+            podcast.title,
+            MAX_SHUFFLE_ATTEMPTS,
+        )
 
     def __adjust_volume__(self, audio_bytes: bytes, volume_adjustment: int) -> bytes:
         audio = AudioSegment.from_file(BytesIO(audio_bytes), format="mp3")
