@@ -31,6 +31,7 @@ class Podcast:
         volume_adjustment: int = 0,
         episode_min_duration_sec: int = 0,
         exclude_episode_titles: list[str] | None = None,
+        exclude_titles_case_insensitive: bool = False,
     ) -> None:
         """Initializes the podcast feed and fetches all episodes.
 
@@ -44,10 +45,13 @@ class Podcast:
                                                         [in seconds] will be ignored
             exclude_episode_titles (list[str] | None, optional): all episodes which title contains one or more of these
                                                         strings will be ignored
+            exclude_titles_case_insensitive (bool, optional): if True, the exclude_episode_titles filter will be
+                                                        case-insensitive. Defaults to False.
         """
         self.volume_adjustment = volume_adjustment
         self.episode_min_duration_sec = episode_min_duration_sec
         self.exclude_episode_titles = exclude_episode_titles
+        self.exclude_titles_case_insensitive = exclude_titles_case_insensitive
 
         self.epList = []  # a list of all episodes
         self.epSorting = episode_sorting  # the sorting of the episode list

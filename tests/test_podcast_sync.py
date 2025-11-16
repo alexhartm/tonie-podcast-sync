@@ -127,3 +127,23 @@ def test_upload_podcast_with_title_filter(
     )
     assert len(mocked_responses_assert_false.calls) == 3
     assert tonie_api_mock.upload_file_to_tonie.call_count == 3
+
+
+@mock.patch("tonie_podcast_sync.toniepodcastsync.tempfile.TemporaryDirectory")
+def test_upload_podcast_with_case_insensitive_title_filter(
+    mock_tempdir, mocked_tonie_api: mock.Mock, mocked_responses_assert_false: responses.RequestsMock, tmp_path
+):
+    mock_tempdir.return_value.__enter__.return_value = str(tmp_path)
+    tonie_api_mock = _get_tonie_api_mock()
+    mocked_tonie_api.return_value = tonie_api_mock
+    tps = ToniePodcastSync("some user", "some_pass")
+    tps.sync_podcast_to_tonie(
+        Podcast(
+            "tests/res/kakadu.xml",
+            exclude_episode_titles=["gewinnen"],
+            exclude_titles_case_insensitive=True,
+        ),
+        "42",
+    )
+    assert len(mocked_responses_assert_false.calls) == 3
+    assert tonie_api_mock.upload_file_to_tonie.call_count == 3

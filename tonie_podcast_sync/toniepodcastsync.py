@@ -185,7 +185,11 @@ class ToniePodcastSync:
         max_seconds = max_minutes * 60
         for ep in podcast.epList:
             # this filters out all episodes witch title contains one or more of the given strings
-            if podcast.exclude_episode_titles and any(filter_str in ep.title for filter_str in podcast.exclude_episode_titles):
+            if podcast.exclude_episode_titles and any(
+                (filter_str.lower() if podcast.exclude_titles_case_insensitive else filter_str)
+                in (ep.title.lower() if podcast.exclude_titles_case_insensitive else ep.title)
+                for filter_str in podcast.exclude_episode_titles
+            ):
                 log.info(
                     "%s: skipping episode %s as title is filtered out",
                     podcast.title,
