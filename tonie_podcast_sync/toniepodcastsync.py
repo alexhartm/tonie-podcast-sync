@@ -20,7 +20,7 @@ from tonie_api.models import CreativeTonie
 
 from tonie_podcast_sync.podcast import (
     Episode,
-    EpisodeSorting,  # noqa: F401
+    EpisodeSorting,
     Podcast,
 )
 
@@ -113,14 +113,17 @@ class ToniePodcastSync:
                 console.print(msg, style="orange")
                 return
             if not self.__is_tonie_empty(tonie_id):
-                # check if new feed has newer epsiodes than tonie
-                latest_episode_feed = self.__generate_chapter_title(podcast.epList[0])
-                latest_episode_tonie = self.__tonieDict[tonie_id].chapters[0].title
-                if latest_episode_tonie == latest_episode_feed:
-                    msg = f"Podcast '{podcast.title}' has no new episodes, latest episode is '{latest_episode_tonie}'"
-                    log.info(msg)
-                    console.print(msg)
-                    return
+                # check if new feed has newer epsiodes than tonie (skip check in random mode)
+                if podcast.epSorting != EpisodeSorting.RANDOM:
+                    latest_episode_feed = self.__generate_chapter_title(podcast.epList[0])
+                    latest_episode_tonie = self.__tonieDict[tonie_id].chapters[0].title
+                    if latest_episode_tonie == latest_episode_feed:
+                        msg = (
+                            f"Podcast '{podcast.title}' has no new episodes, latest episode is '{latest_episode_tonie}'"
+                        )
+                        log.info(msg)
+                        console.print(msg)
+                        return
             else:
                 log.info("### tonie is empty")
             # add new episodes to tonie
