@@ -122,7 +122,7 @@ def test_upload_podcast_with_title_filter(
     mocked_tonie_api.return_value = tonie_api_mock
     tps = ToniePodcastSync("some user", "some_pass")
     tps.sync_podcast_to_tonie(
-        Podcast("tests/res/kakadu.xml", episode_title_filter=["Gewinnen"]),
+        Podcast("tests/res/kakadu.xml", exclude_episode_titles=["Gewinnen"]),
         "42",
     )
     assert len(mocked_responses_assert_false.calls) == 3
