@@ -47,7 +47,10 @@ uv run pytest tests/
 [tasks.build]
 depends = ["lint", "format"]
 description = "Build"
-run = "uv build"
+run = '''
+uv sync
+uv build
+'''
 
 [tasks.format]
 description = "Format the code"
