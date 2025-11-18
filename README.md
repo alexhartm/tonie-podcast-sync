@@ -64,7 +64,7 @@ to fetch new podcast episodes and download them onto the tonies and
 
 If you want to perform changes (e.g. switch to another podcast), you can edit the settings file `~/.toniepodcastsync/settings.toml` in a text editor.
 
-### Settings File Format
+### CLI Settings File Format
 
 The settings file supports the following options for each creative tonie:
 
@@ -76,8 +76,8 @@ episode_sorting = "by_date_newest_first"  # or "by_date_oldest_first", "random"
 maximum_length = 90  # Maximum duration in minutes
 episode_min_duration_sec = 30  # Minimum episode duration in seconds
 episode_max_duration_sec = 5400  # Maximum episode duration in seconds (optional, defaults to 5399)
-volume_adjustment = 0  # Volume adjustment in dB (+/-)
-excluded_title_strings = ["vampir", "brokkoli"]  # Filter out episodes that contain any one of those strings in their title (optional)
+volume_adjustment = 0  # volume adjustment in dB (+/-)
+excluded_title_strings = ["vampir", "brokkoli"]  # filter out scary episodes
 ```
 
 The `excluded_title_strings` field is optional and allows you to filter out episodes whose titles contain any of the specified strings (case-insensitive matching).
