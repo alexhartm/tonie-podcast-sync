@@ -24,12 +24,13 @@ class EpisodeSorting(str, Enum):
 class Podcast:
     """The representation of a podcast feed."""
 
-    def __init__(
+    def __init__(  # noqa: PLR0913
         self,
         url: str,
         episode_sorting: EpisodeSorting = EpisodeSorting.BY_DATE_NEWEST_FIRST,
         volume_adjustment: int = 0,
         episode_min_duration_sec: int = 0,
+        episode_max_duration_sec: int = 5399,
         excluded_title_strings: list[str] | None = None,
     ) -> None:
         """Initializes the podcast feed and fetches all episodes.
@@ -42,11 +43,15 @@ class Podcast:
                                                         Defaults to 0, i.e. no adjustment
             episode_min_duration_sec (int, optional): all episodes with duration < this value
                                                         [in seconds] will be ignored
+            episode_max_duration_sec (int, optional): all episodes with duration > this value
+                                                        [in seconds] will be ignored.
+                                                        Defaults to 5399 (90 min - 1 sec buffer)
             excluded_title_strings (list[str], optional): list of strings; episodes with titles containing
                                                         any of these strings (case-insensitive) will be filtered out
         """
         self.volume_adjustment = volume_adjustment
         self.episode_min_duration_sec = episode_min_duration_sec
+        self.episode_max_duration_sec = episode_max_duration_sec
         self.excluded_title_strings = [s.lower() for s in excluded_title_strings] if excluded_title_strings else []
 
         self.epList = []  # a list of all episodes
@@ -70,16 +75,27 @@ class Podcast:
                 if iterator["rel"] == "enclosure":
                     url = iterator["href"]
 
-            # filter out all episodes that are longer than the max capacity
-            # of 90 minutes per tonie
-            max_duration_min = 90
-            max_duration_sec = (max_duration_min * 60) - 5  # 5 seconds buffer
-            if Episode(podcast=self.title, raw=item, url=url).duration_sec >= max_duration_sec:
-                log.debug(
-                    "%s: skipping episode '%s' as it is longer than %s min.",
+            ep = Episode(podcast=self.title, raw=item, url=url, volume_adjustment=self.volume_adjustment)
+
+            # filter out episodes that are too short
+            if ep.duration_sec < self.episode_min_duration_sec:
+                log.info(
+                    "%s: skipping episode '%s' as too short (%d sec, min is %d sec).",
                     self.title,
                     item.title,
-                    max_duration_min,
+                    ep.duration_sec,
+                    self.episode_min_duration_sec,
+                )
+                continue
+
+            # filter out episodes that are too long
+            if ep.duration_sec > self.episode_max_duration_sec:
+                log.info(
+                    "%s: skipping episode '%s' as too long (%d sec, max is %d sec).",
+                    self.title,
+                    item.title,
+                    ep.duration_sec,
+                    self.episode_max_duration_sec,
                 )
                 continue
 
@@ -87,14 +103,14 @@ class Podcast:
             if self.excluded_title_strings and any(
                 excluded_string in item.title.lower() for excluded_string in self.excluded_title_strings
             ):
-                log.debug(
+                log.info(
                     "%s: skipping episode '%s' as title contains excluded string.",
                     self.title,
                     item.title,
                 )
                 continue
 
-            self.epList.append(Episode(podcast=self.title, raw=item, url=url, volume_adjustment=self.volume_adjustment))
+            self.epList.append(ep)
 
         match self.epSorting:
             case EpisodeSorting.BY_DATE_NEWEST_FIRST:

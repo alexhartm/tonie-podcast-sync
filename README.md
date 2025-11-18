@@ -75,11 +75,14 @@ name = "My Tonie Name"
 episode_sorting = "by_date_newest_first"  # or "by_date_oldest_first", "random"
 maximum_length = 90  # Maximum duration in minutes
 episode_min_duration_sec = 30  # Minimum episode duration in seconds
+episode_max_duration_sec = 5400  # Maximum episode duration in seconds (optional, defaults to 5399)
 volume_adjustment = 0  # Volume adjustment in dB (+/-)
-excluded_title_strings = ["vampir", "monster"]  # Filter out episodes by title (optional)
+excluded_title_strings = ["vampir", "brokkoli"]  # Filter out episodes that contain any one of those strings in their title (optional)
 ```
 
 The `excluded_title_strings` field is optional and allows you to filter out episodes whose titles contain any of the specified strings (case-insensitive matching).
+
+The `episode_max_duration_sec` field is optional and defaults to 5399 seconds (90 minutes minus 1 second buffer). It filters out individual episodes that exceed this duration. Note that this is different from `maximum_length`, which controls the total duration of episodes placed on the tonie.
 
 To periodically fetch for new episodes, you can schedule `tonie-podcast-sync` e.g. via systemd (on a Linux OS).
 
@@ -135,10 +138,10 @@ checker_tobi = Podcast(
 
 # You can also filter out episodes by title strings. Episodes with titles containing
 # any of the specified strings (case-insensitive) will be excluded.
-# This is useful for filtering out special episodes, reruns, or other unwanted content.
+# This is useful for filtering out episodes that are too scary (for example).
 maus_filtered = Podcast(
     "https://kinder.wdr.de/radio/diemaus/audio/maus-gute-nacht/maus-gute-nacht-148.podcast",
-    excluded_title_strings = ["vampir", "monster"]
+    excluded_title_strings = ["vampir", "brokkoli"]
 )
 
 # Create instance of ToniePodcastSync
