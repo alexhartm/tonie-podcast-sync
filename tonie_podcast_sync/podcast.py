@@ -30,6 +30,7 @@ class Podcast:
         episode_sorting: EpisodeSorting = EpisodeSorting.BY_DATE_NEWEST_FIRST,
         volume_adjustment: int = 0,
         episode_min_duration_sec: int = 0,
+        excluded_title_strings: list[str] | None = None,
     ) -> None:
         """Initializes the podcast feed and fetches all episodes.
 
@@ -41,9 +42,12 @@ class Podcast:
                                                         Defaults to 0, i.e. no adjustment
             episode_min_duration_sec (int, optional): all episodes with duration < this value
                                                         [in seconds] will be ignored
+            excluded_title_strings (list[str], optional): list of strings; episodes with titles containing
+                                                        any of these strings (case-insensitive) will be filtered out
         """
         self.volume_adjustment = volume_adjustment
         self.episode_min_duration_sec = episode_min_duration_sec
+        self.excluded_title_strings = [s.lower() for s in excluded_title_strings] if excluded_title_strings else []
 
         self.epList = []  # a list of all episodes
         self.epSorting = episode_sorting  # the sorting of the episode list
@@ -76,6 +80,17 @@ class Podcast:
                     self.title,
                     item.title,
                     max_duration_min,
+                )
+                continue
+
+            # filter out episodes with titles containing excluded strings
+            if self.excluded_title_strings and any(
+                excluded_string in item.title.lower() for excluded_string in self.excluded_title_strings
+            ):
+                log.debug(
+                    "%s: skipping episode '%s' as title contains excluded string.",
+                    self.title,
+                    item.title,
                 )
                 continue
 
