@@ -184,36 +184,14 @@ class ToniePodcastSync:
         total_seconds = 0
         max_seconds = max_minutes * 60
         for ep in podcast.epList:
-            # this filters out all episodes of the podcast that are shorter then the given time
-            if ep.duration_sec < podcast.episode_min_duration_sec:
-                log.info(
-                    "%s: skipping episode %s as too short (%d sec)",
-                    podcast.title,
-                    ep.title,
-                    ep.duration_sec,
-                )
-                continue
-            # this filters out all episodes that are longer than the configured max duration
-            if ep.duration_sec > max_seconds:
-                log.info(
-                    "%s: skipping episode %s as too long (%d sec, max is %d sec)",
-                    podcast.title,
-                    ep.title,
-                    ep.duration_sec,
-                    max_seconds,
-                )
-                continue
-            # this is to stop if we are already over the maximum specified time
+            # stop if we are already over the maximum specified time
             if (total_seconds + ep.duration_sec) >= max_seconds:
                 break
             total_seconds += ep.duration_sec
             episodes_to_cache.append(ep)
 
         if len(episodes_to_cache) == 0:
-            msg = (
-                f"WARNING: No episodes found for podcast '{podcast.title}' "
-                f"that match the duration criteria (min: {podcast.episode_min_duration_sec}s, max: {max_seconds}s)"
-            )
+            msg = f"WARNING: No episodes found for podcast '{podcast.title}' that fit within {max_minutes} minutes"
             log.warning(msg)
             console.print(msg, style="yellow")
             return []

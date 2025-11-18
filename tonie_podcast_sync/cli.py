@@ -28,12 +28,16 @@ def update_tonies() -> None:
         )
         return
     for ct_key, ct_value in settings.CREATIVE_TONIES.items():
+        excluded_title_strings = ct_value.get("excluded_title_strings", [])
+        episode_max_duration_sec = ct_value.get("episode_max_duration_sec", ct_value.maximum_length * 60)
         tps.sync_podcast_to_tonie(
             Podcast(
                 ct_value.podcast,
                 episode_sorting=ct_value.episode_sorting,
                 volume_adjustment=ct_value.volume_adjustment,
                 episode_min_duration_sec=ct_value.episode_min_duration_sec,
+                episode_max_duration_sec=episode_max_duration_sec,
+                excluded_title_strings=excluded_title_strings,
             ),
             ct_key,
             ct_value.maximum_length,

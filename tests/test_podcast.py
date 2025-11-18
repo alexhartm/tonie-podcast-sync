@@ -47,3 +47,94 @@ class TestPodcast:
 def is_list_sorted(objects: list) -> bool:
     sorted_objects = sorted(objects, key=lambda x: x.published_parsed)
     return any(sorted_objects[i] != objects[i] for i in range(len(sorted_objects)))
+
+
+def test_excluded_title_strings():
+    """Test that episodes with excluded title strings are filtered out."""
+    feed = str(Path(__file__).parent / "res" / "kakadu.xml")
+
+    # Test without exclusion - should have 51 episodes
+    podcast_no_filter = Podcast(feed)
+    assert len(podcast_no_filter.epList) == 51
+
+    # Test with exclusion for "Update:" - should filter out episodes containing this string
+    podcast_with_filter = Podcast(feed, excluded_title_strings=["Update:"])
+    # At least one episode should be filtered
+    assert len(podcast_with_filter.epList) < 51
+    # Verify no remaining episodes contain the excluded string
+    for episode in podcast_with_filter.epList:
+        assert "update:" not in episode.title.lower()
+
+
+def test_excluded_title_strings_case_insensitive():
+    """Test that title filtering is case-insensitive."""
+    feed = str(Path(__file__).parent / "res" / "kakadu.xml")
+
+    # Test with different case variations
+    podcast_upper = Podcast(feed, excluded_title_strings=["UPDATE"])
+    podcast_lower = Podcast(feed, excluded_title_strings=["update"])
+    podcast_mixed = Podcast(feed, excluded_title_strings=["UpDaTe"])
+
+    # All should filter the same episodes
+    assert len(podcast_upper.epList) == len(podcast_lower.epList)
+    assert len(podcast_lower.epList) == len(podcast_mixed.epList)
+
+
+def test_excluded_title_strings_multiple():
+    """Test filtering with multiple excluded strings."""
+    feed = str(Path(__file__).parent / "res" / "kakadu.xml")
+
+    # Test with multiple exclusion strings
+    podcast_multi = Podcast(feed, excluded_title_strings=["Update:", "Vorurteile"])
+
+    # Verify no episodes contain any of the excluded strings
+    for episode in podcast_multi.epList:
+        assert "update:" not in episode.title.lower()
+        assert "vorurteile" not in episode.title.lower()
+
+
+def test_excluded_title_strings_empty_list():
+    """Test that empty exclusion list doesn't filter anything."""
+    feed = str(Path(__file__).parent / "res" / "kakadu.xml")
+
+    podcast_empty_list = Podcast(feed, excluded_title_strings=[])
+    podcast_no_param = Podcast(feed)
+
+    # Both should have the same number of episodes
+    assert len(podcast_empty_list.epList) == len(podcast_no_param.epList)
+
+
+def test_episode_min_duration_filtering():
+    """Test that episodes shorter than min duration are filtered out."""
+    feed = str(Path(__file__).parent / "res" / "kakadu.xml")
+
+    # Get baseline
+    podcast_no_filter = Podcast(feed)
+    baseline_count = len(podcast_no_filter.epList)
+
+    # Filter out episodes shorter than 1500 seconds (25 minutes)
+    podcast_with_min = Podcast(feed, episode_min_duration_sec=1500)
+
+    # Should have fewer episodes (kakadu has episodes between 1190s and 1639s)
+    assert len(podcast_with_min.epList) < baseline_count
+    # All remaining episodes should be at least 1500 seconds
+    for episode in podcast_with_min.epList:
+        assert episode.duration_sec >= 1500
+
+
+def test_episode_max_duration_filtering():
+    """Test that episodes longer than max duration are filtered out."""
+    feed = str(Path(__file__).parent / "res" / "kakadu.xml")
+
+    # Get baseline
+    podcast_no_filter = Podcast(feed)
+    baseline_count = len(podcast_no_filter.epList)
+
+    # Filter out episodes longer than 1200 seconds (20 minutes)
+    podcast_with_max = Podcast(feed, episode_max_duration_sec=1200)
+
+    # Should have fewer or equal episodes
+    assert len(podcast_with_max.epList) <= baseline_count
+    # All remaining episodes should be at most 1200 seconds
+    for episode in podcast_with_max.epList:
+        assert episode.duration_sec <= 1200
