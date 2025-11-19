@@ -9,8 +9,12 @@ from time import struct_time
 
 import feedparser
 
+from tonie_podcast_sync.constants import MAXIMUM_TONIE_MINUTES
+
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
+
+MAX_EPISODE_TITLES_IN_WARNING = 3
 
 
 class EpisodeSorting(str, Enum):
@@ -30,7 +34,7 @@ class Podcast:
         episode_sorting: EpisodeSorting = EpisodeSorting.BY_DATE_NEWEST_FIRST,
         volume_adjustment: int = 0,
         episode_min_duration_sec: int = 0,
-        episode_max_duration_sec: int = 5399,
+        episode_max_duration_sec: int = MAXIMUM_TONIE_MINUTES * 60,
         excluded_title_strings: list[str] | None = None,
     ) -> None:
         """Initializes the podcast feed and fetches all episodes.
@@ -45,7 +49,7 @@ class Podcast:
                                                         [in seconds] will be ignored
             episode_max_duration_sec (int, optional): all episodes with duration > this value
                                                         [in seconds] will be ignored.
-                                                        Defaults to 5399 (90 min - 1 sec buffer)
+                                                        Defaults to MAXIMUM_TONIE_MINUTES * 60 (90 min)
             excluded_title_strings (list[str], optional): list of strings; episodes with titles containing
                                                         any of these strings (case-insensitive) will be filtered out
         """
@@ -63,9 +67,55 @@ class Podcast:
         self.title = self.feed.feed.title  # title of podcast
         self.refresh_feed()  # reads feed and populates the episode list
 
+    def _should_include_episode(self, ep: "Episode") -> bool:
+        """Check if an episode should be included based on filters.
+
+        Args:
+            ep: The episode to check
+
+        Returns:
+            True if episode passes all filters, False otherwise
+        """
+        # filter out episodes that are too short
+        if ep.duration_sec < self.episode_min_duration_sec:
+            log.info(
+                "%s: skipping episode '%s' as too short (%d sec, min is %d sec).",
+                self.title,
+                ep.title,
+                ep.duration_sec,
+                self.episode_min_duration_sec,
+            )
+            return False
+
+        # filter out episodes that are too long
+        if ep.duration_sec > self.episode_max_duration_sec:
+            log.info(
+                "%s: skipping episode '%s' as too long (%d sec, max is %d sec).",
+                self.title,
+                ep.title,
+                ep.duration_sec,
+                self.episode_max_duration_sec,
+            )
+            return False
+
+        # filter out episodes with titles containing excluded strings
+        if self.excluded_title_strings and any(
+            excluded_string in ep.title.lower() for excluded_string in self.excluded_title_strings
+        ):
+            log.info(
+                "%s: skipping episode '%s' as title contains excluded string.",
+                self.title,
+                ep.title,
+            )
+            return False
+
+        return True
+
     def refresh_feed(self) -> None:
         """Refresh the podcast feed and get the episodes list."""
         # reads feed and populates the episode list
+        episodes_without_duration = []
+
         for item in self.feed.entries:
             # for most feeds, the item.id contains a URL to the audio file
             # but not in all cases. The audio file is to my knowledge available
@@ -75,42 +125,24 @@ class Podcast:
                 if iterator["rel"] == "enclosure":
                     url = iterator["href"]
 
+            # Track episodes missing duration info
+            if "itunes_duration" not in item or not item.get("itunes_duration", "").strip():
+                episodes_without_duration.append(item.title)
+
             ep = Episode(podcast=self.title, raw=item, url=url, volume_adjustment=self.volume_adjustment)
 
-            # filter out episodes that are too short
-            if ep.duration_sec < self.episode_min_duration_sec:
-                log.info(
-                    "%s: skipping episode '%s' as too short (%d sec, min is %d sec).",
-                    self.title,
-                    item.title,
-                    ep.duration_sec,
-                    self.episode_min_duration_sec,
-                )
-                continue
+            if self._should_include_episode(ep):
+                self.epList.append(ep)
 
-            # filter out episodes that are too long
-            if ep.duration_sec > self.episode_max_duration_sec:
-                log.info(
-                    "%s: skipping episode '%s' as too long (%d sec, max is %d sec).",
-                    self.title,
-                    item.title,
-                    ep.duration_sec,
-                    self.episode_max_duration_sec,
-                )
-                continue
-
-            # filter out episodes with titles containing excluded strings
-            if self.excluded_title_strings and any(
-                excluded_string in item.title.lower() for excluded_string in self.excluded_title_strings
-            ):
-                log.info(
-                    "%s: skipping episode '%s' as title contains excluded string.",
-                    self.title,
-                    item.title,
-                )
-                continue
-
-            self.epList.append(ep)
+        # Warn once if any episodes are missing duration
+        if episodes_without_duration:
+            log.warning(
+                "%s: %d episode(s) in feed are missing duration information: %s",
+                self.title,
+                len(episodes_without_duration),
+                ", ".join(episodes_without_duration[:MAX_EPISODE_TITLES_IN_WARNING])
+                + ("..." if len(episodes_without_duration) > MAX_EPISODE_TITLES_IN_WARNING else ""),
+            )
 
         match self.epSorting:
             case EpisodeSorting.BY_DATE_NEWEST_FIRST:
@@ -144,20 +176,26 @@ class Episode:
         self.published = self.raw["published"]
         self.published_parsed = self.raw["published_parsed"]
         self.guid = self.raw["id"]
-        self.duration_str = self.raw["itunes_duration"]
+        self.duration_str = self.raw.get("itunes_duration", "0")
         self.duration_sec = self.__dur_str_in_sec(self.duration_str)
 
     @staticmethod
     def __dur_str_in_sec(duration_str: str) -> int:
-        h, m, s = 0, 0, 0
-        match duration_str.count(":"):
-            case 0:
-                s = duration_str
-            case 1:
-                m, s = duration_str.split(":")
-            case 2:
-                h, m, s = duration_str.split(":")
-            case _:
-                log.warning("Could not match time string.")
+        if not duration_str or not duration_str.strip():
+            return 0
 
-        return int(h) * 3600 + int(m) * 60 + int(s)
+        try:
+            h, m, s = 0, 0, 0
+            match duration_str.count(":"):
+                case 0:
+                    s = duration_str
+                case 1:
+                    m, s = duration_str.split(":")
+                case 2:
+                    h, m, s = duration_str.split(":")
+                case _:
+                    return 0
+
+            return int(h) * 3600 + int(m) * 60 + int(s)
+        except (ValueError, TypeError):
+            return 0

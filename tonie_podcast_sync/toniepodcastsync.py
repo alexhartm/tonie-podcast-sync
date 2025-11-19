@@ -19,6 +19,13 @@ from rich.table import Table
 from tonie_api.api import TonieAPI
 from tonie_api.models import CreativeTonie
 
+from tonie_podcast_sync.constants import (
+    DOWNLOAD_RETRY_COUNT,
+    MAX_SHUFFLE_ATTEMPTS,
+    MAXIMUM_TONIE_MINUTES,
+    RETRY_DELAY_SECONDS,
+    UPLOAD_RETRY_COUNT,
+)
 from tonie_podcast_sync.podcast import (
     Episode,
     EpisodeSorting,
@@ -28,12 +35,6 @@ from tonie_podcast_sync.podcast import (
 console = Console()
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
-
-MAXIMUM_TONIE_MINUTES = 90
-DOWNLOAD_RETRY_COUNT = 3
-UPLOAD_RETRY_COUNT = 3
-RETRY_DELAY_SECONDS = 3
-MAX_SHUFFLE_ATTEMPTS = 5
 
 
 class ToniePodcastSync:
@@ -126,16 +127,21 @@ class ToniePodcastSync:
                         log.info(msg)
                         console.print(msg)
                         return
-                else:
-                    # For RANDOM mode, re-shuffle to ensure first episode differs
-                    latest_episode_tonie = self.__tonieDict[tonie_id].chapters[0].title
-                    self.__reshuffle_until_different(podcast, latest_episode_tonie)
             else:
                 log.info("### tonie is empty")
             # add new episodes to tonie
             if wipe:
                 self.__wipe_tonie(tonie_id)
+
+            # For RANDOM mode, reshuffle before caching to ensure fresh episodes
+            if podcast.epSorting == EpisodeSorting.RANDOM and not self.__is_tonie_empty(tonie_id):
+                latest_episode_tonie = self.__tonieDict[tonie_id].chapters[0].title
+                self.__reshuffle_until_different(podcast, latest_episode_tonie)
+
             cached_episodes = self.__cache_podcast_episodes(podcast, max_minutes)
+
+            successfully_uploaded = []
+            failed_episodes = []
 
             for e in track(
                 cached_episodes,
@@ -147,12 +153,29 @@ class ToniePodcastSync:
                 transient=True,
                 refresh_per_second=2,
             ):
-                self.__upload_episode(e, tonie_id)
+                if self.__upload_episode(e, tonie_id):
+                    successfully_uploaded.append(e)
+                else:
+                    failed_episodes.append(e)
 
-            episode_info = [f"{episode.title} ({episode.published})" for episode in cached_episodes]
+            self.__report_upload_results(podcast.title, tonie_id, successfully_uploaded, failed_episodes)
+
+    def __report_upload_results(
+        self, podcast_title: str, tonie_id: str, successfully_uploaded: list[Episode], failed_episodes: list[Episode]
+    ) -> None:
+        """Report the results of episode uploads to the user."""
+        if successfully_uploaded:
+            episode_info = [f"{episode.title} ({episode.published})" for episode in successfully_uploaded]
             console.print(
-                f"{podcast.title}: Successfully uploaded {episode_info} to "
+                f"{podcast_title}: Successfully uploaded {episode_info} to "
                 f"{self.__tonieDict[tonie_id].name} ({self.__tonieDict[tonie_id].id})",
+            )
+
+        if failed_episodes:
+            failed_info = [episode.title for episode in failed_episodes]
+            console.print(
+                f"{podcast_title}: Failed to upload {len(failed_episodes)} episode(s): {failed_info}",
+                style="red",
             )
 
     def __upload_episode(self, ep: Episode, tonie_id: str) -> None:
@@ -184,8 +207,8 @@ class ToniePodcastSync:
         total_seconds = 0
         max_seconds = max_minutes * 60
         for ep in podcast.epList:
-            # stop if we are already over the maximum specified time
-            if (total_seconds + ep.duration_sec) >= max_seconds:
+            # stop if adding this episode would exceed the maximum specified time
+            if (total_seconds + ep.duration_sec) > max_seconds:
                 break
             total_seconds += ep.duration_sec
             episodes_to_cache.append(ep)
@@ -196,7 +219,11 @@ class ToniePodcastSync:
             console.print(msg, style="yellow")
             return []
 
+        # Keep track of available fallback episodes (not selected for download yet)
+        available_episodes = [ep for ep in podcast.epList if ep not in episodes_to_cache]
         ep_list: list[Episode] = []
+        failed_episodes = []
+        current_duration = 0
 
         for ep in track(
             episodes_to_cache,
@@ -206,15 +233,73 @@ class ToniePodcastSync:
             refresh_per_second=2,
         ):
             if self.__cache_episode(ep):
-                ep_list.append(ep)  # noqa: PERF401
+                ep_list.append(ep)
+                current_duration += ep.duration_sec
+            else:
+                failed_episodes.append(ep)
+                # Try to find a replacement from available episodes
+                replacement = self.__find_replacement_episode(
+                    podcast, available_episodes, max_seconds, current_duration
+                )
+                if replacement:
+                    log.info(
+                        "%s: Attempting replacement episode '%s' for failed download of '%s'",
+                        podcast.title,
+                        replacement.title,
+                        ep.title,
+                    )
+                    if self.__cache_episode(replacement):
+                        ep_list.append(replacement)
+                        available_episodes.remove(replacement)
+                        current_duration += replacement.duration_sec
+                    else:
+                        log.warning(
+                            "%s: Replacement episode '%s' also failed to download",
+                            podcast.title,
+                            replacement.title,
+                        )
+
+        if failed_episodes:
+            log.warning(
+                "%s: %d episode(s) failed to download and could not be replaced",
+                podcast.title,
+                len([ep for ep in failed_episodes if ep not in list(ep_list)]),
+            )
 
         log.info(
-            "%s: providing all %s episodes with %d.1 min total",
+            "%s: providing %s episodes with %.1f min total",
             podcast.title,
-            len(episodes_to_cache),
-            (total_seconds / 60),
+            len(ep_list),
+            sum(e.duration_sec for e in ep_list) / 60,
         )
         return ep_list
+
+    def __find_replacement_episode(
+        self,
+        _podcast: Podcast,
+        available_episodes: list[Episode],
+        max_seconds: int,
+        current_seconds: int,
+    ) -> Episode | None:
+        """Find a replacement episode when download fails.
+
+        Args:
+            _podcast: The podcast object (unused, kept for potential future use)
+            available_episodes: List of episodes not yet selected
+            max_seconds: Maximum total seconds allowed
+            current_seconds: Current total seconds already downloaded
+
+        Returns:
+            A replacement episode if found, None otherwise
+        """
+        # For random mode, pick the next available episode (already randomized)
+        # For non-random mode, pick the next episode in order
+        for ep in available_episodes:
+            # Check if adding this episode would exceed time limit
+            if (current_seconds + ep.duration_sec) <= max_seconds:
+                return ep
+
+        return None
 
     def __cache_episode(self, ep: Episode) -> bool:
         # local download of a single episode into a subfolder
@@ -245,19 +330,8 @@ class ToniePodcastSync:
                 time.sleep(RETRY_DELAY_SECONDS)
             else:
                 return True
-        r = requests.get(ep.url, timeout=180)
-        if r.ok:
-            with fname.open("wb") as _fs:
-                if ep.volume_adjustment != 0 and self.__is_ffmpeg_available():
-                    adjusted_content = self.__adjust_volume__(r.content, ep.volume_adjustment)
-                else:
-                    adjusted_content = r.content
 
-                _fs.write(adjusted_content)
-                ep.fpath = fname
-            return True
-
-        log.error("Was not able to get file from %s with error %s - %s", ep.url, r.status_code, r.text)
+        log.error("Was not able to get file from %s after %d attempts", ep.url, DOWNLOAD_RETRY_COUNT)
         return False
 
     def __generate_filename(self, ep: Episode) -> str:
@@ -280,6 +354,7 @@ class ToniePodcastSync:
             current_first_episode_title (str): The title of the current first episode on the Tonie
         """
         for attempt in range(MAX_SHUFFLE_ATTEMPTS):
+            random.shuffle(podcast.epList)
             first_episode_title = self.__generate_chapter_title(podcast.epList[0])
             if first_episode_title != current_first_episode_title:
                 log.info(
@@ -294,7 +369,6 @@ class ToniePodcastSync:
                 podcast.title,
                 attempt + 1,
             )
-            random.shuffle(podcast.epList)
 
         log.warning(
             "%s: Could not find different first episode after %d shuffle attempts",

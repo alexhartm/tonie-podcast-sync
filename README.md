@@ -10,19 +10,6 @@ This is a purely private project and has no association with Boxine GmbH.
 [![gif Recording of tonie-podcast-sync](ressources/tps.gif)](https://asciinema.org/a/644812 "asciicast Recording of tonie-podcast-sync")
 
 
-# Constraints and Limitations
-
-- currently limited to podcasts providing mp3 files
-- tested with the following podcasts:
-    - WDR [Maus Podcasts](https://www.wdrmaus.de/hoeren/MausLive/Podcasts/podcasts.php5), e.g.
-        - [Gute Nacht mit der Maus](https://kinder.wdr.de/radio/diemaus/audio/gute-nacht-mit-der-maus/diemaus-gute-nacht-104.podcast)
-        - [Maus zum Hören - 60 Minuten](https://kinder.wdr.de/radio/diemaus/audio/diemaus-60/diemaus-60-106.podcast)
-        - [Maus Zoom - Kindernachrichten](https://kinder.wdr.de/radio/diemaus/audio/maus-zoom/maus-zoom-106.podcast)
-    - [Bayern 2: Pumuckl - Der Hörspiel-Klassiker](https://www.br.de/mediathek/podcast/pumuckl/830)
-    - [Checker Tobi Podcast](https://www.br.de/mediathek/podcast/checkpod-der-podcast-mit-checker-tobi/859)
-    - [Anna und die wilden Tiere - der Podcast](https://www.br.de/mediathek/podcast/anna-und-die-wilden-tiere/858)
-- ... but in general, it should hopefully work with all podcasts out there
-
 # Prerequisites
 
 - requires Python >= 3.10.11
@@ -74,15 +61,15 @@ podcast = "https://example.com/podcast.xml"
 name = "My Tonie Name"
 episode_sorting = "by_date_newest_first"  # or "by_date_oldest_first", "random"
 maximum_length = 90  # Maximum duration in minutes
-episode_min_duration_sec = 30  # Minimum episode duration in seconds
-episode_max_duration_sec = 5400  # Maximum episode duration in seconds (optional, defaults to 5399)
+episode_min_duration_sec = 0  # Minimum episode duration in seconds (optional, defaults to 0)
+episode_max_duration_sec = 5400  # Maximum total duration of epsiodes on this tonie in seconds (optional, defaults to what the tonie can store at maximum)
 volume_adjustment = 0  # volume adjustment in dB (+/-)
 excluded_title_strings = ["vampir", "brokkoli"]  # filter out scary episodes
 ```
 
 The `excluded_title_strings` field is optional and allows you to filter out episodes whose titles contain any of the specified strings (case-insensitive matching).
 
-The `episode_max_duration_sec` field is optional and defaults to 5399 seconds (90 minutes minus 1 second buffer). It filters out individual episodes that exceed this duration. Note that this is different from `maximum_length`, which controls the total duration of episodes placed on the tonie.
+The `episode_max_duration_sec` field is optional. It filters out individual episodes that exceed this duration. Note that this is different from `maximum_length`, which controls the total duration of episodes placed on the tonie.
 
 To periodically fetch for new episodes, you can schedule `tonie-podcast-sync` e.g. via systemd (on a Linux OS).
 
