@@ -10,19 +10,6 @@ This is a purely private project and has no association with Boxine GmbH.
 [![gif Recording of tonie-podcast-sync](ressources/tps.gif)](https://asciinema.org/a/644812 "asciicast Recording of tonie-podcast-sync")
 
 
-# Constraints and Limitations
-
-- currently limited to podcasts providing mp3 files
-- tested with the following podcasts:
-    - WDR [Maus Podcasts](https://www.wdrmaus.de/hoeren/MausLive/Podcasts/podcasts.php5), e.g.
-        - [Gute Nacht mit der Maus](https://kinder.wdr.de/radio/diemaus/audio/gute-nacht-mit-der-maus/diemaus-gute-nacht-104.podcast)
-        - [Maus zum Hören - 60 Minuten](https://kinder.wdr.de/radio/diemaus/audio/diemaus-60/diemaus-60-106.podcast)
-        - [Maus Zoom - Kindernachrichten](https://kinder.wdr.de/radio/diemaus/audio/maus-zoom/maus-zoom-106.podcast)
-    - [Bayern 2: Pumuckl - Der Hörspiel-Klassiker](https://www.br.de/mediathek/podcast/pumuckl/830)
-    - [Checker Tobi Podcast](https://www.br.de/mediathek/podcast/checkpod-der-podcast-mit-checker-tobi/859)
-    - [Anna und die wilden Tiere - der Podcast](https://www.br.de/mediathek/podcast/anna-und-die-wilden-tiere/858)
-- ... but in general, it should hopefully work with all podcasts out there
-
 # Prerequisites
 
 - requires Python >= 3.10.11
