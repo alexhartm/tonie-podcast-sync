@@ -207,8 +207,8 @@ class ToniePodcastSync:
         total_seconds = 0
         max_seconds = max_minutes * 60
         for ep in podcast.epList:
-            # stop if we are already over the maximum specified time
-            if (total_seconds + ep.duration_sec) >= max_seconds:
+            # stop if adding this episode would exceed the maximum specified time
+            if (total_seconds + ep.duration_sec) > max_seconds:
                 break
             total_seconds += ep.duration_sec
             episodes_to_cache.append(ep)
@@ -219,7 +219,11 @@ class ToniePodcastSync:
             console.print(msg, style="yellow")
             return []
 
+        # Keep track of available fallback episodes (not selected for download yet)
+        available_episodes = [ep for ep in podcast.epList if ep not in episodes_to_cache]
         ep_list: list[Episode] = []
+        failed_episodes = []
+        current_duration = 0
 
         for ep in track(
             episodes_to_cache,
@@ -229,15 +233,73 @@ class ToniePodcastSync:
             refresh_per_second=2,
         ):
             if self.__cache_episode(ep):
-                ep_list.append(ep)  # noqa: PERF401
+                ep_list.append(ep)
+                current_duration += ep.duration_sec
+            else:
+                failed_episodes.append(ep)
+                # Try to find a replacement from available episodes
+                replacement = self.__find_replacement_episode(
+                    podcast, available_episodes, max_seconds, current_duration
+                )
+                if replacement:
+                    log.info(
+                        "%s: Attempting replacement episode '%s' for failed download of '%s'",
+                        podcast.title,
+                        replacement.title,
+                        ep.title,
+                    )
+                    if self.__cache_episode(replacement):
+                        ep_list.append(replacement)
+                        available_episodes.remove(replacement)
+                        current_duration += replacement.duration_sec
+                    else:
+                        log.warning(
+                            "%s: Replacement episode '%s' also failed to download",
+                            podcast.title,
+                            replacement.title,
+                        )
+
+        if failed_episodes:
+            log.warning(
+                "%s: %d episode(s) failed to download and could not be replaced",
+                podcast.title,
+                len([ep for ep in failed_episodes if ep not in list(ep_list)]),
+            )
 
         log.info(
-            "%s: providing all %s episodes with %d.1 min total",
+            "%s: providing %s episodes with %.1f min total",
             podcast.title,
-            len(episodes_to_cache),
-            (total_seconds / 60),
+            len(ep_list),
+            sum(e.duration_sec for e in ep_list) / 60,
         )
         return ep_list
+
+    def __find_replacement_episode(
+        self,
+        _podcast: Podcast,
+        available_episodes: list[Episode],
+        max_seconds: int,
+        current_seconds: int,
+    ) -> Episode | None:
+        """Find a replacement episode when download fails.
+
+        Args:
+            _podcast: The podcast object (unused, kept for potential future use)
+            available_episodes: List of episodes not yet selected
+            max_seconds: Maximum total seconds allowed
+            current_seconds: Current total seconds already downloaded
+
+        Returns:
+            A replacement episode if found, None otherwise
+        """
+        # For random mode, pick the next available episode (already randomized)
+        # For non-random mode, pick the next episode in order
+        for ep in available_episodes:
+            # Check if adding this episode would exceed time limit
+            if (current_seconds + ep.duration_sec) <= max_seconds:
+                return ep
+
+        return None
 
     def __cache_episode(self, ep: Episode) -> bool:
         # local download of a single episode into a subfolder
