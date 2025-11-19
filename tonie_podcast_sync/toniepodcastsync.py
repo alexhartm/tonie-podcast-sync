@@ -127,16 +127,17 @@ class ToniePodcastSync:
                         log.info(msg)
                         console.print(msg)
                         return
-                else:
-                    # For RANDOM mode, re-shuffle to ensure first episode differs
-                    latest_episode_tonie = self.__tonieDict[tonie_id].chapters[0].title
-                    self.__reshuffle_until_different(podcast, latest_episode_tonie)
             else:
                 log.info("### tonie is empty")
             # add new episodes to tonie
             if wipe:
                 self.__wipe_tonie(tonie_id)
             cached_episodes = self.__cache_podcast_episodes(podcast, max_minutes)
+
+            # For RANDOM mode, reshuffle cached episodes to ensure first episode differs
+            if podcast.epSorting == EpisodeSorting.RANDOM and not self.__is_tonie_empty(tonie_id) and cached_episodes:
+                latest_episode_tonie = self.__tonieDict[tonie_id].chapters[0].title
+                self.__reshuffle_cached_episodes_until_different(cached_episodes, latest_episode_tonie)
 
             successfully_uploaded = []
             failed_episodes = []
@@ -309,6 +310,35 @@ class ToniePodcastSync:
         log.warning(
             "%s: Could not find different first episode after %d shuffle attempts",
             podcast.title,
+            MAX_SHUFFLE_ATTEMPTS,
+        )
+
+    def __reshuffle_cached_episodes_until_different(
+        self, cached_episodes: list[Episode], current_first_episode_title: str
+    ) -> None:
+        """Re-shuffle cached episodes list until first episode differs from current one on Tonie.
+
+        Args:
+            cached_episodes (list[Episode]): The list of cached episodes to shuffle in-place
+            current_first_episode_title (str): The title of the current first episode on the Tonie
+        """
+        for attempt in range(MAX_SHUFFLE_ATTEMPTS):
+            random.shuffle(cached_episodes)
+            first_episode_title = self.__generate_chapter_title(cached_episodes[0])
+            if first_episode_title != current_first_episode_title:
+                log.info(
+                    "Successfully shuffled cached episodes to new first episode after %d attempt(s)",
+                    attempt + 1,
+                )
+                return
+
+            log.info(
+                "Shuffle attempt %d - first episode still matches, re-shuffling cached episodes",
+                attempt + 1,
+            )
+
+        log.warning(
+            "Could not find different first episode in cached episodes after %d shuffle attempts",
             MAX_SHUFFLE_ATTEMPTS,
         )
 
