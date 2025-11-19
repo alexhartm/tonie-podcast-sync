@@ -19,6 +19,13 @@ from rich.table import Table
 from tonie_api.api import TonieAPI
 from tonie_api.models import CreativeTonie
 
+from tonie_podcast_sync.constants import (
+    DOWNLOAD_RETRY_COUNT,
+    MAX_SHUFFLE_ATTEMPTS,
+    MAXIMUM_TONIE_MINUTES,
+    RETRY_DELAY_SECONDS,
+    UPLOAD_RETRY_COUNT,
+)
 from tonie_podcast_sync.podcast import (
     Episode,
     EpisodeSorting,
@@ -28,12 +35,6 @@ from tonie_podcast_sync.podcast import (
 console = Console()
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
-
-MAXIMUM_TONIE_MINUTES = 90
-DOWNLOAD_RETRY_COUNT = 3
-UPLOAD_RETRY_COUNT = 3
-RETRY_DELAY_SECONDS = 3
-MAX_SHUFFLE_ATTEMPTS = 5
 
 
 class ToniePodcastSync:

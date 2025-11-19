@@ -10,8 +10,9 @@ from tonie_api.models import CreativeTonie
 from typer import Typer
 
 from tonie_podcast_sync.config import APP_SETTINGS_DIR, settings
+from tonie_podcast_sync.constants import MAXIMUM_TONIE_MINUTES
 from tonie_podcast_sync.podcast import EpisodeSorting, Podcast
-from tonie_podcast_sync.toniepodcastsync import MAXIMUM_TONIE_MINUTES, ToniePodcastSync
+from tonie_podcast_sync.toniepodcastsync import ToniePodcastSync
 
 app = Typer(pretty_exceptions_show_locals=False)
 
@@ -29,7 +30,7 @@ def update_tonies() -> None:
         return
     for ct_key, ct_value in settings.CREATIVE_TONIES.items():
         excluded_title_strings = ct_value.get("excluded_title_strings", [])
-        episode_max_duration_sec = ct_value.get("episode_max_duration_sec", ct_value.maximum_length * 60)
+        episode_max_duration_sec = ct_value.get("episode_max_duration_sec", MAXIMUM_TONIE_MINUTES * 60)
         tps.sync_podcast_to_tonie(
             Podcast(
                 ct_value.podcast,
@@ -112,8 +113,9 @@ def _ask_episode_order(data: dict, tonie: CreativeTonie) -> None:
 
 def _ask_maximum_tonie_length(data: dict, tonie: CreativeTonie) -> None:
     maximum_length_input = IntPrompt.ask(
-        "What should be the maximum length of the podcast?\n"
-        f"Defaults to the maximum of {MAXIMUM_TONIE_MINUTES} minutes.",
+        "What should be the maximum total duration of all episodes on this tonie?\n"
+        f"Defaults to {MAXIMUM_TONIE_MINUTES} minutes (the tonie's maximum).\n"
+        f"Only episodes up to these many minutes in total will be uploaded.\n",
         default=90,
     )
     match maximum_length_input:
@@ -123,16 +125,16 @@ def _ask_maximum_tonie_length(data: dict, tonie: CreativeTonie) -> None:
             data[tonie.id]["maximum_length"] = maximum_length_input
         case maximum_length if maximum_length <= 0 or maximum_length > MAXIMUM_TONIE_MINUTES:
             Console().print(
-                f"The value you have entered is out of range.Will be set to default value of {MAXIMUM_TONIE_MINUTES}.",
+                f"The value you have entered is out of range. Will be set to default value of {MAXIMUM_TONIE_MINUTES}.",
             )
             data[tonie.id]["maximum_length"] = MAXIMUM_TONIE_MINUTES
 
 
 def _ask_minimum_episode_length(data: dict, tonie: CreativeTonie) -> None:
     minimum_length_input = IntPrompt.ask(
-        "What should be the minimum length (in sec) of the podcast?\n"
-        "Defaults to the minimum of 0 seconds.\n"
-        "Podcasts shorter than the input, will not be uploaded.",
+        "What should be the minimum length (in sec) of each episode?\n"
+        "Defaults to the minimum of 0 seconds, ie. no minimum length considered.\n"
+        "Podcast episodes shorter than this value will not be uploaded.",
         default=0,
     )
     match minimum_length_input:
@@ -143,8 +145,8 @@ def _ask_minimum_episode_length(data: dict, tonie: CreativeTonie) -> None:
             data[tonie.id]["episode_min_duration_sec"] = 0
         case x if x > 60 * data[tonie.id]["maximum_length"]:
             Console().print(
-                "The value you have set, is less more than the maximum available length for the tonie."
-                "It will be set to the maximum, but probably no Episode will be downloaded.",
+                "The value you have set, conflicts with the configured maximum available length for the tonie."
+                "It will be set to the maximum, but this might result in no episode being downloaded.",
             )
             data[tonie.id]["episode_min_duration_sec"] = 60 * data[tonie.id]["maximum_length"]
         case _:

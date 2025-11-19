@@ -9,6 +9,8 @@ from time import struct_time
 
 import feedparser
 
+from tonie_podcast_sync.constants import MAXIMUM_TONIE_MINUTES
+
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 
@@ -30,7 +32,7 @@ class Podcast:
         episode_sorting: EpisodeSorting = EpisodeSorting.BY_DATE_NEWEST_FIRST,
         volume_adjustment: int = 0,
         episode_min_duration_sec: int = 0,
-        episode_max_duration_sec: int = 5399,
+        episode_max_duration_sec: int = MAXIMUM_TONIE_MINUTES * 60,
         excluded_title_strings: list[str] | None = None,
     ) -> None:
         """Initializes the podcast feed and fetches all episodes.
@@ -45,7 +47,7 @@ class Podcast:
                                                         [in seconds] will be ignored
             episode_max_duration_sec (int, optional): all episodes with duration > this value
                                                         [in seconds] will be ignored.
-                                                        Defaults to 5399 (90 min - 1 sec buffer)
+                                                        Defaults to MAXIMUM_TONIE_MINUTES * 60 (90 min)
             excluded_title_strings (list[str], optional): list of strings; episodes with titles containing
                                                         any of these strings (case-insensitive) will be filtered out
         """
