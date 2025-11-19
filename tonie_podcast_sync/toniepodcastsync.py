@@ -246,19 +246,8 @@ class ToniePodcastSync:
                 time.sleep(RETRY_DELAY_SECONDS)
             else:
                 return True
-        r = requests.get(ep.url, timeout=180)
-        if r.ok:
-            with fname.open("wb") as _fs:
-                if ep.volume_adjustment != 0 and self.__is_ffmpeg_available():
-                    adjusted_content = self.__adjust_volume__(r.content, ep.volume_adjustment)
-                else:
-                    adjusted_content = r.content
 
-                _fs.write(adjusted_content)
-                ep.fpath = fname
-            return True
-
-        log.error("Was not able to get file from %s with error %s - %s", ep.url, r.status_code, r.text)
+        log.error("Was not able to get file from %s after %d attempts", ep.url, DOWNLOAD_RETRY_COUNT)
         return False
 
     def __generate_filename(self, ep: Episode) -> str:
