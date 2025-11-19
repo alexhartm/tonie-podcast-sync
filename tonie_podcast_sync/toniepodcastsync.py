@@ -138,6 +138,9 @@ class ToniePodcastSync:
                 self.__wipe_tonie(tonie_id)
             cached_episodes = self.__cache_podcast_episodes(podcast, max_minutes)
 
+            successfully_uploaded = []
+            failed_episodes = []
+
             for e in track(
                 cached_episodes,
                 description=(
@@ -148,12 +151,29 @@ class ToniePodcastSync:
                 transient=True,
                 refresh_per_second=2,
             ):
-                self.__upload_episode(e, tonie_id)
+                if self.__upload_episode(e, tonie_id):
+                    successfully_uploaded.append(e)
+                else:
+                    failed_episodes.append(e)
 
-            episode_info = [f"{episode.title} ({episode.published})" for episode in cached_episodes]
+            self.__report_upload_results(podcast.title, tonie_id, successfully_uploaded, failed_episodes)
+
+    def __report_upload_results(
+        self, podcast_title: str, tonie_id: str, successfully_uploaded: list[Episode], failed_episodes: list[Episode]
+    ) -> None:
+        """Report the results of episode uploads to the user."""
+        if successfully_uploaded:
+            episode_info = [f"{episode.title} ({episode.published})" for episode in successfully_uploaded]
             console.print(
-                f"{podcast.title}: Successfully uploaded {episode_info} to "
+                f"{podcast_title}: Successfully uploaded {episode_info} to "
                 f"{self.__tonieDict[tonie_id].name} ({self.__tonieDict[tonie_id].id})",
+            )
+
+        if failed_episodes:
+            failed_info = [episode.title for episode in failed_episodes]
+            console.print(
+                f"{podcast_title}: Failed to upload {len(failed_episodes)} episode(s): {failed_info}",
+                style="red",
             )
 
     def __upload_episode(self, ep: Episode, tonie_id: str) -> None:
