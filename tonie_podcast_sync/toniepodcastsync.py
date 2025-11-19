@@ -270,6 +270,7 @@ class ToniePodcastSync:
             current_first_episode_title (str): The title of the current first episode on the Tonie
         """
         for attempt in range(MAX_SHUFFLE_ATTEMPTS):
+            random.shuffle(podcast.epList)
             first_episode_title = self.__generate_chapter_title(podcast.epList[0])
             if first_episode_title != current_first_episode_title:
                 log.info(
@@ -284,7 +285,6 @@ class ToniePodcastSync:
                 podcast.title,
                 attempt + 1,
             )
-            random.shuffle(podcast.epList)
 
         log.warning(
             "%s: Could not find different first episode after %d shuffle attempts",
