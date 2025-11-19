@@ -1,5 +1,6 @@
 """The command line interface module for the tonie-podcast-sync."""
 
+import warnings
 from pathlib import Path
 
 import tomli_w
@@ -13,6 +14,8 @@ from tonie_podcast_sync.config import APP_SETTINGS_DIR, settings
 from tonie_podcast_sync.constants import MAXIMUM_TONIE_MINUTES
 from tonie_podcast_sync.podcast import EpisodeSorting, Podcast
 from tonie_podcast_sync.toniepodcastsync import ToniePodcastSync
+
+warnings.filterwarnings("ignore", category=SyntaxWarning, module="pydub")
 
 app = Typer(pretty_exceptions_show_locals=False)
 
