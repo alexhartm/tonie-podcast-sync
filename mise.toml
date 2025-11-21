@@ -1,6 +1,7 @@
 [env]
 # Use the project name derived from the current directory
 PROJECT_NAME = "{{ config_root | basename }}"
+_.file = '.env'
 
 # Automatic virtualenv activation
 _.python.venv = { path = ".venv", create = true }
