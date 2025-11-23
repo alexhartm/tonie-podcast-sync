@@ -1,15 +1,20 @@
 """The podcast module to fetch all information of a podcast feed."""
 
+from __future__ import annotations
+
 import logging
 import random
 from dataclasses import dataclass, field
 from enum import Enum
-from pathlib import Path
-from time import struct_time
+from typing import TYPE_CHECKING
 
 import feedparser
 
 from tonie_podcast_sync.constants import MAXIMUM_TONIE_MINUTES
+
+if TYPE_CHECKING:
+    from pathlib import Path
+    from time import struct_time
 
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
@@ -18,7 +23,7 @@ MAX_EPISODE_TITLES_IN_WARNING = 3
 
 
 class EpisodeSorting(str, Enum):
-    """An enum to select which sorting of the episode shall be applied."""
+    """Enum to select the sorting method for podcast episodes."""
 
     BY_DATE_NEWEST_FIRST = "by_date_newest_first"
     BY_DATE_OLDEST_FIRST = "by_date_oldest_first"
@@ -26,7 +31,7 @@ class EpisodeSorting(str, Enum):
 
 
 class Podcast:
-    """The representation of a podcast feed."""
+    """Representation of a podcast feed."""
 
     def __init__(  # noqa: PLR0913
         self,
@@ -37,113 +42,147 @@ class Podcast:
         episode_max_duration_sec: int = MAXIMUM_TONIE_MINUTES * 60,
         excluded_title_strings: list[str] | None = None,
     ) -> None:
-        """Initializes the podcast feed and fetches all episodes.
+        """Initialize the podcast feed and fetch all episodes.
 
         Args:
-            url (str): The url of the podcast
-            episode_sorting (EpisodeSorting, optional): Set how the episodes are sorted.
-                                                        Defaults to EpisodeSorting.BY_DATE_NEWEST_FIRST.
-            volume_adjustment (int, optional): If set, the downloaded audio will be adjusted by the given amount in dB.
-                                                        Defaults to 0, i.e. no adjustment
-            episode_min_duration_sec (int, optional): all episodes with duration < this value
-                                                        [in seconds] will be ignored
-            episode_max_duration_sec (int, optional): all episodes with duration > this value
-                                                        [in seconds] will be ignored.
-                                                        Defaults to MAXIMUM_TONIE_MINUTES * 60 (90 min)
-            excluded_title_strings (list[str], optional): list of strings; episodes with titles containing
-                                                        any of these strings (case-insensitive) will be filtered out
+            url: The URL of the podcast feed
+            episode_sorting: How to sort episodes. Defaults to BY_DATE_NEWEST_FIRST.
+            volume_adjustment: Volume adjustment in dB (0 = no adjustment)
+            episode_min_duration_sec: Minimum episode duration to include (in seconds)
+            episode_max_duration_sec: Maximum individual episode duration (in seconds).
+                Defaults to MAXIMUM_TONIE_MINUTES * 60 (90 min)
+            excluded_title_strings: List of strings to filter out from episode titles
+                (case-insensitive matching)
         """
         self.volume_adjustment = volume_adjustment
         self.episode_min_duration_sec = episode_min_duration_sec
         self.episode_max_duration_sec = episode_max_duration_sec
         self.excluded_title_strings = [s.lower() for s in excluded_title_strings] if excluded_title_strings else []
 
-        self.epList = []  # a list of all episodes
-        self.epSorting = episode_sorting  # the sorting of the episode list
+        self.epList = []
+        self.epSorting = episode_sorting
 
         self.feed = feedparser.parse(url)
         if self.feed.bozo:
             raise self.feed.bozo_exception
-        self.title = self.feed.feed.title  # title of podcast
-        self.refresh_feed()  # reads feed and populates the episode list
+        self.title = self.feed.feed.title
+        self.refresh_feed()
 
-    def _should_include_episode(self, ep: "Episode") -> bool:
+    def _should_include_episode(self, episode: Episode) -> bool:
         """Check if an episode should be included based on filters.
 
         Args:
-            ep: The episode to check
+            episode: The episode to check
 
         Returns:
             True if episode passes all filters, False otherwise
         """
-        # filter out episodes that are too short
-        if ep.duration_sec < self.episode_min_duration_sec:
+        if episode.duration_sec < self.episode_min_duration_sec:
             log.info(
-                "%s: skipping episode '%s' as too short (%d sec, min is %d sec).",
+                "%s: skipping episode '%s' as too short (%d sec, min is %d sec)",
                 self.title,
-                ep.title,
-                ep.duration_sec,
+                episode.title,
+                episode.duration_sec,
                 self.episode_min_duration_sec,
             )
             return False
 
-        # filter out episodes that are too long
-        if ep.duration_sec > self.episode_max_duration_sec:
+        if episode.duration_sec > self.episode_max_duration_sec:
             log.info(
-                "%s: skipping episode '%s' as too long (%d sec, max is %d sec).",
+                "%s: skipping episode '%s' as too long (%d sec, max is %d sec)",
                 self.title,
-                ep.title,
-                ep.duration_sec,
+                episode.title,
+                episode.duration_sec,
                 self.episode_max_duration_sec,
             )
             return False
 
-        # filter out episodes with titles containing excluded strings
         if self.excluded_title_strings and any(
-            excluded_string in ep.title.lower() for excluded_string in self.excluded_title_strings
+            excluded_string in episode.title.lower() for excluded_string in self.excluded_title_strings
         ):
             log.info(
-                "%s: skipping episode '%s' as title contains excluded string.",
+                "%s: skipping episode '%s' as title contains excluded string",
                 self.title,
-                ep.title,
+                episode.title,
             )
             return False
 
         return True
 
     def refresh_feed(self) -> None:
-        """Refresh the podcast feed and get the episodes list."""
-        # reads feed and populates the episode list
+        """Refresh the podcast feed and populate the episodes list."""
         episodes_without_duration = []
 
         for item in self.feed.entries:
-            # for most feeds, the item.id contains a URL to the audio file
-            # but not in all cases. The audio file is to my knowledge available
-            # in the enclosure section as href.
-            url = item.id
-            for iterator in item.links:
-                if iterator["rel"] == "enclosure":
-                    url = iterator["href"]
+            url = self._extract_episode_url(item)
 
-            # Track episodes missing duration info
-            if "itunes_duration" not in item or not item.get("itunes_duration", "").strip():
+            if self._is_missing_duration(item):
                 episodes_without_duration.append(item.title)
 
-            ep = Episode(podcast=self.title, raw=item, url=url, volume_adjustment=self.volume_adjustment)
-
-            if self._should_include_episode(ep):
-                self.epList.append(ep)
-
-        # Warn once if any episodes are missing duration
-        if episodes_without_duration:
-            log.warning(
-                "%s: %d episode(s) in feed are missing duration information: %s",
-                self.title,
-                len(episodes_without_duration),
-                ", ".join(episodes_without_duration[:MAX_EPISODE_TITLES_IN_WARNING])
-                + ("..." if len(episodes_without_duration) > MAX_EPISODE_TITLES_IN_WARNING else ""),
+            episode = Episode(
+                podcast=self.title,
+                raw=item,
+                url=url,
+                volume_adjustment=self.volume_adjustment,
             )
 
+            if self._should_include_episode(episode):
+                self.epList.append(episode)
+
+        self._warn_about_missing_durations(episodes_without_duration)
+        self._sort_episodes()
+        log.info("%s: feed refreshed, %d episodes found", self.title, len(self.epList))
+
+    def _extract_episode_url(self, item: dict) -> str:
+        """Extract the episode audio URL from a feed item.
+
+        Args:
+            item: The feed item dictionary
+
+        Returns:
+            The URL to the audio file
+        """
+        url = item.id
+        for link in item.links:
+            if link["rel"] == "enclosure":
+                url = link["href"]
+                break
+        return url
+
+    def _is_missing_duration(self, item: dict) -> bool:
+        """Check if a feed item is missing duration information.
+
+        Args:
+            item: The feed item dictionary
+
+        Returns:
+            True if duration is missing or empty, False otherwise
+        """
+        return "itunes_duration" not in item or not item.get("itunes_duration", "").strip()
+
+    def _warn_about_missing_durations(self, episodes_without_duration: list[str]) -> None:
+        """Log a warning if episodes are missing duration information.
+
+        Args:
+            episodes_without_duration: List of episode titles without duration
+        """
+        if not episodes_without_duration:
+            return
+
+        displayed_titles = episodes_without_duration[:MAX_EPISODE_TITLES_IN_WARNING]
+        title_list = ", ".join(displayed_titles)
+        if len(episodes_without_duration) > MAX_EPISODE_TITLES_IN_WARNING:
+            title_list += "..."
+
+        log.warning(
+            "%s: %d episode(s) in feed are missing duration information: %s",
+            self.title,
+            len(episodes_without_duration),
+            title_list,
+        )
+
+    def _sort_episodes(self) -> None:
+        """Sort episodes according to the configured sorting method."""
         match self.epSorting:
             case EpisodeSorting.BY_DATE_NEWEST_FIRST:
                 self.epList.sort(key=lambda x: x.published_parsed, reverse=True)
@@ -152,18 +191,16 @@ class Podcast:
             case EpisodeSorting.RANDOM:
                 random.shuffle(self.epList)
 
-        log.info("%s: feed refreshed, %s episodes found.", self.title, len(self.epList))
-
 
 @dataclass
 class Episode:
-    """A dataclass for a podcast episode."""
+    """A dataclass representing a podcast episode."""
 
-    podcast: str  # Podcast Title this episode belongs to
+    podcast: str
     raw: dict
     title: str = field(init=False)
-    published: str = field(init=False)  # date when published
-    published_parsed: struct_time = field(init=False)  # parsed published date
+    published: str = field(init=False)
+    published_parsed: struct_time = field(init=False)
     url: str = ""
     guid: str = field(init=False)
     fpath: Path = field(init=False, compare=False)
@@ -172,30 +209,42 @@ class Episode:
     volume_adjustment: int = 0
 
     def __post_init__(self) -> None:
+        """Initialize derived fields from raw feed data."""
         self.title = self.raw["title"]
         self.published = self.raw["published"]
         self.published_parsed = self.raw["published_parsed"]
         self.guid = self.raw["id"]
         self.duration_str = self.raw.get("itunes_duration", "0")
-        self.duration_sec = self.__dur_str_in_sec(self.duration_str)
+        self.duration_sec = self._parse_duration(self.duration_str)
 
     @staticmethod
-    def __dur_str_in_sec(duration_str: str) -> int:
+    def _parse_duration(duration_str: str) -> int:
+        """Parse duration string into seconds.
+
+        Handles formats: "SS", "MM:SS", or "HH:MM:SS"
+
+        Args:
+            duration_str: The duration string to parse
+
+        Returns:
+            Duration in seconds, or 0 if parsing fails
+        """
         if not duration_str or not duration_str.strip():
             return 0
 
         try:
-            h, m, s = 0, 0, 0
-            match duration_str.count(":"):
-                case 0:
-                    s = duration_str
+            parts = duration_str.split(":")
+
+            match len(parts):
                 case 1:
-                    m, s = duration_str.split(":")
+                    return int(parts[0])
                 case 2:
-                    h, m, s = duration_str.split(":")
+                    minutes, seconds = parts
+                    return int(minutes) * 60 + int(seconds)
+                case 3:
+                    hours, minutes, seconds = parts
+                    return int(hours) * 3600 + int(minutes) * 60 + int(seconds)
                 case _:
                     return 0
-
-            return int(h) * 3600 + int(m) * 60 + int(s)
         except (ValueError, TypeError):
             return 0
