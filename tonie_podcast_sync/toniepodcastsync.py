@@ -6,6 +6,7 @@ import random
 import subprocess
 import tempfile
 import time
+from collections import deque
 from io import BytesIO
 from pathlib import Path
 
@@ -50,6 +51,8 @@ class ToniePodcastSync:
         self._api = TonieAPI(user, pwd)
         self._households = {household.id: household for household in self._api.get_households()}
         self._update_tonies()
+        self._session = requests.Session()
+        log.debug("Performance optimization: HTTP session initialized for connection reuse")
 
     def _update_tonies(self) -> None:
         """Refresh the internal cache of creative tonies."""
@@ -357,6 +360,12 @@ class ToniePodcastSync:
         current_duration = 0
         max_seconds = max_minutes * 60
 
+        available_queue = deque(available_episodes)
+        log.debug(
+            "Using deque for efficient fallback episode selection (%d available)",
+            len(available_queue),
+        )
+
         for episode in track(
             episodes_to_cache,
             description=f"{podcast.title}: Cache episodes ...",
@@ -369,11 +378,10 @@ class ToniePodcastSync:
                 current_duration += episode.duration_sec
             else:
                 failed_episodes.append(episode)
-                replacement = self._find_replacement_episode(available_episodes, max_seconds, current_duration)
+                replacement = self._find_replacement_episode(available_queue, max_seconds, current_duration)
 
                 if replacement and self._try_cache_replacement(podcast, replacement, episode):
                     cached_episodes.append(replacement)
-                    available_episodes.remove(replacement)
                     current_duration += replacement.duration_sec
                     failed_episodes.remove(episode)
 
@@ -434,22 +442,28 @@ class ToniePodcastSync:
 
     def _find_replacement_episode(
         self,
-        available_episodes: list[Episode],
+        available_episodes: deque[Episode],
         max_seconds: int,
         current_seconds: int,
     ) -> Episode | None:
         """Find a replacement episode when download fails.
 
         Args:
-            available_episodes: List of episodes not yet selected
+            available_episodes: Deque of episodes not yet selected
             max_seconds: Maximum total seconds allowed
             current_seconds: Current total seconds already downloaded
 
         Returns:
-            A replacement episode if found, None otherwise
+            A replacement episode if found (removed from deque), None otherwise
         """
-        for episode in available_episodes:
+        for i, episode in enumerate(available_episodes):
             if (current_seconds + episode.duration_sec) <= max_seconds:
+                del available_episodes[i]
+                log.debug(
+                    "Found fallback episode '%s' using O(1) deque removal at index %d",
+                    episode.title,
+                    i,
+                )
                 return episode
         return None
 
@@ -472,15 +486,26 @@ class ToniePodcastSync:
 
         for _attempt in range(DOWNLOAD_RETRY_COUNT):
             try:
-                response = requests.get(episode.url, timeout=180)
+                response = self._session.get(episode.url, timeout=180, stream=True)
                 response.raise_for_status()
 
-                content = self._process_audio_content(response.content, episode.volume_adjustment)
+                if episode.volume_adjustment != 0 and self._is_ffmpeg_available():
+                    log.debug(
+                        "Loading episode '%s' to memory for volume adjustment",
+                        episode.title,
+                    )
+                    content = self._download_to_memory(response)
+                    content = self._adjust_volume(content, episode.volume_adjustment)
+                    with filepath.open("wb") as file:
+                        file.write(content)
+                else:
+                    log.debug(
+                        "Streaming episode '%s' directly to disk (memory-efficient)",
+                        episode.title,
+                    )
+                    self._download_to_file(response, filepath)
 
-                with filepath.open("wb") as file:
-                    file.write(content)
-                    episode.fpath = filepath
-
+                episode.fpath = filepath
                 return True  # noqa: TRY300
             except RequestException as e:  # noqa: PERF203
                 log.warning(
@@ -489,10 +514,35 @@ class ToniePodcastSync:
                     RETRY_DELAY_SECONDS,
                     e,
                 )
+                if filepath.exists():
+                    filepath.unlink()
                 time.sleep(RETRY_DELAY_SECONDS)
 
         log.error("Unable to download file from %s after %d attempts", episode.url, DOWNLOAD_RETRY_COUNT)
         return False
+
+    def _download_to_memory(self, response: requests.Response) -> bytes:
+        """Download streaming response to memory.
+
+        Args:
+            response: Streaming HTTP response
+
+        Returns:
+            Downloaded content as bytes
+        """
+        return b"".join(chunk for chunk in response.iter_content(chunk_size=8192) if chunk)
+
+    def _download_to_file(self, response: requests.Response, filepath: Path) -> None:
+        """Stream download directly to file.
+
+        Args:
+            response: Streaming HTTP response
+            filepath: Path to write the file to
+        """
+        with filepath.open("wb") as file:
+            for chunk in response.iter_content(chunk_size=8192):
+                if chunk:
+                    file.write(chunk)
 
     def _process_audio_content(self, content: bytes, volume_adjustment: int) -> bytes:
         """Process audio content, applying volume adjustment if needed.

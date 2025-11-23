@@ -59,8 +59,8 @@ def test_download_respects_retry_count(temp_cache_dir):
         msg = "Network error"
         raise RequestException(msg)
 
-    with mock.patch("tonie_podcast_sync.toniepodcastsync.requests.get", side_effect=mock_get):
-        result = tps._ToniePodcastSync__cache_episode(ep)
+    tps._session.get = mock_get
+    result = tps._ToniePodcastSync__cache_episode(ep)
 
     # Should fail after DOWNLOAD_RETRY_COUNT attempts, not more
     assert result is False
@@ -93,12 +93,12 @@ def test_download_succeeds_on_first_attempt(temp_cache_dir):
         call_count += 1
         response = mock.MagicMock()
         response.ok = True
-        response.content = b"fake audio content"
+        response.iter_content = mock.MagicMock(return_value=[b"fake audio content"])
         response.raise_for_status = mock.MagicMock()
         return response
 
-    with mock.patch("tonie_podcast_sync.toniepodcastsync.requests.get", side_effect=mock_get):
-        result = tps._ToniePodcastSync__cache_episode(ep)
+    tps._session.get = mock_get
+    result = tps._ToniePodcastSync__cache_episode(ep)
 
     assert result is True
     assert call_count == 1, f"Expected exactly 1 download attempt for successful download, but got {call_count}"
@@ -130,14 +130,12 @@ def test_download_succeeds_on_retry(temp_cache_dir):
             raise RequestException(msg)
         response = mock.MagicMock()
         response.ok = True
-        response.content = b"fake audio content"
+        response.iter_content = mock.MagicMock(return_value=[b"fake audio content"])
         response.raise_for_status = mock.MagicMock()
         return response
 
-    with (
-        mock.patch("tonie_podcast_sync.toniepodcastsync.requests.get", side_effect=mock_get),
-        mock.patch("tonie_podcast_sync.toniepodcastsync.time.sleep"),
-    ):  # Skip actual sleep
+    with mock.patch("tonie_podcast_sync.toniepodcastsync.time.sleep"):  # Skip actual sleep
+        tps._session.get = mock_get
         result = tps._ToniePodcastSync__cache_episode(ep)
 
     assert result is True

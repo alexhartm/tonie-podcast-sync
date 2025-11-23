@@ -93,17 +93,16 @@ def test_upload_failure_should_not_report_success(mock_tonie_api_with_tonie, tem
     podcast.epSorting = EpisodeSorting.BY_DATE_NEWEST_FIRST
 
     # Mock download to succeed so we actually reach the upload part
-    with mock.patch("tonie_podcast_sync.toniepodcastsync.requests.get") as mock_get:
-        mock_response = mock.MagicMock()
-        mock_response.ok = True
-        mock_response.content = b"fake audio"
-        mock_response.raise_for_status = mock.MagicMock()
-        mock_get.return_value = mock_response
+    mock_response = mock.MagicMock()
+    mock_response.ok = True
+    mock_response.iter_content = mock.MagicMock(return_value=[b"fake audio"])
+    mock_response.raise_for_status = mock.MagicMock()
+    tps._session.get = mock.MagicMock(return_value=mock_response)
 
-        # Mock time.sleep to speed up test
-        with mock.patch("tonie_podcast_sync.toniepodcastsync.time.sleep"):
-            # This should NOT print "Successfully uploaded" when uploads fail
-            tps.sync_podcast_to_tonie(podcast, "tonie-123", max_minutes=90)
+    # Mock time.sleep to speed up test
+    with mock.patch("tonie_podcast_sync.toniepodcastsync.time.sleep"):
+        # This should NOT print "Successfully uploaded" when uploads fail
+        tps.sync_podcast_to_tonie(podcast, "tonie-123", max_minutes=90)
 
     captured = capsys.readouterr()
 
@@ -145,16 +144,15 @@ def test_partial_upload_failure_should_report_correctly(mock_tonie_api_with_toni
     podcast.epSorting = EpisodeSorting.BY_DATE_NEWEST_FIRST
 
     # Mock download to succeed
-    with mock.patch("tonie_podcast_sync.toniepodcastsync.requests.get") as mock_get:
-        mock_response = mock.MagicMock()
-        mock_response.ok = True
-        mock_response.content = b"fake audio"
-        mock_response.raise_for_status = mock.MagicMock()
-        mock_get.return_value = mock_response
+    mock_response = mock.MagicMock()
+    mock_response.ok = True
+    mock_response.iter_content = mock.MagicMock(return_value=[b"fake audio"])
+    mock_response.raise_for_status = mock.MagicMock()
+    tps._session.get = mock.MagicMock(return_value=mock_response)
 
-        # Mock time.sleep to speed up test
-        with mock.patch("tonie_podcast_sync.toniepodcastsync.time.sleep"):
-            tps.sync_podcast_to_tonie(podcast, "tonie-123", max_minutes=90)
+    # Mock time.sleep to speed up test
+    with mock.patch("tonie_podcast_sync.toniepodcastsync.time.sleep"):
+        tps.sync_podcast_to_tonie(podcast, "tonie-123", max_minutes=90)
 
     captured = capsys.readouterr()
 
@@ -189,14 +187,13 @@ def test_all_uploads_succeed(mock_tonie_api_with_tonie, temp_podcast_with_episod
     podcast.epSorting = EpisodeSorting.BY_DATE_NEWEST_FIRST
 
     # Mock download to succeed
-    with mock.patch("tonie_podcast_sync.toniepodcastsync.requests.get") as mock_get:
-        mock_response = mock.MagicMock()
-        mock_response.ok = True
-        mock_response.content = b"fake audio"
-        mock_response.raise_for_status = mock.MagicMock()
-        mock_get.return_value = mock_response
+    mock_response = mock.MagicMock()
+    mock_response.ok = True
+    mock_response.iter_content = mock.MagicMock(return_value=[b"fake audio"])
+    mock_response.raise_for_status = mock.MagicMock()
+    tps._session.get = mock.MagicMock(return_value=mock_response)
 
-        tps.sync_podcast_to_tonie(podcast, "tonie-123", max_minutes=90)
+    tps.sync_podcast_to_tonie(podcast, "tonie-123", max_minutes=90)
 
     captured = capsys.readouterr()
 
@@ -237,15 +234,14 @@ def test_upload_respects_retry_count(mock_tonie_api_with_tonie, temp_podcast_wit
     podcast.epSorting = EpisodeSorting.BY_DATE_NEWEST_FIRST
 
     # Mock download to succeed
-    with mock.patch("tonie_podcast_sync.toniepodcastsync.requests.get") as mock_get:
-        mock_response = mock.MagicMock()
-        mock_response.ok = True
-        mock_response.content = b"fake audio"
-        mock_response.raise_for_status = mock.MagicMock()
-        mock_get.return_value = mock_response
+    mock_response = mock.MagicMock()
+    mock_response.ok = True
+    mock_response.iter_content = mock.MagicMock(return_value=[b"fake audio"])
+    mock_response.raise_for_status = mock.MagicMock()
+    tps._session.get = mock.MagicMock(return_value=mock_response)
 
-        with mock.patch("tonie_podcast_sync.toniepodcastsync.time.sleep"):
-            tps.sync_podcast_to_tonie(podcast, "tonie-123", max_minutes=90)
+    with mock.patch("tonie_podcast_sync.toniepodcastsync.time.sleep"):
+        tps.sync_podcast_to_tonie(podcast, "tonie-123", max_minutes=90)
 
     # Should have attempted UPLOAD_RETRY_COUNT times
     assert attempt_count == UPLOAD_RETRY_COUNT, f"Expected {UPLOAD_RETRY_COUNT} upload attempts, got {attempt_count}"
