@@ -330,6 +330,8 @@ class ToniePodcastSync:
         max_seconds = max_minutes * 60
 
         for episode in podcast.epList:
+            if episode.duration_sec > max_seconds:
+                continue
             if (total_seconds + episode.duration_sec) > max_seconds:
                 break
             total_seconds += episode.duration_sec
