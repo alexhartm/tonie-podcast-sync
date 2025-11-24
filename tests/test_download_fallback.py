@@ -65,12 +65,12 @@ def test_fallback_to_next_episode_on_download_failure(temp_cache_dir):
         response = mock.MagicMock()
         response.ok = True
         response.raise_for_status = mock.MagicMock()
-        response.content = b"fake audio data"
+        response.iter_content = mock.MagicMock(return_value=[b"fake audio data"])
         return response
 
-    with mock.patch("tonie_podcast_sync.toniepodcastsync.requests.get", side_effect=mock_get):
-        # Request 30 minutes total, which would fit 3 episodes normally
-        cached_episodes = tps._ToniePodcastSync__cache_podcast_episodes(podcast, max_minutes=30)
+    tps._session.get = mock_get
+    # Request 30 minutes total, which would fit 3 episodes normally
+    cached_episodes = tps._ToniePodcastSync__cache_podcast_episodes(podcast, max_minutes=30)
 
     # Should have 3 episodes: Episode 1, Episode 4 (fallback for failed Episode 2), Episode 3
     assert len(cached_episodes) == 3
@@ -117,12 +117,12 @@ def test_fallback_in_random_mode(temp_cache_dir):
         response = mock.MagicMock()
         response.ok = True
         response.raise_for_status = mock.MagicMock()
-        response.content = b"fake audio data"
+        response.iter_content = mock.MagicMock(return_value=[b"fake audio data"])
         return response
 
-    with mock.patch("tonie_podcast_sync.toniepodcastsync.requests.get", side_effect=mock_get):
-        # Request 30 minutes total
-        cached_episodes = tps._ToniePodcastSync__cache_podcast_episodes(podcast, max_minutes=30)
+    tps._session.get = mock_get
+    # Request 30 minutes total
+    cached_episodes = tps._ToniePodcastSync__cache_podcast_episodes(podcast, max_minutes=30)
 
     # Should have 3 episodes, with Episode 4 as fallback for failed Episode 1
     assert len(cached_episodes) == 3
@@ -165,13 +165,13 @@ def test_no_fallback_when_all_remaining_episodes_too_long(temp_cache_dir):
         response = mock.MagicMock()
         response.ok = True
         response.raise_for_status = mock.MagicMock()
-        response.content = b"fake audio data"
+        response.iter_content = mock.MagicMock(return_value=[b"fake audio data"])
         return response
 
-    with mock.patch("tonie_podcast_sync.toniepodcastsync.requests.get", side_effect=mock_get):
-        # Request 30 minutes total - can fit episodes 1, 2, 3
-        # Episode 3 fails, but Episode 4 (50 min) is too long as replacement
-        cached_episodes = tps._ToniePodcastSync__cache_podcast_episodes(podcast, max_minutes=30)
+    tps._session.get = mock_get
+    # Request 30 minutes total - can fit episodes 1, 2, 3
+    # Episode 3 fails, but Episode 4 (50 min) is too long as replacement
+    cached_episodes = tps._ToniePodcastSync__cache_podcast_episodes(podcast, max_minutes=30)
 
     # Should have only 2 episodes (1 and 2), no fallback for 3
     assert len(cached_episodes) == 2
