@@ -5,6 +5,8 @@
 
 tonie-podcast-sync allows synching podcast episodes to [creative tonies](https://tonies.com).
 
+📖 **[Read the full documentation](https://alexhartm.github.io/tonie-podcast-sync/)**
+
 This is a purely private project and has no association with Boxine GmbH.
 
 [![gif Recording of tonie-podcast-sync](ressources/tps.gif)](https://asciinema.org/a/644812 "asciicast Recording of tonie-podcast-sync")
