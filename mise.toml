@@ -12,6 +12,16 @@ poetry = "latest"
 ruff = "latest"
 yarn = "latest"
 
+[tasks.docs-serve-locally]
+description = "Serve documentation locally"
+alias = "docs"
+run = "mkdocs serve"
+
+[tasks.docs-build]
+description = "Serve documentation locally"
+alias = "docs"
+run = "mkdocs build --strict"
+
 [tasks.install]
 description = "Install dependencies"
 alias = "i"
@@ -29,7 +39,7 @@ description = "Setup the project"
 # since mise creates a virtualenv, we can use uv to install dependencies
 run = '''
 uv sync
-uv pip install -e ."[dev]"
+uv pip install -e ."[dev,docs]"
 uv run pre-commit install
 '''
 
@@ -50,6 +60,7 @@ depends = ["lint", "format"]
 description = "Build"
 run = '''
 uv sync
+mkdocs build --strict
 uv build
 '''
 

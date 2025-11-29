@@ -1,0 +1,63 @@
+site_name: tonie-podcast-sync
+site_description: Sync podcast episodes to creative tonies
+site_author: Alexander Hartmann
+repo_url: https://github.com/alexhartm/tonie-podcast-sync
+repo_name: alexhartm/tonie-podcast-sync
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: installation.md
+    - Quick Start: quickstart.md
+  - Usage:
+    - CLI Guide: usage/cli.md
+    - Python Library: usage/library.md
+    - Docker: usage/docker.md
+  - Configuration:
+    - Settings File: configuration/settings.md
+    - Examples: configuration/examples.md
+  - Contributing: contributing.md
+  - License: license.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+
+plugins:
+  - search
