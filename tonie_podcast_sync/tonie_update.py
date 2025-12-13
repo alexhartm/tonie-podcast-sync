@@ -5,6 +5,8 @@ tps = ToniePodcastSync("georg.wuitschik@gmail.com", "vymxib-wencyf-fUcxa3")
 tps.sync_combined_podcasts_to_tonies(
     podcast_urls=[
         "https://feeds.br.de/checkpod-der-podcast-mit-checker-tobi/feed.xml",
+        # PodcastIndex podcast/7101101 (Alle gegen Nico - Zockt um die Quizkrone!)
+        "https://feeds.br.de/alle-gegen-nico-zockt-um-die-quizkrone/feed.xml",
         "https://proxyfeed.svmaudio.com/aa/geolino-spezial",
         "https://flipsi-findets-raus.podigee.io/feed/mp3",
         "https://anchor.fm/s/dce83154/podcast/rss",
@@ -21,6 +23,10 @@ tps.sync_combined_podcasts_to_tonies(
         "https://feeds.buzzsprout.com/2522641.rss",
         "https://anchor.fm/s/109d94bf8/podcast/rss",
         "https://clever-nachgefragt.podigee.io/feed/mp3",
+        # SRF Kids Reporter:in (MP3 enclosures)
+        "https://www.srf.ch/feed/podcast/sd/27fbe150-ade2-4bbe-84ab-a4d745f8e492.xml",
+        # Theo erzählt – ein Kinderpodcast (kinderpodcast.ch; hosted on Libsyn)
+        "https://kinderpodcast.libsyn.com/rss",
     ],
     tonie_ids=["6608C419500304E0", "C96FD620500304E0"],
     episode_selection=EpisodeSorting.RANDOM,
