@@ -28,7 +28,7 @@ tps.sync_combined_podcasts_to_tonies(
         # Theo erzählt – ein Kinderpodcast (kinderpodcast.ch; hosted on Libsyn)
         "https://kinderpodcast.libsyn.com/rss",
     ],
-    tonie_ids=["6608C419500304E0", "C96FD620500304E0"],
+    tonie_ids=["6608C419500304E0", "C96FD620500304E0", "17699823500304E0"],
     episode_selection=EpisodeSorting.RANDOM,
     first_tonie_newest_then_random=True,
     max_minutes_per_tonie=90,
