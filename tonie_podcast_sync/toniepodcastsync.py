@@ -2,7 +2,6 @@
 
 import logging
 import platform
-import random
 import subprocess
 import tempfile
 import time
@@ -181,11 +180,12 @@ class ToniePodcastSync:
             return True
 
         # Check if new feed has newer episodes than tonie
-        latest_episode_feed = self._generate_chapter_title(podcast.epList[0])
-        latest_episode_tonie = self._tonies[tonie_id].chapters[0].title
+        # or the episode pinning changed
+        latest_episodes_tonie = [chapter.title for chapter in self._tonies[tonie_id].chapters]
+        latest_episodes_feed = [self._generate_chapter_title(ep) for ep in podcast.epList[: len(latest_episodes_tonie)]]
 
-        if latest_episode_tonie == latest_episode_feed:
-            msg = f"Podcast '{podcast.title}' has no new episodes, latest episode is '{latest_episode_tonie}'"
+        if latest_episodes_tonie != latest_episodes_feed:
+            msg = f"Podcast '{podcast.title}' has no new episodes, latest episode is '{latest_episodes_tonie[0]}'"
             log.info(msg)
             console.print(msg)
             return False
@@ -593,18 +593,28 @@ class ToniePodcastSync:
         """
         return self._tonies[tonie_id].chaptersPresent == 0
 
-    def __reshuffle_until_different(self, podcast: Podcast, current_first_episode_title: str) -> None:
-        """Re-shuffle podcast episodes until first episode differs from current one on Tonie.
+    def __reshuffle_until_different(self, podcast: Podcast, current_episode_titles: list[str]) -> None:
+        """Re-shuffle non-pinned podcast episodes until first episode differs from current one on Tonie.
 
         Args:
             podcast: The podcast with episodes to shuffle
-            current_first_episode_title: The title of the current first episode on the Tonie
+            current_episode_titles: The titles of the current episodes on the Tonie
         """
         for attempt in range(MAX_SHUFFLE_ATTEMPTS):
-            random.shuffle(podcast.epList)
-            first_episode_title = self._generate_chapter_title(podcast.epList[0])
+            podcast.sort_episodes()
+            # Select first non-pinned episode title from podcast
+            # This is the first one that is affected by shuffling
+            non_pinned_episodes = filter(lambda x: not x[1].pinned, enumerate(podcast.epList))
+            index, first_non_pinned_episode = next(non_pinned_episodes, (None, None))
 
-            if first_episode_title != current_first_episode_title:
+            if not first_non_pinned_episode or index >= len(current_episode_titles):
+                log.info("%s: No shuffling required, all episodes are pinned", podcast.title)
+                return
+
+            first_random_episode_title = self._generate_chapter_title(podcast.epList[index])
+            current_random_episode_title = current_episode_titles[index]
+
+            if first_random_episode_title != current_random_episode_title:
                 log.info(
                     "%s: Successfully shuffled to new first episode after %d attempt(s)",
                     podcast.title,

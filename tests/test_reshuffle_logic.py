@@ -45,12 +45,12 @@ def test_reshuffle_with_single_episode_should_fail():
     podcast.epList = [ep]
     podcast.title = "Test Podcast"
 
-    current_title = "Single Episode (Mon, 01 Jan 2024 10:00:00 +0000)"
+    current_titles = ["Single Episode (Mon, 01 Jan 2024 10:00:00 +0000)"]
 
     # This should complete without infinite loop and log a warning
     # The bug is that it shuffles AFTER checking, not before
     with mock.patch("tonie_podcast_sync.toniepodcastsync.log") as mock_log:
-        tps._ToniePodcastSync__reshuffle_until_different(podcast, current_title)
+        tps._ToniePodcastSync__reshuffle_until_different(podcast, current_titles)
 
         # Should log warning that it couldn't find different episode
         warning_calls = [
@@ -89,33 +89,35 @@ def test_reshuffle_should_shuffle_before_checking():
     ep1 = Episode(podcast="Test Podcast", raw=test_feed_data_1, url="http://example.com/test1.mp3")
     ep2 = Episode(podcast="Test Podcast", raw=test_feed_data_2, url="http://example.com/test2.mp3")
 
-    podcast = mock.MagicMock()
-    podcast.epList = [ep1, ep2]
-    podcast.title = "Test Podcast"
+    class PodcastMock(mock.MagicMock):
+        def __init__(self, *args, **kw):
+            super().__init__(*args, **kw)
+            self.shuffle_call_count = 0
+            self.epList = [ep1, ep2]
+            self.title = "Test Podcast"
 
-    current_title = "Episode 1 (Mon, 01 Jan 2024 10:00:00 +0000)"
+        def sort_episodes(self) -> None:
+            self.shuffle_call_count += 1
+            self.epList[0], self.epList[1] = self.epList[1], self.epList[0]
 
-    # Mock random.shuffle to swap the episodes on first call
-    shuffle_call_count = 0
+    podcast = PodcastMock()
 
-    def mock_shuffle(lst):
-        nonlocal shuffle_call_count
-        shuffle_call_count += 1
-        # Swap the episodes
-        lst[0], lst[1] = lst[1], lst[0]
+    current_titles = [
+        "Episode 1 (Mon, 01 Jan 2024 10:00:00 +0000)",
+        "Episode 2 (Tue, 02 Jan 2024 10:00:00 +0000)",
+    ]
 
     # The bug: with current implementation, it checks BEFORE shuffling
     # So the first check sees ep1, then shuffles to ep2, then checks ep2 (which is now correct)
     # But the logic is backwards - should shuffle FIRST then check
 
-    with mock.patch("tonie_podcast_sync.toniepodcastsync.random.shuffle", side_effect=mock_shuffle):
-        tps._ToniePodcastSync__reshuffle_until_different(podcast, current_title)
+    tps._ToniePodcastSync__reshuffle_until_different(podcast, current_titles)
 
     # With the bug, shuffle is called on the first iteration (after failed check)
     # With the fix, shuffle should be called BEFORE the first check
     # For now, we just verify it eventually succeeds
     assert podcast.epList[0] == ep2, "Should have shuffled to different episode"
-    assert shuffle_call_count >= 1, "Should have called shuffle at least once"
+    assert podcast.shuffle_call_count >= 1, "Should have called shuffle at least once"
 
 
 @pytest.mark.usefixtures("mock_tonie_api")
@@ -147,28 +149,30 @@ def test_reshuffle_succeeds_on_first_shuffle():
     ep_a = Episode(podcast="Test Podcast", raw=test_feed_data_1, url="http://example.com/a.mp3")
     ep_b = Episode(podcast="Test Podcast", raw=test_feed_data_2, url="http://example.com/b.mp3")
 
-    podcast = mock.MagicMock()
-    # Start with Episode A first
-    podcast.epList = [ep_a, ep_b]
-    podcast.title = "Test Podcast"
+    class PodcastMock(mock.MagicMock):
+        def __init__(self, *args, **kw):
+            super().__init__(*args, **kw)
+            self.shuffle_call_count = 0
+            self.epList = [ep_a, ep_b]
+            self.title = "Test Podcast"
 
-    # Current tonie has Episode A
-    current_title = "Episode A (Mon, 01 Jan 2024 10:00:00 +0000)"
+        def sort_episodes(self) -> None:
+            self.shuffle_call_count += 1
+            if self.epList[0] == ep_a:
+                self.epList[0], self.epList[1] = self.epList[1], self.epList[0]
 
-    shuffle_call_count = 0
+    podcast = PodcastMock()
 
-    def mock_shuffle(lst):
-        nonlocal shuffle_call_count
-        shuffle_call_count += 1
-        # Always put Episode B first
-        if lst[0] == ep_a:
-            lst[0], lst[1] = lst[1], lst[0]
+    # Current tonie has Episode A and B
+    current_titles = [
+        "Episode A (Mon, 01 Jan 2024 10:00:00 +0000)",
+        "Episode B (Tue, 02 Jan 2024 10:00:00 +0000)",
+    ]
 
     with (
-        mock.patch("tonie_podcast_sync.toniepodcastsync.random.shuffle", side_effect=mock_shuffle),
         mock.patch("tonie_podcast_sync.toniepodcastsync.log") as mock_log,
     ):
-        tps._ToniePodcastSync__reshuffle_until_different(podcast, current_title)
+        tps._ToniePodcastSync__reshuffle_until_different(podcast, current_titles)
 
         # Should succeed and log success
         info_calls = [call for call in mock_log.info.call_args_list if "Successfully shuffled" in str(call)]
@@ -177,7 +181,7 @@ def test_reshuffle_succeeds_on_first_shuffle():
         # With the bug: needs to shuffle once (after first failed check)
         # With fix: should shuffle once (before first check succeeds)
         # Either way, should only shuffle once for this scenario
-        assert shuffle_call_count == 1, f"Expected 1 shuffle call, got {shuffle_call_count}"
+        assert podcast.shuffle_call_count == 1, f"Expected 1 shuffle call, got {podcast.shuffle_call_count}"
 
 
 @pytest.mark.usefixtures("mock_tonie_api")
@@ -209,28 +213,32 @@ def test_reshuffle_exhausts_all_attempts():
     ep_x = Episode(podcast="Test Podcast", raw=test_feed_data_1, url="http://example.com/x.mp3")
     ep_y = Episode(podcast="Test Podcast", raw=test_feed_data_2, url="http://example.com/y.mp3")
 
-    podcast = mock.MagicMock()
-    podcast.epList = [ep_x, ep_y]
-    podcast.title = "Test Podcast"
+    class PodcastMock(mock.MagicMock):
+        def __init__(self, *args, **kw):
+            super().__init__(*args, **kw)
+            self.shuffle_call_count = 0
+            self.epList = [ep_x, ep_y]
+            self.title = "Test Podcast"
 
-    current_title = "Episode X (Mon, 01 Jan 2024 10:00:00 +0000)"
+        def sort_episodes(self) -> None:
+            # Don't actually shuffle - keep same order
+            self.shuffle_call_count += 1
 
-    shuffle_call_count = 0
+    podcast = PodcastMock()
 
-    def mock_shuffle_noop(_lst):
-        nonlocal shuffle_call_count
-        shuffle_call_count += 1
-        # Don't actually shuffle - keep same order
+    current_titles = [
+        "Episode X (Mon, 01 Jan 2024 10:00:00 +0000)",
+        "Episode Y (Tue, 02 Jan 2024 10:00:00 +0000)",
+    ]
 
     with (
-        mock.patch("tonie_podcast_sync.toniepodcastsync.random.shuffle", side_effect=mock_shuffle_noop),
         mock.patch("tonie_podcast_sync.toniepodcastsync.log") as mock_log,
     ):
-        tps._ToniePodcastSync__reshuffle_until_different(podcast, current_title)
+        tps._ToniePodcastSync__reshuffle_until_different(podcast, current_titles)
 
         # Should have attempted MAX_SHUFFLE_ATTEMPTS times
-        assert shuffle_call_count == MAX_SHUFFLE_ATTEMPTS, (
-            f"Expected {MAX_SHUFFLE_ATTEMPTS} shuffle attempts, got {shuffle_call_count}"
+        assert podcast.shuffle_call_count == MAX_SHUFFLE_ATTEMPTS, (
+            f"Expected {MAX_SHUFFLE_ATTEMPTS} shuffle attempts, got {podcast.shuffle_call_count}"
         )
 
         # Should log warning about exhausting attempts
