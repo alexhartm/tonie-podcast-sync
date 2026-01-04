@@ -80,6 +80,23 @@ def test_excluded_title_strings_case_insensitive():
     assert len(podcast_lower.epList) == len(podcast_mixed.epList)
 
 
+def test_excluded_title_strings_with_umlauts():
+    """Test that episodes with excluded title strings are filtered out when containing umlauts."""
+    feed = str(Path(__file__).parent / "res" / "kakadu.xml")
+
+    # Test without exclusion - should have 51 episodes
+    podcast_no_filter = Podcast(feed)
+    assert len(podcast_no_filter.epList) == 51
+
+    # Test with exclusion for "Update:" - should filter out episodes containing this string
+    podcast_with_filter = Podcast(feed, excluded_title_strings=["Vögel"])
+    # At least one episode should be filtered
+    assert len(podcast_with_filter.epList) < 51
+    # Verify no remaining episodes contain the excluded string
+    for episode in podcast_with_filter.epList:
+        assert "vögel" not in episode.title.lower()
+
+
 def test_excluded_title_strings_multiple():
     """Test filtering with multiple excluded strings."""
     feed = str(Path(__file__).parent / "res" / "kakadu.xml")
@@ -149,7 +166,8 @@ def test_pinned_episode():
     podcast_oldest_no_pin = Podcast(feed, episode_sorting=EpisodeSorting.BY_DATE_OLDEST_FIRST)
 
     # Choose an episode that is neither the newest nor the oldest
-    pinned_names = ["Mampfis Metamorphose - Woher kommen Schmetterlinge?"]
+    # and contains umlauts
+    pinned_names = ["Mal langsam! - Warum werden Schildkröten so alt?"]
 
     # Test that the episode is never the first one without pinning
     for podcast in [podcast_newest_no_pin, podcast_oldest_no_pin]:
@@ -169,6 +187,7 @@ def test_pinned_episode():
     # Test that all variants have the pinned episode as their first one
     for podcast in [podcast_newest_pinned, podcast_oldest_pinned, podcast_random_pinned]:
         assert len([ep for ep in podcast.epList if ep.pinned]) == 1
+        # Exact str comparison works here despite umlauts
         assert podcast.epList[0].title == pinned_names[0]
 
 
@@ -177,7 +196,7 @@ def test_episode_pinning_maintains_ordering():
     feed = str(Path(__file__).parent / "res" / "kakadu.xml")
 
     # Choose an episode that is neither the newest nor the oldest
-    pinned_names = ["Mampfis Metamorphose - Woher kommen Schmetterlinge?"]
+    pinned_names = ["Mal langsam! - Warum werden Schildkröten so alt?"]
 
     # Podcasts with pinned episode and different sorting methods
     podcast_newest_pinned = Podcast(
@@ -190,6 +209,7 @@ def test_episode_pinning_maintains_ordering():
     # Test that all podcast variants have the pinned episode as their first one
     for podcast in [podcast_newest_pinned, podcast_oldest_pinned]:
         assert len([ep for ep in podcast.epList if ep.pinned]) == 1
+        # Exact str comparison works here despite umlauts
         assert podcast.epList[0].title == pinned_names[0]
 
     # Test that newest ordering is maintained
@@ -206,13 +226,13 @@ def test_episode_pinning_maintains_ordering():
 
 
 def test_multiple_pinned_episodes():
-    """Test that multiple episodes can be pinned with exact title matches"""
+    """Test that multiple episodes can be pinned"""
     feed = str(Path(__file__).parent / "res" / "kakadu.xml")
 
     # Choose episodes to pin
     pinned_names = [
         "Mampfis Metamorphose - Woher kommen Schmetterlinge?",
-        "Neurologie - Wie kommen die Gedanken in den Kopf?",
+        "Mal langsam! - Warum werden Schildkröten so alt?",
     ]
 
     # Podcasts with pinned episode and different sorting methods
@@ -228,17 +248,17 @@ def test_multiple_pinned_episodes():
     # Test that all variants have the pinned episode as their first one
     for podcast in [podcast_newest_pinned, podcast_oldest_pinned, podcast_random_pinned]:
         assert len([ep for ep in podcast.epList if ep.pinned]) == 2
-        # Ordering of the pinned episodes is currently also determined by the sorting method
+        # Ordering of the pinned episodes is currently also determined by the feed order
         # Just ensure that both episodes are at the start
         for pinned_name in pinned_names:
             assert pinned_name in [ep.title for ep in podcast.epList[:2]]
 
 
 def test_pinned_episode_approx_match():
-    """Test that episodes can be pinned with partial and case insensitive title matches"""
+    """Test that episodes can be pinned with partial and case insensitive title matches including umlauts"""
     feed = str(Path(__file__).parent / "res" / "kakadu.xml")
 
-    episode_name = "Mampfis Metamorphose - Woher kommen Schmetterlinge?"
+    episode_name = "Mal langsam! - Warum werden Schildkröten so alt?"
 
     podcast_exact_match = Podcast(
         feed, pinned_episode_names=[episode_name], episode_sorting=EpisodeSorting.BY_DATE_NEWEST_FIRST
@@ -247,10 +267,11 @@ def test_pinned_episode_approx_match():
         feed, pinned_episode_names=[episode_name.lower()], episode_sorting=EpisodeSorting.BY_DATE_NEWEST_FIRST
     )
     podcast_partial_match = Podcast(
-        feed, pinned_episode_names=["metamorphose"], episode_sorting=EpisodeSorting.BY_DATE_NEWEST_FIRST
+        feed, pinned_episode_names=["schildkröten"], episode_sorting=EpisodeSorting.BY_DATE_NEWEST_FIRST
     )
 
     # Test that all variants have the pinned episode as their first one
     for podcast in [podcast_exact_match, podcast_lowercase_match, podcast_partial_match]:
         assert len([ep for ep in podcast.epList if ep.pinned]) == 1
+        # Exact str comparison works here despite umlauts
         assert podcast.epList[0].title == episode_name

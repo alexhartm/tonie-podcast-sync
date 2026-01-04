@@ -26,11 +26,7 @@ from tonie_podcast_sync.constants import (
     RETRY_DELAY_SECONDS,
     UPLOAD_RETRY_COUNT,
 )
-from tonie_podcast_sync.podcast import (
-    Episode,
-    EpisodeSorting,
-    Podcast,
-)
+from tonie_podcast_sync.podcast import Episode, EpisodeSorting, Podcast, compare_unicode_caseless
 
 console = Console()
 log = logging.getLogger(__name__)
@@ -184,7 +180,9 @@ class ToniePodcastSync:
         latest_episodes_tonie = [chapter.title for chapter in self._tonies[tonie_id].chapters]
         latest_episodes_feed = [self._generate_chapter_title(ep) for ep in podcast.epList[: len(latest_episodes_tonie)]]
 
-        if latest_episodes_tonie != latest_episodes_feed:
+        if all(
+            compare_unicode_caseless(a, b) for a, b in zip(latest_episodes_tonie, latest_episodes_feed, strict=True)
+        ):
             msg = f"Podcast '{podcast.title}' has no new episodes, latest episode is '{latest_episodes_tonie[0]}'"
             log.info(msg)
             console.print(msg)
@@ -614,7 +612,7 @@ class ToniePodcastSync:
             first_random_episode_title = self._generate_chapter_title(podcast.epList[index])
             current_random_episode_title = current_episode_titles[index]
 
-            if first_random_episode_title != current_random_episode_title:
+            if not compare_unicode_caseless(first_random_episode_title, current_random_episode_title):
                 log.info(
                     "%s: Successfully shuffled to new first episode after %d attempt(s)",
                     podcast.title,
