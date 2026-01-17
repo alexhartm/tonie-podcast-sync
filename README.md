@@ -65,9 +65,14 @@ episode_min_duration_sec = 0  # Minimum episode duration in seconds (optional, d
 episode_max_duration_sec = 5400  # Maximum total duration of epsiodes on this tonie in seconds (optional, defaults to what the tonie can store at maximum)
 volume_adjustment = 0  # volume adjustment in dB (+/-)
 excluded_title_strings = ["vampir", "brokkoli"]  # filter out scary episodes
+included_title_strings = ["gute nacht", "einschlafen"]  # only include bedtime episodes
 ```
 
 The `excluded_title_strings` field is optional and allows you to filter out episodes whose titles contain any of the specified strings (case-insensitive matching).
+
+The `included_title_strings` field is optional and allows you to include **only** episodes whose titles contain at least one of the specified strings (case-insensitive matching). This is useful when you want to filter a podcast down to specific topics.
+
+If both `included_title_strings` and `excluded_title_strings` are specified, an episode must match at least one include string **and** must not match any exclude string.
 
 The `episode_max_duration_sec` field is optional. It filters out individual episodes that exceed this duration. Note that this is different from `maximum_length`, which controls the total duration of episodes placed on the tonie.
 
@@ -129,6 +134,21 @@ checker_tobi = Podcast(
 maus_filtered = Podcast(
     "https://kinder.wdr.de/radio/diemaus/audio/maus-gute-nacht/maus-gute-nacht-148.podcast",
     excluded_title_strings = ["vampir", "brokkoli"]
+)
+
+# You can include only episodes whose titles contain specific strings.
+# Only episodes matching at least one of the included strings will be kept.
+maus_bedtime = Podcast(
+    "https://kinder.wdr.de/radio/diemaus/audio/maus-gute-nacht/maus-gute-nacht-148.podcast",
+    included_title_strings = ["einschlaf", "gute nacht"]
+)
+
+# You can combine include and exclude filters:
+# Episodes must match at least one include string AND not match any exclude string.
+maus_adventures = Podcast(
+    "https://kinder.wdr.de/radio/diemaus/audio/maus-gute-nacht/maus-gute-nacht-148.podcast",
+    included_title_strings = ["abenteuer"],
+    excluded_title_strings = ["vampir"]  # adventures, but no vampire ones
 )
 
 # Create instance of ToniePodcastSync

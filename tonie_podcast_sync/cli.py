@@ -58,6 +58,7 @@ def _create_podcast_from_config(config: dict) -> Podcast:
         Configured Podcast instance
     """
     excluded_title_strings = config.get("excluded_title_strings", [])
+    included_title_strings = config.get("included_title_strings", [])
     episode_max_duration_sec = config.get("episode_max_duration_sec", MAXIMUM_TONIE_MINUTES * 60)
 
     return Podcast(
@@ -67,6 +68,7 @@ def _create_podcast_from_config(config: dict) -> Podcast:
         episode_min_duration_sec=config.episode_min_duration_sec,
         episode_max_duration_sec=episode_max_duration_sec,
         excluded_title_strings=excluded_title_strings,
+        included_title_strings=included_title_strings,
     )
 
 
