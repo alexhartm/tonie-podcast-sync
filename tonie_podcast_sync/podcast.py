@@ -41,6 +41,7 @@ class Podcast:
         episode_min_duration_sec: int = 0,
         episode_max_duration_sec: int = MAXIMUM_TONIE_MINUTES * 60,
         excluded_title_strings: list[str] | None = None,
+        included_title_strings: list[str] | None = None,
     ) -> None:
         """Initialize the podcast feed and fetch all episodes.
 
@@ -53,11 +54,15 @@ class Podcast:
                 Defaults to MAXIMUM_TONIE_MINUTES * 60 (90 min)
             excluded_title_strings: List of strings to filter out from episode titles
                 (case-insensitive matching)
+            included_title_strings: List of strings that episode titles must contain
+                (case-insensitive matching). If specified, only episodes with titles
+                containing at least one of these strings will be included.
         """
         self.volume_adjustment = volume_adjustment
         self.episode_min_duration_sec = episode_min_duration_sec
         self.episode_max_duration_sec = episode_max_duration_sec
         self.excluded_title_strings = [s.lower() for s in excluded_title_strings] if excluded_title_strings else []
+        self.included_title_strings = [s.lower() for s in included_title_strings] if included_title_strings else []
 
         self.epList = []
         self.epSorting = episode_sorting
@@ -94,6 +99,16 @@ class Podcast:
                 episode.title,
                 episode.duration_sec,
                 self.episode_max_duration_sec,
+            )
+            return False
+
+        if self.included_title_strings and not any(
+            included_string in episode.title.lower() for included_string in self.included_title_strings
+        ):
+            log.info(
+                "%s: skipping episode '%s' as title does not contain any included string",
+                self.title,
+                episode.title,
             )
             return False
 

@@ -138,3 +138,91 @@ def test_episode_max_duration_filtering():
     # All remaining episodes should be at most 1200 seconds
     for episode in podcast_with_max.epList:
         assert episode.duration_sec <= 1200
+
+
+def test_included_title_strings():
+    """Test that only episodes with included title strings are kept."""
+    feed = str(Path(__file__).parent / "res" / "kakadu.xml")
+
+    # Test without inclusion filter - should have 51 episodes
+    podcast_no_filter = Podcast(feed)
+    assert len(podcast_no_filter.epList) == 51
+
+    # Test with inclusion for "Update" - should only keep episodes containing this string
+    podcast_with_filter = Podcast(feed, included_title_strings=["Update"])
+
+    # Should have fewer episodes than full feed
+    assert len(podcast_with_filter.epList) < 51
+    # Verify all remaining episodes contain the included string
+    for episode in podcast_with_filter.epList:
+        assert "update" in episode.title.lower()
+
+
+def test_included_title_strings_case_insensitive():
+    """Test that title inclusion is case-insensitive."""
+    feed = str(Path(__file__).parent / "res" / "kakadu.xml")
+
+    # Test with different case variations
+    podcast_upper = Podcast(feed, included_title_strings=["UPDATE"])
+    podcast_lower = Podcast(feed, included_title_strings=["update"])
+    podcast_mixed = Podcast(feed, included_title_strings=["UpDaTe"])
+
+    # All should filter the same episodes
+    assert len(podcast_upper.epList) == len(podcast_lower.epList)
+    assert len(podcast_lower.epList) == len(podcast_mixed.epList)
+
+
+def test_included_title_strings_multiple():
+    """Test filtering with multiple included strings (OR logic)."""
+    feed = str(Path(__file__).parent / "res" / "kakadu.xml")
+
+    # Get count with single include string
+    podcast_single = Podcast(feed, included_title_strings=["Update"])
+    single_count = len(podcast_single.epList)
+
+    # Test with multiple inclusion strings - should include episodes matching ANY string
+    podcast_multi = Podcast(feed, included_title_strings=["Update", "Vorurteile"])
+
+    # Multiple strings should include more (or same) episodes than single string
+    assert len(podcast_multi.epList) >= single_count
+
+    # Verify all remaining episodes contain at least one of the included strings
+    for episode in podcast_multi.epList:
+        title_lower = episode.title.lower()
+        assert "update" in title_lower or "vorurteile" in title_lower
+
+
+def test_included_title_strings_empty_list():
+    """Test that empty inclusion list doesn't filter anything."""
+    feed = str(Path(__file__).parent / "res" / "kakadu.xml")
+
+    podcast_empty_list = Podcast(feed, included_title_strings=[])
+    podcast_no_param = Podcast(feed)
+
+    # Both should have the same number of episodes
+    assert len(podcast_empty_list.epList) == len(podcast_no_param.epList)
+
+
+def test_included_and_excluded_combined():
+    """Test that both include and exclude filters work together."""
+    feed = str(Path(__file__).parent / "res" / "kakadu.xml")
+
+    # Get counts for individual filters
+    podcast_include_only = Podcast(feed, included_title_strings=["Warum"])
+    include_only_count = len(podcast_include_only.epList)
+
+    # Combined: must match include AND not match exclude
+    podcast_combined = Podcast(
+        feed,
+        included_title_strings=["Warum"],
+        excluded_title_strings=["Update"],
+    )
+
+    # Combined should have same or fewer than include-only
+    assert len(podcast_combined.epList) <= include_only_count
+
+    # Verify all remaining episodes match include and don't match exclude
+    for episode in podcast_combined.epList:
+        title_lower = episode.title.lower()
+        assert "warum" in title_lower
+        assert "update" not in title_lower
