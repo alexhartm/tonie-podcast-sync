@@ -65,9 +65,12 @@ episode_min_duration_sec = 0  # Minimum episode duration in seconds (optional, d
 episode_max_duration_sec = 5400  # Maximum total duration of epsiodes on this tonie in seconds (optional, defaults to what the tonie can store at maximum)
 volume_adjustment = 0  # volume adjustment in dB (+/-)
 excluded_title_strings = ["vampir", "brokkoli"]  # filter out scary episodes
+pinned_episode_names = ["the golden goose", "hans in luck"] # pin certain episodes to be always uploaded
 ```
 
 The `excluded_title_strings` field is optional and allows you to filter out episodes whose titles contain any of the specified strings (case-insensitive matching).
+
+The `pinned_episode_names` field is optional and allows you to pin (i.e. always upload) episodes whose titles contain any of the specified episode names (case-insensitive matching).
 
 The `episode_max_duration_sec` field is optional. It filters out individual episodes that exceed this duration. Note that this is different from `maximum_length`, which controls the total duration of episodes placed on the tonie.
 
@@ -129,6 +132,14 @@ checker_tobi = Podcast(
 maus_filtered = Podcast(
     "https://kinder.wdr.de/radio/diemaus/audio/maus-gute-nacht/maus-gute-nacht-148.podcast",
     excluded_title_strings = ["vampir", "brokkoli"]
+)
+
+# It is also possible to pin certain episodes by their title. Episodes with titles containing
+# any of the specified names (case-insensitive) will be prioritized for uploading.
+# This is useful for pinning any favorite episode(s).
+maus_filtered = Podcast(
+    "https://kinder.wdr.de/radio/diemaus/audio/maus-gute-nacht/maus-gute-nacht-148.podcast",
+    pinned_episode_names = ["zaubervogel", "auf eis"]
 )
 
 # Create instance of ToniePodcastSync
