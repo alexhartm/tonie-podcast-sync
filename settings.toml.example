@@ -1,0 +1,27 @@
+# Example settings.toml configuration
+# This file demonstrates how to configure settings with the new wipe parameter
+
+[creative_tonies."tonie-id-12345"]
+podcast = "https://example.com/podcast-feed.xml"
+name = "My First Tonie"
+episode_sorting = "by_date_newest_first"
+maximum_length = 90
+episode_min_duration_sec = 0
+volume_adjustment = 0
+wipe = true  # This tonie will be wiped before each sync (default behavior)
+
+[creative_tonies."tonie-id-67890"]
+podcast = "https://example.com/another-feed.xml"
+name = "My Second Tonie"
+episode_sorting = "by_date_oldest_first"
+maximum_length = 60
+episode_min_duration_sec = 0
+volume_adjustment = 5
+wipe = false  # This tonie will have new episodes appended without wiping
+
+[creative_tonies."tonie-id-abcde"]
+podcast = "https://example.com/third-feed.xml"
+name = "My Third Tonie"
+episode_sorting = "random"
+maximum_length = 45
+# Note: wipe parameter omitted - will default to true

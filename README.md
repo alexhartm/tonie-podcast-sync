@@ -66,6 +66,7 @@ episode_max_duration_sec = 5400  # Maximum total duration of epsiodes on this to
 volume_adjustment = 0  # volume adjustment in dB (+/-)
 excluded_title_strings = ["vampir", "brokkoli"]  # filter out scary episodes
 pinned_episode_names = ["the golden goose", "hans in luck"] # pin certain episodes to be always uploaded
+wipe = true  # Whether to clear existing content before syncing (optional, defaults to true)
 ```
 
 The `excluded_title_strings` field is optional and allows you to filter out episodes whose titles contain any of the specified strings (case-insensitive matching).
@@ -73,6 +74,8 @@ The `excluded_title_strings` field is optional and allows you to filter out epis
 The `pinned_episode_names` field is optional and allows you to pin (i.e. always upload) episodes whose titles contain any of the specified episode names (case-insensitive matching).
 
 The `episode_max_duration_sec` field is optional. It filters out individual episodes that exceed this duration. Note that this is different from `maximum_length`, which controls the total duration of episodes placed on the tonie.
+
+The `wipe` field is optional and controls whether existing content on the tonie should be cleared before syncing new episodes. If set to `true` (the default), all existing content will be removed before adding new episodes. If set to `false`, new episodes will be appended to existing content.
 
 To periodically fetch for new episodes, you can schedule `tonie-podcast-sync` e.g. via systemd (on a Linux OS).
 
