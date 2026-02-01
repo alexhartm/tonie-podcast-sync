@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import logging
 import random
+import unicodedata
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import TYPE_CHECKING
@@ -20,6 +21,37 @@ log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 
 MAX_EPISODE_TITLES_IN_WARNING = 3
+
+
+def normalize_unicode_caseless(s: str) -> str:
+    """Converts string to lower-case with unambiguous unicode representation of special characters.
+
+    Args:
+            s: The string to convert
+
+    Returns:
+            Converted lower-case string
+    """
+
+    def nfd(s: str) -> str:
+        return unicodedata.normalize("NFD", s)
+
+    return nfd(nfd(s).casefold())
+
+
+def compare_unicode_caseless(s1: str, s2: str) -> bool:
+    """Compares strings in unambiguous lower-case unicode representation.
+
+    This allows in particular the lower-case comparison of strings including umlauts.
+
+    Args:
+            s1: The first string
+            s2: The second string
+
+    Returns:
+            True, if both strings have the same representation, False otherwise.
+    """
+    return normalize_unicode_caseless(s1) == normalize_unicode_caseless(s2)
 
 
 class EpisodeSorting(str, Enum):
@@ -41,6 +73,7 @@ class Podcast:
         episode_min_duration_sec: int = 0,
         episode_max_duration_sec: int = MAXIMUM_TONIE_MINUTES * 60,
         excluded_title_strings: list[str] | None = None,
+        pinned_episode_names: list[str] | None = None,
     ) -> None:
         """Initialize the podcast feed and fetch all episodes.
 
@@ -53,13 +86,20 @@ class Podcast:
                 Defaults to MAXIMUM_TONIE_MINUTES * 60 (90 min)
             excluded_title_strings: List of strings to filter out from episode titles
                 (case-insensitive matching)
+            pinned_episode_names: List of episode names that will always be prioritized
+                in episode sorting. (parital, case-insensitive matching)
         """
         self.volume_adjustment = volume_adjustment
         self.episode_min_duration_sec = episode_min_duration_sec
         self.episode_max_duration_sec = episode_max_duration_sec
-        self.excluded_title_strings = [s.lower() for s in excluded_title_strings] if excluded_title_strings else []
+        self.excluded_title_strings = (
+            [normalize_unicode_caseless(s) for s in excluded_title_strings] if excluded_title_strings else []
+        )
+        self.pinned_episode_names = (
+            [normalize_unicode_caseless(s) for s in pinned_episode_names] if pinned_episode_names else []
+        )
 
-        self.epList = []
+        self.epList: list[Episode] = []
         self.epSorting = episode_sorting
 
         self.feed = feedparser.parse(url)
@@ -77,37 +117,53 @@ class Podcast:
         Returns:
             True if episode passes all filters, False otherwise
         """
-        if episode.duration_sec < self.episode_min_duration_sec:
-            log.info(
-                "%s: skipping episode '%s' as too short (%d sec, min is %d sec)",
-                self.title,
-                episode.title,
-                episode.duration_sec,
-                self.episode_min_duration_sec,
-            )
-            return False
+        # Only apply episode filter for non-pinned episoded
+        if not episode.pinned:
+            if episode.duration_sec < self.episode_min_duration_sec:
+                log.info(
+                    "%s: skipping episode '%s' as too short (%d sec, min is %d sec)",
+                    self.title,
+                    episode.title,
+                    episode.duration_sec,
+                    self.episode_min_duration_sec,
+                )
+                return False
 
-        if episode.duration_sec > self.episode_max_duration_sec:
-            log.info(
-                "%s: skipping episode '%s' as too long (%d sec, max is %d sec)",
-                self.title,
-                episode.title,
-                episode.duration_sec,
-                self.episode_max_duration_sec,
-            )
-            return False
+            if episode.duration_sec > self.episode_max_duration_sec:
+                log.info(
+                    "%s: skipping episode '%s' as too long (%d sec, max is %d sec)",
+                    self.title,
+                    episode.title,
+                    episode.duration_sec,
+                    self.episode_max_duration_sec,
+                )
+                return False
 
-        if self.excluded_title_strings and any(
-            excluded_string in episode.title.lower() for excluded_string in self.excluded_title_strings
-        ):
-            log.info(
-                "%s: skipping episode '%s' as title contains excluded string",
-                self.title,
-                episode.title,
-            )
-            return False
+            if self.excluded_title_strings and any(
+                excluded_string in normalize_unicode_caseless(episode.title)
+                for excluded_string in self.excluded_title_strings
+            ):
+                log.info(
+                    "%s: skipping episode '%s' as title contains excluded string",
+                    self.title,
+                    episode.title,
+                )
+                return False
 
         return True
+
+    def _should_pin_episode(self, episode: Episode) -> bool:
+        """Check if an episode should pinned based on settings.
+
+        Args:
+            episode: The episode to check
+
+        Returns:
+            True if episode should be pinned, False otherwise
+        """
+        return self.pinned_episode_names and any(
+            pinned_name in normalize_unicode_caseless(episode.title) for pinned_name in self.pinned_episode_names
+        )
 
     def refresh_feed(self) -> None:
         """Refresh the podcast feed and populate the episodes list."""
@@ -125,12 +181,13 @@ class Podcast:
                 url=url,
                 volume_adjustment=self.volume_adjustment,
             )
+            episode.pinned = self._should_pin_episode(episode)
 
             if self._should_include_episode(episode):
                 self.epList.append(episode)
 
         self._warn_about_missing_durations(episodes_without_duration)
-        self._sort_episodes()
+        self.sort_episodes()
         log.info("%s: feed refreshed, %d episodes found", self.title, len(self.epList))
 
     def _extract_episode_url(self, item: dict) -> str:
@@ -181,15 +238,19 @@ class Podcast:
             title_list,
         )
 
-    def _sort_episodes(self) -> None:
+    def sort_episodes(self) -> None:
         """Sort episodes according to the configured sorting method."""
         match self.epSorting:
+            # Prioritize pinned epsiodes, then use regular sorting criterium
             case EpisodeSorting.BY_DATE_NEWEST_FIRST:
-                self.epList.sort(key=lambda x: x.published_parsed, reverse=True)
+                self.epList.sort(key=lambda x: (x.pinned, x.published_parsed), reverse=True)
             case EpisodeSorting.BY_DATE_OLDEST_FIRST:
-                self.epList.sort(key=lambda x: x.published_parsed)
+                self.epList.sort(key=lambda x: (not x.pinned, x.published_parsed))
             case EpisodeSorting.RANDOM:
-                random.shuffle(self.epList)
+                pinned_episoded = [ep for ep in self.epList if ep.pinned]
+                sorting_episodes = [ep for ep in self.epList if not ep.pinned]
+                random.shuffle(sorting_episodes)
+                self.epList = pinned_episoded + sorting_episodes
 
 
 @dataclass
@@ -207,6 +268,7 @@ class Episode:
     duration_str: str = field(init=False)
     duration_sec: int = field(init=False)
     volume_adjustment: int = 0
+    pinned: bool = False
 
     def __post_init__(self) -> None:
         """Initialize derived fields from raw feed data."""
