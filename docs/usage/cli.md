@@ -17,7 +17,7 @@ This command guides you through:
 - TonieCloud authentication
 - Tonie selection
 - Podcast feed configuration
-- Episode sorting and filtering options
+- Episode sorting, filtering, and pinning options
 
 ### `list-tonies`
 

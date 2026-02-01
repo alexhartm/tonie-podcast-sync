@@ -93,6 +93,15 @@ excluded_title_strings = ["vampir", "brokkoli", "gruselig"]
 
 If an episode title contains any of these strings, it will be excluded from syncing.
 
+#### `pinned_episode_names`
+List of episode title strings to pin (prioritize) for uploading (case-insensitive matching, partial matches allowed).
+
+```toml
+pinned_episode_names = ["the golden goose", "hans in luck"]
+```
+
+Episodes matching these strings are prioritized and uploaded first, followed by remaining episodes sorted according to `episode_sorting`. Useful for keeping favorite episodes always available.
+
 ## Complete Example
 
 ```toml
@@ -109,6 +118,7 @@ episode_sorting = "random"
 maximum_length = 60
 volume_adjustment = -2
 excluded_title_strings = ["vampir", "grusel"]
+pinned_episode_names = ["die maus", "sterntaler"]
 
 [creative_tonies.abcdef01-abcd-abcd-abcd-0123456789ef]
 podcast = "https://feeds.br.de/checkpod-der-podcast-mit-checker-tobi/feed.xml"

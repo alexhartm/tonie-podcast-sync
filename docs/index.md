@@ -14,7 +14,7 @@
 
 - 📻 **Podcast Syncing** - Automatically sync podcast episodes to your creative tonies
 - ⚙️ **Flexible Configuration** - Configure episode sorting, duration limits, and volume adjustments
-- 🎯 **Smart Filtering** - Filter episodes by duration, title keywords, or custom criteria
+- 🎯 **Smart Filtering** - Filter episodes by duration, title keywords, pinning, or custom criteria
 - 🖥️ **Multiple Interfaces** - Use via CLI, Python library, or Docker container
 - 📦 **Easy Setup** - Simple installation via pip with minimal configuration
 

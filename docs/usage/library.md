@@ -120,6 +120,22 @@ maus_filtered = Podcast(
 )
 ```
 
+### Title Pinning
+
+Pin (prioritize) specific episodes by title to ensure they are always uploaded:
+
+```python
+# Pin favorite episodes to always include them
+maus_pinned = Podcast(
+    "https://kinder.wdr.de/radio/diemaus/audio/maus-gute-nacht/maus-gute-nacht-148.podcast",
+    episode_sorting=EpisodeSorting.RANDOM,
+    pinned_episode_names=["die maus", "sterntaler"]  # Case-insensitive, partial matches
+)
+```
+
+!!! note "Pinning Behavior"
+    Pinned episodes are placed first on the tonie (in their original feed order), followed by remaining episodes sorted according to the specified `episode_sorting`.
+
 ## Additive Syncing
 
 By default, syncing replaces all content on a tonie. Use `wipe=False` to add episodes without removing existing content:
@@ -209,7 +225,8 @@ Podcast(
     volume_adjustment: int = 0,
     episode_min_duration_sec: int = 0,
     episode_max_duration_sec: int = None,
-    excluded_title_strings: List[str] = None
+    excluded_title_strings: List[str] = None,
+    pinned_episode_names: List[str] = None
 )
 ```
 

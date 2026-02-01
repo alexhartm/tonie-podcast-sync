@@ -55,6 +55,22 @@ excluded_title_strings = ["vampir", "zombies", "monster"]  # Age-appropriate fil
 episode_max_duration_sec = 3600  # Skip episodes longer than 1 hour
 ```
 
+## Favorite Episodes Always Available
+
+Keep specific favorite episodes always on the tonie, with other episodes in random order:
+
+```toml
+[creative_tonies.22222222-2222-2222-2222-222222222222]
+podcast = "https://feeds.br.de/pumuckl/feed.xml"
+name = "Yellow Tonie - Pumuckl Favorites"
+episode_sorting = "random"
+maximum_length = 90
+pinned_episode_names = ["das neue boot", "der flaschengeist"]  # Always include these episodes
+```
+
+!!! note "Pinning Behavior"
+    Pinned episodes are uploaded first (in their original feed order), followed by remaining episodes sorted according to `episode_sorting`.
+
 ## Quiet Podcast
 
 Some podcasts are recorded too quietly and need volume boost:
