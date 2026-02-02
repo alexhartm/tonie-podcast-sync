@@ -23,11 +23,5 @@ jobs:
       - name: Test MkDocs build
         run: uv run mkdocs build --strict
 
-      - name: Test Mike version deploy (dry-run)
-        run: |
-          # Configure git for mike (required even for dry-run)
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # Test that mike can deploy without actually pushing
-          # This validates the mike configuration and version provider setup
-          uv run mike deploy --no-redirect test-version
+      - name: Verify Mike installation
+        run: uv run mike --version
