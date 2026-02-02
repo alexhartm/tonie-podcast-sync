@@ -31,6 +31,10 @@ dev = [
     "pre-commit>=3.6.0",
     "responses>=0.23.3",
 ]
+docs = [
+    "mkdocs-material>=9.5.0",
+    "mike>=2.1.0",
+]
 
 [tool.ruff]
 # Add "Q" to the list of enabled codes.
