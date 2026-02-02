@@ -1,0 +1,57 @@
+name: Deploy Release Documentation
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  deploy-release-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Install dependencies
+        run: uv sync --locked --all-extras --dev
+
+      - name: Normalize version tag
+        id: version
+        run: |
+          # Get the tag from the release
+          TAG="${{ github.event.release.tag_name }}"
+          echo "Original tag: $TAG"
+
+          # Normalize: ensure starts with 'v' and remove extra dots
+          # Examples:
+          #   3.3.3 -> v3.3.3
+          #   v3.3.3 -> v3.3.3
+          #   v.2.2.0 -> v2.2.0
+
+          # Remove leading 'v' if present, then add it back
+          VERSION=$(echo "$TAG" | sed 's/^v//')
+          # Remove any extra dots after the v (e.g., v.2.2.0 -> v2.2.0)
+          VERSION=$(echo "$VERSION" | sed 's/^\.//')
+          # Add the 'v' prefix
+          NORMALIZED="v${VERSION}"
+
+          echo "Normalized version: $NORMALIZED"
+          echo "version=$NORMALIZED" >> $GITHUB_OUTPUT
+
+      - name: Deploy release documentation
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          echo "Deploying documentation for version: $VERSION"
+          uv run mike deploy --push "$VERSION"

@@ -33,6 +33,7 @@ dev = [
 ]
 docs = [
     "mkdocs-material>=9.5.0",
+    "mike>=2.1.0",
 ]
 
 [tool.ruff]
