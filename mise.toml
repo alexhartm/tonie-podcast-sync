@@ -15,12 +15,18 @@ yarn = "latest"
 [tasks.docs-serve-locally]
 description = "Serve documentation locally"
 alias = "docs"
-run = "mkdocs serve"
+run = '''
+uv sync --all-extras
+uv run mkdocs serve
+'''
 
 [tasks.docs-build]
-description = "Serve documentation locally"
+description = "Build documentation"
 alias = "docs"
-run = "mkdocs build --strict"
+run = '''
+uv sync --all-extras
+uv run mkdocs build --strict
+'''
 
 [tasks.install]
 description = "Install dependencies"
@@ -59,8 +65,8 @@ uv run pytest tests/
 depends = ["lint", "format"]
 description = "Build"
 run = '''
-uv sync
-mkdocs build --strict
+uv sync --all-extras
+uv run mkdocs build --strict
 uv build
 '''
 
