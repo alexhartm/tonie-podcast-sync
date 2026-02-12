@@ -1,6 +1,7 @@
 """The Tonie Podcast Sync API."""
 
 import logging
+import os
 import platform
 import subprocess
 import tempfile
@@ -26,9 +27,27 @@ from tonie_podcast_sync.constants import (
     RETRY_DELAY_SECONDS,
     UPLOAD_RETRY_COUNT,
 )
+from tonie_podcast_sync.container_detection import is_running_in_container
 from tonie_podcast_sync.podcast import Episode, EpisodeSorting, Podcast, compare_unicode_caseless
 
-console = Console(soft_wrap=False)
+
+def _get_soft_wrap_setting() -> bool:
+    """Determine soft wrap setting from env var or auto-detection.
+
+    Priority:
+    1. TPS_SOFT_WRAP env var (explicit user override)
+    2. Auto-detect via container detection (disable soft wrap in containers)
+    3. Default: enable soft wrap (True)
+    """
+    env_value = os.getenv("TPS_SOFT_WRAP")
+    if env_value is not None:
+        # User explicitly set preference
+        return env_value.lower() != "false"
+    # Auto-detect: disable soft wrap when in container
+    return not is_running_in_container()
+
+
+console = Console(soft_wrap=_get_soft_wrap_setting())
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 

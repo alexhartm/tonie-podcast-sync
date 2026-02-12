@@ -29,7 +29,7 @@ def update_tonies() -> None:
 
     for tonie_id, tonie_config in settings.CREATIVE_TONIES.items():
         podcast = _create_podcast_from_config(tonie_config)
-        wipe = tonie_config.get("wipe", True)
+        wipe = tonie_config.get("wipe", default=True)
         tps.sync_podcast_to_tonie(podcast, tonie_id, tonie_config.maximum_length, wipe=wipe)
 
 

@@ -1,6 +1,6 @@
 # tonie-podcast-sync
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 tonie-podcast-sync allows synching podcast episodes to [creative tonies](https://tonies.com).
@@ -196,6 +196,7 @@ For the tonie to fetch new content from tonie-cloud, you have to press one ear f
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/einvalentin"><img src="https://avatars.githubusercontent.com/u/230592?v=4?s=100" width="100px;" alt="Valentin v. Seggern"/><br /><sub><b>Valentin v. Seggern</b></sub></a><br /><a href="https://github.com/alexhartm/tonie-podcast-sync/commits?author=einvalentin" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/stefan14808"><img src="https://avatars.githubusercontent.com/u/79793534?v=4?s=100" width="100px;" alt="stefan14808"/><br /><sub><b>stefan14808</b></sub></a><br /><a href="https://github.com/alexhartm/tonie-podcast-sync/commits?author=stefan14808" title="Code">💻</a> <a href="#ideas-stefan14808" title="Ideas, Planning, & Feedback">🤔</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/goldbricklemon"><img src="https://avatars.githubusercontent.com/u/9368670?v=4?s=100" width="100px;" alt="GoldBrickLemon"/><br /><sub><b>GoldBrickLemon</b></sub></a><br /><a href="https://github.com/alexhartm/tonie-podcast-sync/issues?q=author%3Agoldbricklemon" title="Bug reports">🐛</a> <a href="https://github.com/alexhartm/tonie-podcast-sync/commits?author=goldbricklemon" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Andrewpk"><img src="https://avatars.githubusercontent.com/u/1033728?v=4?s=100" width="100px;" alt="Andrew Kehrig"/><br /><sub><b>Andrew Kehrig</b></sub></a><br /><a href="https://github.com/alexhartm/tonie-podcast-sync/commits?author=Andrewpk" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

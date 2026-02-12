@@ -26,11 +26,13 @@ def test_wipe_parameter_defaults_to_true_when_omitted():
     mock_tonie_config.maximum_length = 90
 
     # Create a mock for .get() that tracks calls
-    mock_get = mock.MagicMock(side_effect=lambda key, default=None: {
-        "excluded_title_strings": [],
-        "pinned_episode_names": [],
-        "episode_max_duration_sec": 5400,
-    }.get(key, default))
+    mock_get = mock.MagicMock(
+        side_effect=lambda key, default=None: {
+            "excluded_title_strings": [],
+            "pinned_episode_names": [],
+            "episode_max_duration_sec": 5400,
+        }.get(key, default)
+    )
     mock_tonie_config.get = mock_get
 
     mock_settings.CREATIVE_TONIES = {"test-tonie-id": mock_tonie_config}
@@ -55,7 +57,7 @@ def test_wipe_parameter_defaults_to_true_when_omitted():
         update_tonies()
 
         # VERIFY: The code called .get("wipe", True) on the config
-        mock_get.assert_any_call("wipe", True)
+        mock_get.assert_any_call("wipe", default=True)
 
         # VERIFY: sync_podcast_to_tonie was called with wipe=True (the default)
         mock_tps_instance.sync_podcast_to_tonie.assert_called_once()
@@ -85,12 +87,14 @@ def test_wipe_parameter_respects_false_value():
     mock_tonie_config.maximum_length = 90
 
     # Set wipe=False explicitly in the config
-    mock_get = mock.MagicMock(side_effect=lambda key, default=None: {
-        "excluded_title_strings": [],
-        "pinned_episode_names": [],
-        "episode_max_duration_sec": 5400,
-        "wipe": False,  # Explicit False value in config
-    }.get(key, default))
+    mock_get = mock.MagicMock(
+        side_effect=lambda key, default=None: {
+            "excluded_title_strings": [],
+            "pinned_episode_names": [],
+            "episode_max_duration_sec": 5400,
+            "wipe": False,  # Explicit False value in config
+        }.get(key, default)
+    )
     mock_tonie_config.get = mock_get
 
     mock_settings.CREATIVE_TONIES = {"test-tonie-id": mock_tonie_config}
@@ -115,7 +119,7 @@ def test_wipe_parameter_respects_false_value():
         update_tonies()
 
         # VERIFY: The code called .get("wipe", True) on the config
-        mock_get.assert_any_call("wipe", True)
+        mock_get.assert_any_call("wipe", default=True)
 
         # VERIFY: sync_podcast_to_tonie was called with wipe=False (from config)
         mock_tps_instance.sync_podcast_to_tonie.assert_called_once()
@@ -145,12 +149,14 @@ def test_wipe_parameter_respects_true_value():
     mock_tonie_config.maximum_length = 90
 
     # Set wipe=True explicitly in the config
-    mock_get = mock.MagicMock(side_effect=lambda key, default=None: {
-        "excluded_title_strings": [],
-        "pinned_episode_names": [],
-        "episode_max_duration_sec": 5400,
-        "wipe": True,  # Explicit True value in config
-    }.get(key, default))
+    mock_get = mock.MagicMock(
+        side_effect=lambda key, default=None: {
+            "excluded_title_strings": [],
+            "pinned_episode_names": [],
+            "episode_max_duration_sec": 5400,
+            "wipe": True,  # Explicit True value in config
+        }.get(key, default)
+    )
     mock_tonie_config.get = mock_get
 
     mock_settings.CREATIVE_TONIES = {"test-tonie-id": mock_tonie_config}
@@ -175,7 +181,7 @@ def test_wipe_parameter_respects_true_value():
         update_tonies()
 
         # VERIFY: The code called .get("wipe", True) on the config
-        mock_get.assert_any_call("wipe", True)
+        mock_get.assert_any_call("wipe", default=True)
 
         # VERIFY: sync_podcast_to_tonie was called with wipe=True (from config)
         mock_tps_instance.sync_podcast_to_tonie.assert_called_once()

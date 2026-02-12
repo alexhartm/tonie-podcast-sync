@@ -70,6 +70,15 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "Andrewpk",
+      "name": "Andrew Kehrig",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1033728?v=4",
+      "profile": "https://github.com/Andrewpk",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
