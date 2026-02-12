@@ -957,6 +957,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#wipe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wipe
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1336,6 +1347,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#wipe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wipe
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1519,56 +1541,67 @@
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">pinned_episode_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;the golden goose&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;hans in luck&quot;</span><span class="p">]</span>
 </span></code></pre></div>
 <p>Episodes matching these strings are prioritized and uploaded first, followed by remaining episodes sorted according to <code>episode_sorting</code>. Useful for keeping favorite episodes always available.</p>
+<h4 id="wipe"><code>wipe</code></h4>
+<p>Controls whether existing content on the tonie should be cleared before syncing new episodes.</p>
+<p><strong>Default:</strong> <code>true</code> (existing content is removed before adding new episodes)</p>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">wipe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">   </span><span class="c1"># Clear existing content before syncing (default)</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">wipe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w">  </span><span class="c1"># Append new episodes without removing existing content</span>
+</span></code></pre></div>
+<p>When <code>wipe = false</code>, new episodes are appended to existing content on the tonie. This is useful for building a collection over time or combining multiple podcasts on one tonie.</p>
+<div class="admonition tip">
+<p class="admonition-title">Combining Multiple Podcasts</p>
+<p>Use <code>wipe = false</code> to add episodes from multiple podcasts to a single tonie. Note: Each podcast still requires its own configuration section - to truly combine podcasts, use the <a href="../../usage/library/">Python library</a> with <code>wipe=False</code>.</p>
+</div>
 <h2 id="complete-example">Complete Example</h2>
-<div class="language-toml highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">[creative_tonies.12345678-1234-1234-1234-123456789abc]</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">podcast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://feeds.br.de/pumuckl/feed.xml&quot;</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Green Tonie - Pumuckl&quot;</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">episode_sorting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;by_date_newest_first&quot;</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="n">maximum_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">90</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="k">[creative_tonies.87654321-4321-4321-4321-cba987654321]</span>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="n">podcast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://kinder.wdr.de/radio/diemaus/audio/gute-nacht-mit-der-maus/diemaus-gute-nacht-104.podcast&quot;</span>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Orange Tonie - Maus Bedtime&quot;</span>
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="n">episode_sorting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;random&quot;</span>
-</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="n">maximum_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span>
-</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="n">volume_adjustment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-2</span>
-</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="n">excluded_title_strings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;vampir&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;grusel&quot;</span><span class="p">]</span>
-</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="n">pinned_episode_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;die maus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;sterntaler&quot;</span><span class="p">]</span>
-</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>
-</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="k">[creative_tonies.abcdef01-abcd-abcd-abcd-0123456789ef]</span>
-</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="n">podcast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://feeds.br.de/checkpod-der-podcast-mit-checker-tobi/feed.xml&quot;</span>
-</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Blue Tonie - Checker Tobi&quot;</span>
-</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="n">episode_sorting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;random&quot;</span>
-</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="n">maximum_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">45</span>
-</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="n">episode_min_duration_sec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">30</span>
-</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="n">episode_max_duration_sec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3600</span>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">[creative_tonies.12345678-1234-1234-1234-123456789abc]</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">podcast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://feeds.br.de/pumuckl/feed.xml&quot;</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Green Tonie - Pumuckl&quot;</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">episode_sorting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;by_date_newest_first&quot;</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="n">maximum_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">90</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="k">[creative_tonies.87654321-4321-4321-4321-cba987654321]</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="n">podcast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://kinder.wdr.de/radio/diemaus/audio/gute-nacht-mit-der-maus/diemaus-gute-nacht-104.podcast&quot;</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Orange Tonie - Maus Bedtime&quot;</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="n">episode_sorting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;random&quot;</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="n">maximum_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="n">volume_adjustment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-2</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="n">excluded_title_strings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;vampir&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;grusel&quot;</span><span class="p">]</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="n">pinned_episode_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;die maus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;sterntaler&quot;</span><span class="p">]</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="k">[creative_tonies.abcdef01-abcd-abcd-abcd-0123456789ef]</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="n">podcast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://feeds.br.de/checkpod-der-podcast-mit-checker-tobi/feed.xml&quot;</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Blue Tonie - Checker Tobi&quot;</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="n">episode_sorting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;random&quot;</span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="n">maximum_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">45</span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="n">episode_min_duration_sec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">30</span>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="n">episode_max_duration_sec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3600</span>
 </span></code></pre></div>
 <h2 id="editing-the-settings-file">Editing the Settings File</h2>
 <h3 id="using-the-cli-wizard">Using the CLI Wizard</h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>tonie-podcast-sync<span class="w"> </span>create-settings-file
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>tonie-podcast-sync<span class="w"> </span>create-settings-file
 </span></code></pre></div>
 <p>This interactive wizard helps you create or update the settings file.</p>
 <h3 id="manual-editing">Manual Editing</h3>
 <p>You can edit the file directly with any text editor:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># macOS</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>open<span class="w"> </span>~/.toniepodcastsync/settings.toml
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Linux</span>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>nano<span class="w"> </span>~/.toniepodcastsync/settings.toml
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="c1"># or</span>
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>vim<span class="w"> </span>~/.toniepodcastsync/settings.toml
-</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
-</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="c1"># Windows</span>
-</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>notepad<span class="w"> </span>%USERPROFILE%<span class="se">\.</span>toniepodcastsync<span class="se">\s</span>ettings.toml
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># macOS</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>open<span class="w"> </span>~/.toniepodcastsync/settings.toml
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Linux</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>nano<span class="w"> </span>~/.toniepodcastsync/settings.toml
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="c1"># or</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>vim<span class="w"> </span>~/.toniepodcastsync/settings.toml
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="c1"># Windows</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>notepad<span class="w"> </span>%USERPROFILE%<span class="se">\.</span>toniepodcastsync<span class="se">\s</span>ettings.toml
 </span></code></pre></div>
 <h2 id="finding-tonie-ids">Finding Tonie IDs</h2>
 <p>Use the list command to see your tonie IDs:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>tonie-podcast-sync<span class="w"> </span>list-tonies
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>tonie-podcast-sync<span class="w"> </span>list-tonies
 </span></code></pre></div>
 <p>The IDs are displayed in the format: <code>12345678-1234-1234-1234-123456789abc</code></p>
 <h2 id="validation">Validation</h2>
 <p>After editing the settings file, validate it by running:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>tonie-podcast-sync<span class="w"> </span>update-tonies<span class="w"> </span>--dry-run
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>tonie-podcast-sync<span class="w"> </span>update-tonies<span class="w"> </span>--dry-run
 </span></code></pre></div>
 <p>This shows what would be synced without actually performing the sync.</p>
 <h2 id="tips">Tips</h2>

@@ -809,6 +809,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment Variables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Environment Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tps_soft_wrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TPS_SOFT_WRAP
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#benefits-of-docker-approach" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1142,6 +1170,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment Variables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Environment Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tps_soft_wrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TPS_SOFT_WRAP
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#benefits-of-docker-approach" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1225,6 +1281,24 @@
 <li>System cron with docker-compose</li>
 <li>Kubernetes CronJobs (for cluster deployments)</li>
 </ul>
+<h2 id="environment-variables">Environment Variables</h2>
+<p>The Docker container supports the following environment variables:</p>
+<h3 id="tps_soft_wrap"><code>TPS_SOFT_WRAP</code></h3>
+<p>Controls console output soft-wrapping behavior. In container environments, soft-wrap is automatically disabled for better log readability.</p>
+<p><strong>Values:</strong>
+- <code>true</code> - Enable soft-wrap (long lines wrap to next line)
+- <code>false</code> - Disable soft-wrap (long lines are truncated)</p>
+<p><strong>Default:</strong> <code>false</code> when running in containers, <code>true</code> otherwise</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Explicitly enable soft-wrap</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span><span class="nv">TPS_SOFT_WRAP</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span>-v<span class="w"> </span>~/.toniepodcastsync:/config<span class="w"> </span>goldbricklemon/tonie-podcast-sync<span class="w"> </span>update-tonies
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Explicitly disable soft-wrap</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>docker<span class="w"> </span>run<span class="w"> </span>-e<span class="w"> </span><span class="nv">TPS_SOFT_WRAP</span><span class="o">=</span><span class="nb">false</span><span class="w"> </span>-v<span class="w"> </span>~/.toniepodcastsync:/config<span class="w"> </span>goldbricklemon/tonie-podcast-sync<span class="w"> </span>update-tonies
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Container Auto-Detection</p>
+<p>The application automatically detects if it's running inside Docker, Podman, Kubernetes, or other container environments and adjusts settings accordingly.</p>
+</div>
 <h2 id="benefits-of-docker-approach">Benefits of Docker Approach</h2>
 <ul>
 <li>✅ No Python installation required on host</li>
