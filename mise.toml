@@ -57,6 +57,7 @@ run = 'npm exec all-contributors-cli'
 description = "Run unit tests"
 alias = ["ut", "tests", "test"]
 run = '''
+uv sync --all-extras
 uv pip install -e .[dev]
 uv run pytest tests/
 '''
@@ -91,6 +92,7 @@ uv publish \
 
 [tasks.publish-release]
 description = "Release builds to PyPI"
+depends = ["build"]
 run = '''
 source .env
 uv publish \
