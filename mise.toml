@@ -83,7 +83,6 @@ run = "ruff check ."
 description = "Test the release process. Build first, then publish to test.pypi.org"
 depends = ["build"]
 run = '''
-source .env
 uv publish \
   --username $UV_PUBLISH_USERNAME \
   --password $UV_PUBLISH_PASSWORD_TEST \
@@ -94,7 +93,6 @@ uv publish \
 description = "Release builds to PyPI"
 depends = ["build"]
 run = '''
-source .env
 uv publish \
   --username $UV_PUBLISH_USERNAME \
   --password $UV_PUBLISH_PASSWORD_PROD \
