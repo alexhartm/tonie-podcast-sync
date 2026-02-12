@@ -63,6 +63,31 @@ For more advanced scheduling, consider using tools like:
 - System cron with docker-compose
 - Kubernetes CronJobs (for cluster deployments)
 
+## Environment Variables
+
+The Docker container supports the following environment variables:
+
+### `TPS_SOFT_WRAP`
+
+Controls console output soft-wrapping behavior. In container environments, soft-wrap is automatically disabled for better log readability.
+
+**Values:**
+- `true` - Enable soft-wrap (long lines wrap to next line)
+- `false` - Disable soft-wrap (long lines are truncated)
+
+**Default:** `false` when running in containers, `true` otherwise
+
+```bash
+# Explicitly enable soft-wrap
+docker run -e TPS_SOFT_WRAP=true -v ~/.toniepodcastsync:/config goldbricklemon/tonie-podcast-sync update-tonies
+
+# Explicitly disable soft-wrap
+docker run -e TPS_SOFT_WRAP=false -v ~/.toniepodcastsync:/config goldbricklemon/tonie-podcast-sync update-tonies
+```
+
+!!! tip "Container Auto-Detection"
+    The application automatically detects if it's running inside Docker, Podman, Kubernetes, or other container environments and adjusts settings accordingly.
+
 ## Benefits of Docker Approach
 
 - ✅ No Python installation required on host

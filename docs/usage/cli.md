@@ -85,6 +85,27 @@ tonie-podcast-sync update-tonies --help
 --log-level LEVEL  # Set logging level (DEBUG, INFO, WARNING, ERROR)
 ```
 
+## Environment Variables
+
+### `TPS_SOFT_WRAP`
+
+Controls console output soft-wrapping behavior for better log readability.
+
+**Values:**
+- `true` - Enable soft-wrap (long lines wrap to next line)
+- `false` - Disable soft-wrap (long lines are truncated)
+
+**Default:** `true` (enabled by default in normal environments, automatically disabled in containers)
+
+```bash
+# Disable soft-wrap for cleaner log output
+export TPS_SOFT_WRAP=false
+tonie-podcast-sync update-tonies
+```
+
+!!! tip "Container Environments"
+    When running in Docker, Podman, Kubernetes, or other containers, soft-wrap is automatically disabled.
+
 ## Common Workflows
 
 ### Initial Setup

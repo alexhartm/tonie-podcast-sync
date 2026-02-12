@@ -102,6 +102,21 @@ pinned_episode_names = ["the golden goose", "hans in luck"]
 
 Episodes matching these strings are prioritized and uploaded first, followed by remaining episodes sorted according to `episode_sorting`. Useful for keeping favorite episodes always available.
 
+#### `wipe`
+Controls whether existing content on the tonie should be cleared before syncing new episodes.
+
+**Default:** `true` (existing content is removed before adding new episodes)
+
+```toml
+wipe = true   # Clear existing content before syncing (default)
+wipe = false  # Append new episodes without removing existing content
+```
+
+When `wipe = false`, new episodes are appended to existing content on the tonie. This is useful for building a collection over time or combining multiple podcasts on one tonie.
+
+!!! tip "Combining Multiple Podcasts"
+    Use `wipe = false` to add episodes from multiple podcasts to a single tonie. Note: Each podcast still requires its own configuration section - to truly combine podcasts, use the [Python library](../usage/library.md) with `wipe=False`.
+
 ## Complete Example
 
 ```toml
