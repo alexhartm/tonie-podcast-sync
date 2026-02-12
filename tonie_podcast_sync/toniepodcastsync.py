@@ -28,7 +28,7 @@ from tonie_podcast_sync.constants import (
 )
 from tonie_podcast_sync.podcast import Episode, EpisodeSorting, Podcast, compare_unicode_caseless
 
-console = Console()
+console = Console(soft_wrap=False)
 log = logging.getLogger(__name__)
 log.addHandler(logging.NullHandler())
 

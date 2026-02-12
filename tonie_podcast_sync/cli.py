@@ -29,7 +29,8 @@ def update_tonies() -> None:
 
     for tonie_id, tonie_config in settings.CREATIVE_TONIES.items():
         podcast = _create_podcast_from_config(tonie_config)
-        tps.sync_podcast_to_tonie(podcast, tonie_id, tonie_config.maximum_length)
+        wipe = tonie_config.get("wipe", True)
+        tps.sync_podcast_to_tonie(podcast, tonie_id, tonie_config.maximum_length, wipe=wipe)
 
 
 def _create_tonie_podcast_sync() -> ToniePodcastSync | None:
@@ -185,6 +186,7 @@ def _configure_tonie_settings(configs: dict, tonie: CreativeTonie) -> None:
     _ask_maximum_tonie_length(configs, tonie)
     _ask_minimum_episode_length(configs, tonie)
     _ask_volume_adjustment(configs, tonie)
+    _ask_wipe_setting(configs, tonie)
 
 
 def _save_settings_file(configs: dict) -> None:
@@ -286,6 +288,23 @@ def _ask_volume_adjustment(configs: dict, tonie: CreativeTonie) -> None:
         configs[tonie.id]["volume_adjustment"] = 0
     else:
         configs[tonie.id]["volume_adjustment"] = volume_adjustment
+
+
+def _ask_wipe_setting(configs: dict, tonie: CreativeTonie) -> None:
+    """Ask user for wipe setting.
+
+    Args:
+        configs: The configuration dictionary to update
+        tonie: The tonie being configured
+    """
+    wipe = Confirm.ask(
+        "Should existing content be wiped before syncing new episodes?\n"
+        "If set to 'yes', the tonie will be cleared before adding new content.\n"
+        "If set to 'no', new episodes will be appended to existing content.\n"
+        "Defaults to 'yes' (wipe existing content)",
+        default=True,
+    )
+    configs[tonie.id]["wipe"] = wipe
 
 
 if __name__ == "__main__":
