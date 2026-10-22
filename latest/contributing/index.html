@@ -1301,7 +1301,8 @@
 </li>
 <li>
 <p><strong>Install development dependencies</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="w"> </span>mise<span class="w"> </span>install<span class="w"> </span>python<span class="w"> </span>uv
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w"> </span>mise<span class="w"> </span>run<span class="w"> </span>install
 </span></code></pre></div></p>
 </li>
 <li>
@@ -1314,8 +1315,8 @@
 </li>
 <li>
 <p><strong>Run tests and linting</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pytest
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>ruff<span class="w"> </span>check<span class="w"> </span>.
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="w"> </span>mise<span class="w"> </span>run<span class="w"> </span><span class="nb">test</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w"> </span>mise<span class="w"> </span>run<span class="w"> </span>lint
 </span></code></pre></div></p>
 </li>
 <li>
@@ -1336,7 +1337,7 @@
 <h2 id="development-setup">Development Setup</h2>
 <h3 id="prerequisites">Prerequisites</h3>
 <ul>
-<li>Python &gt;= 3.10.11</li>
+<li><a href="https://mise.jdx.dev/">mise</a> to install the Python and uv versions declared in <code>mise.toml</code></li>
 <li>ffmpeg (for testing volume adjustment features)</li>
 </ul>
 <h3 id="install-development-environment">Install Development Environment</h3>
@@ -1344,32 +1345,39 @@
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/alexhartm/tonie-podcast-sync.git
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nb">cd</span><span class="w"> </span>tonie-podcast-sync
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c1"># Install with development dependencies</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="c1"># Install pre-commit hooks (optional but recommended)</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>pre-commit<span class="w"> </span>install
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c1"># Install project tooling and locked development dependencies</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>mise<span class="w"> </span>install<span class="w"> </span>python<span class="w"> </span>uv
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>mise<span class="w"> </span>run<span class="w"> </span>install
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="c1"># Install pre-commit hooks (optional but recommended)</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>mise<span class="w"> </span>run<span class="w"> </span>setup
 </span></code></pre></div>
+<p><code>mise.toml</code> selects the development runtime and uv. <code>uv.lock</code> selects exact Python
+package versions, including Ruff and pre-commit; <code>pyproject.toml</code> declares direct
+dependencies and required compatibility/security minimums. CI and local hooks
+reuse the same mise tasks. The unit-test workflow separately checks the minimum
+supported Python branch. Generic upstream pre-commit hooks retain their own
+repository revisions because uv does not manage those environments.</p>
 <h3 id="running-tests">Running Tests</h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Run all tests</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>pytest
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>mise<span class="w"> </span>run<span class="w"> </span><span class="nb">test</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Run with coverage</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>pytest<span class="w"> </span>--cov<span class="o">=</span>tonie_podcast_sync
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>mise<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--locked<span class="w"> </span>--all-extras<span class="w"> </span>pytest<span class="w"> </span>--cov<span class="o">=</span>tonie_podcast_sync
 </span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
 </span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># Run specific test file</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>pytest<span class="w"> </span>tests/test_specific.py
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>mise<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--locked<span class="w"> </span>--all-extras<span class="w"> </span>pytest<span class="w"> </span>tests/test_specific.py
 </span></code></pre></div>
 <h3 id="code-style">Code Style</h3>
 <p>This project uses <a href="https://github.com/astral-sh/ruff">Ruff</a> for linting and formatting:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Check code style</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>ruff<span class="w"> </span>check<span class="w"> </span>.
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>mise<span class="w"> </span>run<span class="w"> </span>lint
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
 </span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Auto-fix issues</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>ruff<span class="w"> </span>check<span class="w"> </span>--fix<span class="w"> </span>.
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>mise<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--locked<span class="w"> </span>--all-extras<span class="w"> </span>ruff<span class="w"> </span>check<span class="w"> </span>--fix<span class="w"> </span>.
 </span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
 </span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="c1"># Format code</span>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>ruff<span class="w"> </span>format<span class="w"> </span>.
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>mise<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--locked<span class="w"> </span>--all-extras<span class="w"> </span>ruff<span class="w"> </span>format<span class="w"> </span>.
 </span></code></pre></div>
 <h2 id="code-review-process">Code Review Process</h2>
 <p>All contributions go through code review:</p>

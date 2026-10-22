@@ -1087,7 +1087,7 @@
 <h2 id="prerequisites">Prerequisites</h2>
 <p>Before installing tonie-podcast-sync, ensure you have:</p>
 <ul>
-<li><strong>Python</strong> &gt;= 3.10.11</li>
+<li><strong>Python</strong> &gt;= 3.10; use a security-patched runtime, with pip &gt;= 26.2.2 when installing via pip</li>
 <li><strong>ffmpeg</strong> (optional, required only if using the <code>volume_adjustment</code> feature)</li>
 </ul>
 <h3 id="installing-ffmpeg">Installing ffmpeg</h3>
@@ -1111,6 +1111,11 @@
 <p>The easiest way to install tonie-podcast-sync is via pip:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span>tonie-podcast-sync
 </span></code></pre></div>
+<p>Use pip &gt;= 26.2.2 and certifi &gt;= 2026.10.19 for the eMudhra trust-store update.
+Update existing Python installations as well as application dependencies; upgrading this package
+does not replace the runtime's bundled pip or certificate stores.
+Even patched Python releases can bundle an older ensurepip seed. For development, use the
+repository's pinned uv to create and sync environments rather than bootstrapping pip with ensurepip.</p>
 <p>This will install the package and make the <code>tonie-podcast-sync</code> command available in your terminal.</p>
 <h2 id="verify-installation">Verify Installation</h2>
 <p>To verify the installation was successful:</p>
